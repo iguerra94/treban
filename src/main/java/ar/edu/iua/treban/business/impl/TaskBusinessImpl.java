@@ -2,11 +2,10 @@ package ar.edu.iua.treban.business.impl;
 
 import ar.edu.iua.treban.business.ITaskBusiness;
 import ar.edu.iua.treban.business.exception.BusinessException;
-import ar.edu.iua.treban.dao.IGenericDAO;
+import ar.edu.iua.treban.dao.FactoryDAO;
 import ar.edu.iua.treban.model.Task;
 import ar.edu.iua.treban.model.TaskList;
 import ar.edu.iua.treban.model.exception.*;
-import ar.edu.iua.treban.model.persistence.TaskListRepository;
 import ar.edu.iua.treban.model.persistence.TaskRepository;
 import ar.edu.iua.treban.utils.TaskListUtils;
 import ar.edu.iua.treban.utils.TaskUtils;
@@ -28,9 +27,6 @@ public class TaskBusinessImpl implements ITaskBusiness {
 
     @Autowired
     private TaskRepository taskDAO;
-
-    @Autowired
-    private TaskListRepository taskListDAO;
 
     @Override
     public List<Task> getTaskList() throws BusinessException {
@@ -188,7 +184,7 @@ public class TaskBusinessImpl implements ITaskBusiness {
             task.setCreatedAt(new Date());
             task.setLastModified(new Date());
 
-            TaskList taskList = taskListDAO.findByName(task.getStatus().getName());
+            TaskList taskList = (TaskList) FactoryDAO.getInstance().getTaskListDAO().findByName(task.getStatus().getName());
             task.setStatus(taskList);
 
             return taskDAO.save(task);

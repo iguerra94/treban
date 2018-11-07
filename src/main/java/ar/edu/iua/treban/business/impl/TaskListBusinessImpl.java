@@ -3,19 +3,15 @@ package ar.edu.iua.treban.business.impl;
 import ar.edu.iua.treban.business.ITaskListBusiness;
 import ar.edu.iua.treban.business.exception.BusinessException;
 import ar.edu.iua.treban.business.exception.TaskListNameExistsException;
+import ar.edu.iua.treban.dao.FactoryDAO;
 import ar.edu.iua.treban.model.TaskList;
 import ar.edu.iua.treban.model.exception.TaskListEmptyFieldsException;
 import ar.edu.iua.treban.model.exception.TaskListNameInvalidException;
-import ar.edu.iua.treban.model.persistence.TaskListRepository;
 import ar.edu.iua.treban.utils.TaskListUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class TaskListBusinessImpl implements ITaskListBusiness {
-
-    @Autowired
-    private TaskListRepository taskListDAO;
 
     @Override
     public TaskList addTaskList(TaskList taskList) throws BusinessException, TaskListEmptyFieldsException, TaskListNameInvalidException, TaskListNameExistsException {
@@ -33,14 +29,14 @@ public class TaskListBusinessImpl implements ITaskListBusiness {
             throw new TaskListNameInvalidException("The list name entered is not valid.");
         }
 
-        TaskList taskListExists = taskListDAO.findByName(taskList.getName());
+        TaskList taskListExists = (TaskList) FactoryDAO.getInstance().getTaskListDAO().findByName(taskList.getName());
 
         if (taskListExists != null) {
             throw new TaskListNameExistsException("The list name entered already exists.");
         }
 
         try {
-            return taskListDAO.save(taskList);
+            return (TaskList) FactoryDAO.getInstance().getTaskListDAO().add(taskList);
         } catch (Exception e) {
             throw new BusinessException(e);
         }
