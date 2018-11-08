@@ -1,12 +1,9 @@
 package ar.edu.iua.treban.web.services;
 
-import ar.edu.iua.treban.business.exception.BusinessException;
 import ar.edu.iua.treban.business.ITaskBusiness;
+import ar.edu.iua.treban.business.exception.*;
 import ar.edu.iua.treban.model.Task;
-import ar.edu.iua.treban.model.exception.TaskEmptyFieldsException;
-import ar.edu.iua.treban.model.exception.TaskEstimationInvalidException;
-import ar.edu.iua.treban.model.exception.TaskListNameInvalidException;
-import ar.edu.iua.treban.model.exception.TaskPriorityInvalidException;
+import ar.edu.iua.treban.model.exception.*;
 import ar.edu.iua.treban.utils.TaskUtils;
 import ar.edu.iua.treban.web.services.exception.GetTaskListInvalidNameParamException;
 import ar.edu.iua.treban.web.services.exception.GetTaskListInvalidOrderByParamException;
@@ -75,10 +72,16 @@ public class TaskRESTController {
         }
     }
 
-//    @GetMapping(value = {"", "/"})
-//    public ResponseEntity<Task> getOneTask(@RequestParam(required=false, value="name", defaultValue="*") String name) {
-//        return null;
-//    }
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Task> getOneTask(@PathVariable("id") int id, HttpServletRequest request) {
+        try {
+            return ResponseEntity.ok(taskBusiness.getOne(id));
+        } catch (NotFoundException e) {
+            return new CustomizedResponseEntityExceptionHandler().handleNotFoundException(e, request);
+        } catch (BusinessException e) {
+            return new CustomizedResponseEntityExceptionHandler().handleAllExceptions(e, request);
+        }
+    }
 
     @PostMapping(value = {"", "/"})
     public ResponseEntity<Task> addTask(@RequestBody Task task, UriComponentsBuilder uriComponentsBuilder, HttpServletRequest request) {
@@ -93,10 +96,14 @@ public class TaskRESTController {
             return ResponseEntity.created(locationURI).body(taskCreated);
         } catch (TaskEmptyFieldsException e) {
             return new CustomizedResponseEntityExceptionHandler().handleTaskEmptyFieldsException(e, request);
+        } catch (TaskNameExistsException e) {
+            return new CustomizedResponseEntityExceptionHandler().handleTaskNameExistsException(e, request);
         } catch (TaskEstimationInvalidException e) {
             return new CustomizedResponseEntityExceptionHandler().handleTaskEstimationInvalidException(e, request);
         } catch (TaskPriorityInvalidException e) {
             return new CustomizedResponseEntityExceptionHandler().handleTaskPriorityInvalidException(e, request);
+        } catch (TaskListNameNotExistsException e) {
+            return new CustomizedResponseEntityExceptionHandler().handleTaskListNameNotExistsException(e, request);
         } catch (TaskListNameInvalidException e) {
             return new CustomizedResponseEntityExceptionHandler().handleTaskListNameInvalidException(e, request);
         } catch (BusinessException e) {
@@ -104,13 +111,38 @@ public class TaskRESTController {
         }
     }
 
-//    @PutMapping(value = "/{id}")
-//    public ResponseEntity<TaskList> updateTask(@PathVariable("id") int id, @RequestBody Task task) {
-//        return null;
-//    }
-//
-//    @DeleteMapping(value = "/{id}")
-//    public ResponseEntity<Task> deleteTask(@PathVariable("id") int id, @RequestBody Task task) {
-//        return null;
-//    }
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<Task> moveTask(@PathVariable Integer id, @RequestBody Task task, HttpServletRequest request) {
+        try {
+            return ResponseEntity.ok(taskBusiness.moveTask(id, task));
+        } catch (TaskEmptyFieldsException e) {
+            return new CustomizedResponseEntityExceptionHandler().handleTaskEmptyFieldsException(e, request);
+        } catch (TaskListNameInvalidException e) {
+            return new CustomizedResponseEntityExceptionHandler().handleTaskListNameInvalidException(e, request);
+        } catch (TaskListNameNotExistsException e) {
+            return new CustomizedResponseEntityExceptionHandler().handleTaskListNameNotExistsException(e, request);
+        } catch (NotFoundException e) {
+            return new CustomizedResponseEntityExceptionHandler().handleNotFoundException(e, request);
+        } catch (TaskMoveToEqualListException e) {
+            return new CustomizedResponseEntityExceptionHandler().handleTaskMoveToEqualListException(e, request);
+        } catch (TaskMoveFromDoneListException e) {
+            return new CustomizedResponseEntityExceptionHandler().handleTaskMoveFromDoneListException(e, request);
+        } catch (TaskMoveFromBacklogListException e) {
+            return new CustomizedResponseEntityExceptionHandler().handleTaskMoveFromBacklogListException(e, request);
+        } catch (BusinessException e) {
+            return new CustomizedResponseEntityExceptionHandler().handleAllExceptions(e, request);
+        }
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Task> deleteTask(@PathVariable Integer id, HttpServletRequest request) {
+        try {
+            return ResponseEntity.ok(taskBusiness.deleteById(id));
+        } catch (NotFoundException e) {
+            return new CustomizedResponseEntityExceptionHandler().handleNotFoundException(e, request);
+        } catch (BusinessException e) {
+            return new CustomizedResponseEntityExceptionHandler().handleAllExceptions(e, request);
+        }
+    }
+
 }

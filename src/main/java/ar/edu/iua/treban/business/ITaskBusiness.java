@@ -1,6 +1,6 @@
 package ar.edu.iua.treban.business;
 
-import ar.edu.iua.treban.business.exception.BusinessException;
+import ar.edu.iua.treban.business.exception.*;
 import ar.edu.iua.treban.model.Task;
 import ar.edu.iua.treban.model.exception.*;
 import ar.edu.iua.treban.web.services.exception.GetTaskListInvalidNameParamException;
@@ -14,8 +14,8 @@ public interface ITaskBusiness {
     List<Task> getTaskListOrderByCreatedAtDesc() throws BusinessException;
     List<Task> getTaskListByNameOrderByPriorityDesc(String name) throws BusinessException, GetTaskListInvalidNameParamException;
     List<Task> getTaskListByNameOrderByCreatedAtDesc(String name) throws BusinessException, GetTaskListInvalidNameParamException;
-    Task getOneTask(String name) throws BusinessException, NotFoundException;
-    Task addTask(Task task) throws BusinessException, TaskEmptyFieldsException, TaskEstimationInvalidException, TaskPriorityInvalidException, TaskListNameInvalidException;
-    Task updateTask(Task task) throws BusinessException, NotFoundException;
-    Task deleteTask(Task task) throws BusinessException, NotFoundException;
+    Task getOne(int id) throws BusinessException, NotFoundException;
+    Task addTask(Task task) throws BusinessException, TaskEmptyFieldsException, TaskNameExistsException, TaskEstimationInvalidException, TaskPriorityInvalidException, TaskListNameNotExistsException, TaskListNameInvalidException;
+    Task moveTask(int id, Task task) throws BusinessException, TaskEmptyFieldsException, TaskListNameInvalidException, TaskListNameNotExistsException, NotFoundException, TaskMoveToEqualListException, TaskMoveFromDoneListException, TaskMoveFromBacklogListException;
+    Task deleteById(int id) throws BusinessException, NotFoundException;
 }

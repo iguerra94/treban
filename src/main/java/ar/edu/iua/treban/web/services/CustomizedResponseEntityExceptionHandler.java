@@ -1,7 +1,6 @@
 package ar.edu.iua.treban.web.services;
 
-import ar.edu.iua.treban.business.exception.BusinessException;
-import ar.edu.iua.treban.business.exception.TaskListNameExistsException;
+import ar.edu.iua.treban.business.exception.*;
 import ar.edu.iua.treban.model.ErrorDetails;
 import ar.edu.iua.treban.model.exception.*;
 import ar.edu.iua.treban.web.services.exception.GetTaskListInvalidNameParamException;
@@ -26,6 +25,13 @@ public class CustomizedResponseEntityExceptionHandler {
         ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(),
                 request.getServletPath());
         return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    public final ResponseEntity handleNotFoundException(NotFoundException ex, HttpServletRequest request) {
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(),
+                request.getServletPath());
+        return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }
 
     /* Task List Exceptions */
@@ -60,6 +66,13 @@ public class CustomizedResponseEntityExceptionHandler {
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(TaskNameExistsException.class)
+    public ResponseEntity handleTaskNameExistsException(TaskNameExistsException ex, HttpServletRequest request) {
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(),
+                request.getServletPath());
+        return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
     @ExceptionHandler(TaskEstimationInvalidException.class)
     public final ResponseEntity handleTaskEstimationInvalidException(TaskEstimationInvalidException ex, HttpServletRequest request) {
         ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(),
@@ -69,6 +82,34 @@ public class CustomizedResponseEntityExceptionHandler {
 
     @ExceptionHandler(TaskPriorityInvalidException.class)
     public final ResponseEntity handleTaskPriorityInvalidException(TaskPriorityInvalidException ex, HttpServletRequest request) {
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(),
+                request.getServletPath());
+        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(TaskListNameNotExistsException.class)
+    public ResponseEntity handleTaskListNameNotExistsException(TaskListNameNotExistsException ex, HttpServletRequest request) {
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(),
+                request.getServletPath());
+        return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
+    @ExceptionHandler(TaskMoveToEqualListException.class)
+    public ResponseEntity handleTaskMoveToEqualListException(TaskMoveToEqualListException ex, HttpServletRequest request) {
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(),
+                request.getServletPath());
+        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(TaskMoveFromDoneListException.class)
+    public ResponseEntity handleTaskMoveFromDoneListException(TaskMoveFromDoneListException ex, HttpServletRequest request) {
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(),
+                request.getServletPath());
+        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(TaskMoveFromBacklogListException.class)
+    public ResponseEntity handleTaskMoveFromBacklogListException(TaskMoveFromBacklogListException ex, HttpServletRequest request) {
         ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(),
                 request.getServletPath());
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);

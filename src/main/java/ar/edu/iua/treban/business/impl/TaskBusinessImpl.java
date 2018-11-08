@@ -1,7 +1,7 @@
 package ar.edu.iua.treban.business.impl;
 
 import ar.edu.iua.treban.business.ITaskBusiness;
-import ar.edu.iua.treban.business.exception.BusinessException;
+import ar.edu.iua.treban.business.exception.*;
 import ar.edu.iua.treban.dao.FactoryDAO;
 import ar.edu.iua.treban.model.Task;
 import ar.edu.iua.treban.model.TaskList;
@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -32,12 +33,12 @@ public class TaskBusinessImpl implements ITaskBusiness {
     public List<Task> getTaskList() throws BusinessException {
         try {
             List<Task> taskList = taskDAO.findAll()
-                                    .stream()
-                                    .peek(task -> {
-                                        String priority = TaskUtils.deMapPriority(task.getPriorityValue());
-                                        task.setPriority(priority);
-                                    })
-                                    .collect(Collectors.toList());
+                    .stream()
+                    .peek(task -> {
+                        String priority = TaskUtils.deMapPriority(task.getPriorityValue());
+                        task.setPriority(priority);
+                    })
+                    .collect(Collectors.toList());
             return taskList;
         } catch (Exception e) {
             throw new BusinessException(e);
@@ -70,12 +71,12 @@ public class TaskBusinessImpl implements ITaskBusiness {
     public List<Task> getTaskListOrderByPriorityDesc() throws BusinessException {
         try {
             List<Task> taskList = taskDAO.findAll(new Sort(Sort.Direction.DESC, "priorityValue"))
-                                    .stream()
-                                    .peek(task -> {
-                                        String priority = TaskUtils.deMapPriority(task.getPriorityValue());
-                                        task.setPriority(priority);
-                                    })
-                                    .collect(Collectors.toList());
+                    .stream()
+                    .peek(task -> {
+                        String priority = TaskUtils.deMapPriority(task.getPriorityValue());
+                        task.setPriority(priority);
+                    })
+                    .collect(Collectors.toList());
             return taskList;
         } catch (Exception e) {
             throw new BusinessException(e);
@@ -86,12 +87,12 @@ public class TaskBusinessImpl implements ITaskBusiness {
     public List<Task> getTaskListOrderByCreatedAtDesc() throws BusinessException {
         try {
             List<Task> taskList = taskDAO.findAll(new Sort(Sort.Direction.DESC, "createdAt"))
-                                    .stream()
-                                    .peek(task -> {
-                                        String priority = TaskUtils.deMapPriority(task.getPriorityValue());
-                                        task.setPriority(priority);
-                                    })
-                                    .collect(Collectors.toList());
+                    .stream()
+                    .peek(task -> {
+                        String priority = TaskUtils.deMapPriority(task.getPriorityValue());
+                        task.setPriority(priority);
+                    })
+                    .collect(Collectors.toList());
             return taskList;
         } catch (Exception e) {
             throw new BusinessException(e);
@@ -108,12 +109,12 @@ public class TaskBusinessImpl implements ITaskBusiness {
 
         try {
             List<Task> taskList = taskDAO.findAllByListNameOrderByPriorityDesc(name)
-                                    .stream()
-                                    .peek(task -> {
-                                        String priority = TaskUtils.deMapPriority(task.getPriorityValue());
-                                        task.setPriority(priority);
-                                    })
-                                    .collect(Collectors.toList());
+                    .stream()
+                    .peek(task -> {
+                        String priority = TaskUtils.deMapPriority(task.getPriorityValue());
+                        task.setPriority(priority);
+                    })
+                    .collect(Collectors.toList());
             return taskList;
         } catch (Exception e) {
             throw new BusinessException(e);
@@ -130,12 +131,12 @@ public class TaskBusinessImpl implements ITaskBusiness {
 
         try {
             List<Task> taskList = taskDAO.findAllByListNameOrderByCreatedAtDesc(name)
-                                    .stream()
-                                    .peek(task -> {
-                                        String priority = TaskUtils.deMapPriority(task.getPriorityValue());
-                                        task.setPriority(priority);
-                                    })
-                                    .collect(Collectors.toList());
+                    .stream()
+                    .peek(task -> {
+                        String priority = TaskUtils.deMapPriority(task.getPriorityValue());
+                        task.setPriority(priority);
+                    })
+                    .collect(Collectors.toList());
             return taskList;
         } catch (Exception e) {
             throw new BusinessException(e);
@@ -143,34 +144,61 @@ public class TaskBusinessImpl implements ITaskBusiness {
     }
 
     @Override
-    public Task getOneTask(String name) throws BusinessException, NotFoundException {
-        return null;
+    public Task getOne(int id) throws BusinessException, NotFoundException {
+        Optional<Task> taskFound = null;
+
+        try {
+            taskFound = taskDAO.findById(id);
+        } catch (Exception e) {
+            throw new BusinessException(e);
+        }
+
+        if (!taskFound.isPresent()) {
+            throw new NotFoundException("The task with id = " + id + " was not found.");
+        }
+
+        String priority = TaskUtils.deMapPriority(taskFound.get().getPriorityValue());
+        taskFound.get().setPriority(priority);
+
+        return taskFound.get();
     }
 
     @Override
-    public Task addTask(Task task) throws BusinessException, TaskEmptyFieldsException, TaskEstimationInvalidException, TaskPriorityInvalidException, TaskListNameInvalidException {
+    public Task addTask(Task task) throws BusinessException, TaskEmptyFieldsException, TaskNameExistsException, TaskEstimationInvalidException, TaskPriorityInvalidException, TaskListNameNotExistsException, TaskListNameInvalidException {
         if (task.getName() == null ||
-            task.getEstimation() == null ||
-            task.getPriority() == null ||
-            task.getStatus() == null ||
-            task.getStatus().getName() == null) {
+                task.getEstimation() == null ||
+                task.getPriority() == null ||
+                task.getStatus() == null ||
+                task.getStatus().getName() == null) {
             throw new BusinessException("name, estimation, priority and status fields must be entered.");
         }
 
         if (task.getName().trim().length() == 0 ||
-            task.getPriority().trim().length() == 0 ||
-            task.getStatus().getName().trim().length() == 0) {
+                task.getPriority().trim().length() == 0 ||
+                task.getStatus().getName().trim().length() == 0) {
             throw new TaskEmptyFieldsException("Neither the name, estimation, priority and status might be empty or less than 1.");
         }
 
-        if (task.getEstimation() <= 0) {
-            throw new TaskEstimationInvalidException("The estimation entered cannot be less than 1 (one).");
+        Task taskNameExists = taskDAO.findByName(task.getName());
+
+        if (taskNameExists != null) {
+            throw new TaskNameExistsException("The task name entered already exists.");
+        }
+
+        if (task.getEstimation() < 1 || task.getEstimation() > 10) {
+            throw new TaskEstimationInvalidException("The estimation must be a number between 1 (one) and 10 (ten).");
         }
 
         try {
             TaskUtils.isPriorityValid(task.getPriority());
         } catch (Exception e) {
             throw new TaskPriorityInvalidException("The priority entered is not valid.");
+        }
+
+        TaskList taskListExists = (TaskList) FactoryDAO.getInstance().getTaskListDAO().findByName(task.getStatus().getName());
+
+        if (taskListExists == null) {
+            throw new TaskListNameNotExistsException("The list name entered not exists.");
         }
 
         if (!TaskUtils.isTaskListNameValid(task.getStatus().getName())) {
@@ -194,12 +222,65 @@ public class TaskBusinessImpl implements ITaskBusiness {
     }
 
     @Override
-    public Task updateTask(Task task) throws BusinessException, NotFoundException {
-        return null;
+    public Task moveTask(int id, Task task) throws BusinessException, TaskEmptyFieldsException, TaskListNameInvalidException, TaskListNameNotExistsException, NotFoundException, TaskMoveToEqualListException, TaskMoveFromDoneListException, TaskMoveFromBacklogListException {
+        Task taskFound = getOne(id);
+
+        if (task.getStatus().getName() == null) {
+            throw new BusinessException("The status name field must be entered.");
+        }
+
+        if (task.getStatus().getName().trim().length() == 0) {
+            throw new TaskEmptyFieldsException("The status name cannot be empty.");
+        }
+
+        try {
+            TaskListUtils.isValid(task.getStatus().getName());
+        } catch (Exception e) {
+            throw new TaskListNameInvalidException("The list name entered is not valid.");
+        }
+
+        TaskList taskListExists = (TaskList) FactoryDAO.getInstance().getTaskListDAO().findByName(task.getStatus().getName());
+
+        if (taskListExists == null) {
+            throw new TaskListNameNotExistsException("The list name entered not exists.");
+        }
+
+        if (taskFound.getStatus().getName().equalsIgnoreCase(task.getStatus().getName())) {
+            throw new TaskMoveToEqualListException("The task cannot be moved to the same list that belongs.");
+        }
+
+        if (taskFound.getStatus().getName().equalsIgnoreCase(TaskListUtils.TaskListName.DONE.getValue())) {
+            throw new TaskMoveFromDoneListException("The task cannot be moved from the DONE list.");
+        }
+
+        if (taskFound.getStatus().getName().equalsIgnoreCase(TaskListUtils.TaskListName.BACKLOG.getValue()) &&
+                !task.getStatus().getName().equalsIgnoreCase(TaskListUtils.TaskListName.TODO.getValue())) {
+            throw new TaskMoveFromBacklogListException("The task on the BACKLOG list only can be moved to the TODO list.");
+        }
+
+        try {
+            taskFound.setLastModified(new Date());
+
+            TaskList listToBeMoved = (TaskList) FactoryDAO.getInstance().getTaskListDAO().findByName(task.getStatus().getName());
+            taskFound.setStatus(listToBeMoved);
+
+            return taskDAO.save(taskFound);
+        } catch (Exception e) {
+            throw new BusinessException(e);
+        }
     }
 
     @Override
-    public Task deleteTask(Task task) throws BusinessException, NotFoundException {
-        return null;
+    public Task deleteById(int id) throws BusinessException, NotFoundException {
+        Task task = getOne(id);
+
+        try {
+            taskDAO.delete(task);
+        } catch (Exception e) {
+            throw new BusinessException(e);
+        }
+
+        return task;
     }
+
 }
