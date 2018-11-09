@@ -4,3 +4,15 @@
 2018-11-09 00:43:18.249  WARN 5333 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
 2018-11-09 00:43:18.979  INFO 5333 --- [restartedMain] ar.edu.iua.treban.TrebanApplication      : Started TrebanApplication in 12.615 seconds (JVM running for 15.478)
 2018-11-09 00:43:18.982  WARN 5333 --- [restartedMain] ication$$EnhancerBySpringCGLIB$$a2647eac : DataSource=HikariDataSource (HikariPool-1)
+2018-11-09 13:30:55.093  INFO 6121 --- [restartedMain] ar.edu.iua.treban.TrebanApplication      : Starting TrebanApplication on ivang94-N56VB with PID 6121 (/home/ivang94/IdeaProjects/treban/target/classes started by ivang94 in /home/ivang94/IdeaProjects/treban)
+2018-11-09 13:30:55.095 DEBUG 6121 --- [restartedMain] ar.edu.iua.treban.TrebanApplication      : Running with Spring Boot v2.0.6.RELEASE, Spring v5.0.10.RELEASE
+2018-11-09 13:30:55.096  INFO 6121 --- [restartedMain] ar.edu.iua.treban.TrebanApplication      : No active profile set, falling back to default profiles: default
+2018-11-09 13:31:03.973  WARN 6121 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2018-11-09 13:31:04.655  INFO 6121 --- [restartedMain] ar.edu.iua.treban.TrebanApplication      : Started TrebanApplication in 10.769 seconds (JVM running for 13.289)
+2018-11-09 13:31:04.658  WARN 6121 --- [restartedMain] ication$$EnhancerBySpringCGLIB$$d11d0e1c : DataSource=HikariDataSource (HikariPool-1)
+2018-11-09 13:32:06.223  INFO 6121 --- [http-nio-8080-exec-1] a.e.i.t.business.impl.TaskBusinessImpl   : Info when getting the list of Tasks without params: Starting method logs.
+2018-11-09 13:32:06.280  INFO 6121 --- [http-nio-8080-exec-1] a.e.i.t.business.impl.TaskBusinessImpl   : Info when getting the list of Tasks without params: The list of Tasks was returned successfully.
+2018-11-09 13:32:06.280  INFO 6121 --- [http-nio-8080-exec-1] a.e.i.t.business.impl.TaskBusinessImpl   : Info when getting the list of Tasks without params: Finished method logs.
+2018-11-09 13:34:53.647  INFO 6121 --- [http-nio-8080-exec-5] a.e.i.t.business.impl.TaskBusinessImpl   : Info when getting the list of Tasks by name: Starting method logs.
+2018-11-09 13:34:53.648 ERROR 6121 --- [http-nio-8080-exec-5] a.e.i.t.business.impl.TaskBusinessImpl   : Error when getting the list of Tasks by name: The name param entered is not valid.
+2018-11-09 13:34:53.648  INFO 6121 --- [http-nio-8080-exec-5] a.e.i.t.business.impl.TaskBusinessImpl   : Info when getting the list of Tasks by name: Finished method logs.

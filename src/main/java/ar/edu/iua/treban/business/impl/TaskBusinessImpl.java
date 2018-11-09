@@ -212,43 +212,63 @@ public class TaskBusinessImpl implements ITaskBusiness {
 
     @Override
     public Task addTask(Task task) throws BusinessException, TaskEmptyFieldsException, TaskNameExistsException, TaskEstimationInvalidException, TaskPriorityInvalidException, TaskListNameNotExistsException, TaskListNameInvalidException {
+        log.info("Info when adding one Task: Starting method logs.");
         if (task.getName() == null ||
                 task.getEstimation() == null ||
                 task.getPriority() == null ||
                 task.getStatus() == null ||
                 task.getStatus().getName() == null) {
+            log.error("Error when adding one Task: name, estimation, priority and status fields must be entered.");
+            log.info("Info when adding one Task: Finished method logs.");
             throw new BusinessException("name, estimation, priority and status fields must be entered.");
         }
 
         if (task.getName().trim().length() == 0 ||
                 task.getPriority().trim().length() == 0 ||
                 task.getStatus().getName().trim().length() == 0) {
+            log.error("Error when adding one Task: Neither the name, estimation, priority and status might be empty or less than 1.");
+            log.info("Info when adding one Task: Finished method logs.");
             throw new TaskEmptyFieldsException("Neither the name, estimation, priority and status might be empty or less than 1.");
         }
 
         Task taskNameExists = taskDAO.findByName(task.getName());
 
         if (taskNameExists != null) {
+            log.error("Error when adding one Task: The task name entered already exists.");
+            log.info("Info when adding one Task: Finished method logs.");
             throw new TaskNameExistsException("The task name entered already exists.");
         }
 
+        log.info("Info when adding one Task: The task name entered does not exists already in the database.");
+
         if (task.getEstimation() < 1 || task.getEstimation() > 10) {
+            log.error("Error when adding one Task: The estimation must be a number between 1 (one) and 10 (ten).");
+            log.info("Info when adding one Task: Finished method logs.");
             throw new TaskEstimationInvalidException("The estimation must be a number between 1 (one) and 10 (ten).");
         }
 
         try {
             TaskUtils.isPriorityValid(task.getPriority());
+            log.info("Info when adding one Task: The priority entered is valid.");
         } catch (Exception e) {
+            log.error("Error when adding one Task: The priority entered is not valid.");
+            log.info("Info when adding one Task: Finished method logs.");
             throw new TaskPriorityInvalidException("The priority entered is not valid.");
         }
 
         TaskList taskListExists = (TaskList) FactoryDAO.getInstance().getTaskListDAO().findByName(task.getStatus().getName());
 
         if (taskListExists == null) {
+            log.error("Error when adding one Task: The list name entered not exists.");
+            log.info("Info when adding one Task: Finished method logs.");
             throw new TaskListNameNotExistsException("The list name entered not exists.");
         }
 
+        log.info("Info when adding one Task: The list name entered exists already in the database.");
+
         if (!TaskUtils.isTaskListNameValid(task.getStatus().getName())) {
+            log.error("Error when adding one Task: The task was assigned to the wrong list.");
+            log.info("Info when adding one Task: Finished method logs.");
             throw new TaskListNameInvalidException("The task was assigned to the wrong list.");
         }
 
@@ -262,46 +282,69 @@ public class TaskBusinessImpl implements ITaskBusiness {
             TaskList taskList = (TaskList) FactoryDAO.getInstance().getTaskListDAO().findByName(task.getStatus().getName());
             task.setStatus(taskList);
 
-            return taskDAO.save(task);
+            Task taskSaved = taskDAO.save(task);
+            log.info("Info when adding one Task: The Task with id = {} was saved succesfully.", taskSaved.getId());
+            return taskSaved;
         } catch (Exception e) {
+            log.error("Error when adding one Task: {}.", e.getMessage());
             throw new BusinessException(e);
+        } finally {
+            log.info("Info when adding one Task: Finished method logs.");
         }
     }
 
     @Override
     public Task moveTask(int id, Task task) throws BusinessException, TaskEmptyFieldsException, TaskListNameInvalidException, TaskListNameNotExistsException, NotFoundException, TaskMoveToEqualListException, TaskMoveFromDoneListException, TaskMoveFromBacklogListException {
+        log.info("Info when moving one Task: Starting method logs.");
         Task taskFound = getOne(id);
 
         if (task.getStatus().getName() == null) {
+            log.error("Error when moving one Task: The status name field must be entered.");
+            log.info("Info when moving one Task: Finished method logs.");
             throw new BusinessException("The status name field must be entered.");
         }
 
         if (task.getStatus().getName().trim().length() == 0) {
+            log.error("Error when moving one Task: The status name cannot be empty.");
+            log.info("Info when moving one Task: Finished method logs.");
             throw new TaskEmptyFieldsException("The status name cannot be empty.");
         }
 
         try {
             TaskListUtils.isValid(task.getStatus().getName());
+            log.info("Info when moving one Task: The list name entered is valid.");
         } catch (Exception e) {
+            log.error("Error when moving one Task: The list name entered is not valid.");
+            log.info("Info when moving one Task: Finished method logs.");
             throw new TaskListNameInvalidException("The list name entered is not valid.");
         }
 
         TaskList taskListExists = (TaskList) FactoryDAO.getInstance().getTaskListDAO().findByName(task.getStatus().getName());
 
         if (taskListExists == null) {
+            log.error("Error when moving one Task: The list name entered not exists.");
+            log.info("Info when moving one Task: Finished method logs.");
             throw new TaskListNameNotExistsException("The list name entered not exists.");
         }
 
+        log.info("Info when moving one Task: The Task List name entered does exists already in the database..");
+
         if (taskFound.getStatus().getName().equalsIgnoreCase(task.getStatus().getName())) {
+            log.error("Error when moving one Task: The task cannot be moved to the same list that belongs.");
+            log.info("Info when moving one Task: Finished method logs.");
             throw new TaskMoveToEqualListException("The task cannot be moved to the same list that belongs.");
         }
 
         if (taskFound.getStatus().getName().equalsIgnoreCase(TaskListUtils.TaskListName.DONE.getValue())) {
+            log.error("Error when moving one Task: The task cannot be moved from the DONE list.");
+            log.info("Info when moving one Task: Finished method logs.");
             throw new TaskMoveFromDoneListException("The task cannot be moved from the DONE list.");
         }
 
         if (taskFound.getStatus().getName().equalsIgnoreCase(TaskListUtils.TaskListName.BACKLOG.getValue()) &&
                 !task.getStatus().getName().equalsIgnoreCase(TaskListUtils.TaskListName.TODO.getValue())) {
+            log.error("Error when moving one Task: The task on the BACKLOG list only can be moved to the TODO list.");
+            log.info("Info when moving one Task: Finished method logs.");
             throw new TaskMoveFromBacklogListException("The task on the BACKLOG list only can be moved to the TODO list.");
         }
 
@@ -311,16 +354,19 @@ public class TaskBusinessImpl implements ITaskBusiness {
             TaskList listToBeMoved = (TaskList) FactoryDAO.getInstance().getTaskListDAO().findByName(task.getStatus().getName());
             taskFound.setStatus(listToBeMoved);
 
+            log.info("Info when moving one Task: The Task was moved from {} list to the {} list successfully.", taskFound.getStatus().getName(), task.getStatus().getName());
             return taskDAO.save(taskFound);
         } catch (Exception e) {
+            log.error("Error when moving one Task: {}", e.getMessage());
             throw new BusinessException(e);
+        } finally {
+            log.info("Info when moving one Task: Finished method logs.");
         }
     }
 
     @Override
     public Task deleteById(int id) throws BusinessException, NotFoundException {
         log.info("Info when deleting one Task by id: Starting method logs.");
-
         Task task = getOne(id);
 
         try {
