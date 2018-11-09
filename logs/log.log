@@ -1,6 +1,6 @@
-2018-11-08 03:02:13.802  INFO 22503 --- [restartedMain] ar.edu.iua.treban.TrebanApplication      : Starting TrebanApplication on ivang94-N56VB with PID 22503 (/home/ivang94/IdeaProjects/treban/target/classes started by ivang94 in /home/ivang94/IdeaProjects/treban)
-2018-11-08 03:02:13.805 DEBUG 22503 --- [restartedMain] ar.edu.iua.treban.TrebanApplication      : Running with Spring Boot v2.0.6.RELEASE, Spring v5.0.10.RELEASE
-2018-11-08 03:02:13.807  INFO 22503 --- [restartedMain] ar.edu.iua.treban.TrebanApplication      : No active profile set, falling back to default profiles: default
-2018-11-08 03:02:19.717  WARN 22503 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2018-11-08 03:02:20.427  INFO 22503 --- [restartedMain] ar.edu.iua.treban.TrebanApplication      : Started TrebanApplication in 7.213 seconds (JVM running for 8.0)
-2018-11-08 03:02:20.432  WARN 22503 --- [restartedMain] ication$$EnhancerBySpringCGLIB$$34894f18 : DataSource=HikariDataSource (HikariPool-1)
+2018-11-09 00:43:07.759  INFO 5333 --- [restartedMain] ar.edu.iua.treban.TrebanApplication      : Starting TrebanApplication on ivang94-N56VB with PID 5333 (/home/ivang94/IdeaProjects/treban/target/classes started by ivang94 in /home/ivang94/IdeaProjects/treban)
+2018-11-09 00:43:07.762 DEBUG 5333 --- [restartedMain] ar.edu.iua.treban.TrebanApplication      : Running with Spring Boot v2.0.6.RELEASE, Spring v5.0.10.RELEASE
+2018-11-09 00:43:07.765  INFO 5333 --- [restartedMain] ar.edu.iua.treban.TrebanApplication      : No active profile set, falling back to default profiles: default
+2018-11-09 00:43:18.249  WARN 5333 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2018-11-09 00:43:18.979  INFO 5333 --- [restartedMain] ar.edu.iua.treban.TrebanApplication      : Started TrebanApplication in 12.615 seconds (JVM running for 15.478)
+2018-11-09 00:43:18.982  WARN 5333 --- [restartedMain] ication$$EnhancerBySpringCGLIB$$a2647eac : DataSource=HikariDataSource (HikariPool-1)

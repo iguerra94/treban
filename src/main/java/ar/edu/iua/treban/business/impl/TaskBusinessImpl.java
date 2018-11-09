@@ -31,6 +31,7 @@ public class TaskBusinessImpl implements ITaskBusiness {
 
     @Override
     public List<Task> getTaskList() throws BusinessException {
+        log.info("Info when getting the list of Tasks without params: Starting method logs.");
         try {
             List<Task> taskList = taskDAO.findAll()
                     .stream()
@@ -39,17 +40,25 @@ public class TaskBusinessImpl implements ITaskBusiness {
                         task.setPriority(priority);
                     })
                     .collect(Collectors.toList());
+            log.info("Info when getting the list of Tasks without params: The list of Tasks was returned successfully.");
             return taskList;
         } catch (Exception e) {
+            log.error("Error when getting the list of Tasks without params: {}.", e.getMessage());
             throw new BusinessException(e);
+        } finally {
+            log.info("Info when getting the list of Tasks without params: Finished method logs.");
         }
     }
 
     @Override
     public List<Task> getTaskListByName(String name) throws BusinessException, GetTaskListInvalidNameParamException {
+        log.info("Info when getting the list of Tasks by name: Starting method logs.");
         try {
             TaskListUtils.isValid(name);
+            log.info("Info when getting the list of Tasks by name: The name param entered is valid.");
         } catch (Exception e) {
+            log.error("Error when getting the list of Tasks by name: The name param entered is not valid.");
+            log.info("Info when getting the list of Tasks by name: Finished method logs.");
             throw new GetTaskListInvalidNameParamException("The name param entered is not valid.");
         }
 
@@ -61,14 +70,19 @@ public class TaskBusinessImpl implements ITaskBusiness {
                         task.setPriority(priority);
                     })
                     .collect(Collectors.toList());
+            log.info("Info when getting the list of Tasks by name: The list of Tasks was returned successfully.");
             return taskList;
         } catch (Exception e) {
+            log.error("Error when getting the list of Tasks by name: {}.", e.getMessage());
             throw new BusinessException(e);
+        } finally {
+            log.info("Info when getting the list of Tasks by name: Finished method logs.");
         }
     }
 
     @Override
     public List<Task> getTaskListOrderByPriorityDesc() throws BusinessException {
+        log.info("Info when getting the list of Tasks by priority in descendant order: Starting method logs.");
         try {
             List<Task> taskList = taskDAO.findAll(new Sort(Sort.Direction.DESC, "priorityValue"))
                     .stream()
@@ -77,14 +91,19 @@ public class TaskBusinessImpl implements ITaskBusiness {
                         task.setPriority(priority);
                     })
                     .collect(Collectors.toList());
+            log.info("Info when getting the list of Tasks by priority in descendant order: The list of Tasks was returned successfully.");
             return taskList;
         } catch (Exception e) {
+            log.error("Error when getting the list of Tasks by priority in descendant order: {}.", e.getMessage());
             throw new BusinessException(e);
+        } finally {
+            log.info("Info when getting the list of Tasks by priority in descendant order: Finished method logs.");
         }
     }
 
     @Override
     public List<Task> getTaskListOrderByCreatedAtDesc() throws BusinessException {
+        log.info("Info when getting the list of Tasks by creation date in descendant order: Starting method logs.");
         try {
             List<Task> taskList = taskDAO.findAll(new Sort(Sort.Direction.DESC, "createdAt"))
                     .stream()
@@ -93,17 +112,25 @@ public class TaskBusinessImpl implements ITaskBusiness {
                         task.setPriority(priority);
                     })
                     .collect(Collectors.toList());
+            log.info("Info when getting the list of Tasks by creation date in descendant order: The list of Tasks was returned successfully.");
             return taskList;
         } catch (Exception e) {
+            log.error("Error when getting the list of Tasks by creation date in descendant order: {}.", e.getMessage());
             throw new BusinessException(e);
+        } finally {
+            log.info("Info when getting the list of Tasks by creation date in descendant order: Finished method logs.");
         }
     }
 
     @Override
     public List<Task> getTaskListByNameOrderByPriorityDesc(String name) throws BusinessException, GetTaskListInvalidNameParamException {
+        log.info("Info when getting the list of Tasks by name and priority in descendant order: Starting method logs.");
         try {
             TaskListUtils.isValid(name);
+            log.info("Info when getting the list of Tasks by name and priority in descendant order: The name param entered is valid.");
         } catch (Exception e) {
+            log.error("Error when getting the list of Tasks by name and priority in descendant order: The name param entered is not valid.");
+            log.info("Info when getting the list of Tasks by name and priority in descendant order: Finished method logs.");
             throw new GetTaskListInvalidNameParamException("The name param entered is not valid.");
         }
 
@@ -115,17 +142,25 @@ public class TaskBusinessImpl implements ITaskBusiness {
                         task.setPriority(priority);
                     })
                     .collect(Collectors.toList());
+            log.info("Info when getting the list of Tasks by name and priority in descendant order: The list of Tasks was returned successfully.");
             return taskList;
         } catch (Exception e) {
+            log.error("Error when getting the list of Tasks by name and priority in descendant order: {}.", e.getMessage());
             throw new BusinessException(e);
+        } finally {
+            log.info("Info when getting the list of Tasks by name and priority in descendant order: Finished method logs.");
         }
     }
 
     @Override
     public List<Task> getTaskListByNameOrderByCreatedAtDesc(String name) throws BusinessException, GetTaskListInvalidNameParamException {
+        log.info("Info when getting the list of Tasks by name and creation date in descendant order: Starting method logs.");
         try {
             TaskListUtils.isValid(name);
+            log.info("Info when getting the list of Tasks by name and creation date in descendant order: The name param entered is valid.");
         } catch (Exception e) {
+            log.error("Error when getting the list of Tasks by name and creation date in descendant order: The name param entered is not valid.");
+            log.info("Info when getting the list of Tasks by name and creation date in descendant order: Finished method logs.");
             throw new GetTaskListInvalidNameParamException("The name param entered is not valid.");
         }
 
@@ -137,29 +172,41 @@ public class TaskBusinessImpl implements ITaskBusiness {
                         task.setPriority(priority);
                     })
                     .collect(Collectors.toList());
+            log.info("Info when getting the list of Tasks by name and creation date in descendant order: The list of Tasks was returned successfully.");
             return taskList;
         } catch (Exception e) {
+            log.error("Error when getting the list of Tasks by name and creation date in descendant order: {}.", e.getMessage());
             throw new BusinessException(e);
+        } finally {
+            log.info("Info when getting the list of Tasks by name and creation date in descendant order: Finished method logs.");
         }
     }
 
     @Override
     public Task getOne(int id) throws BusinessException, NotFoundException {
+        log.info("Info when getting one Task by id: Starting method logs.");
         Optional<Task> taskFound = null;
 
         try {
             taskFound = taskDAO.findById(id);
+            log.info("Info when getting one Task by id: The Task with id = {} was found.", id);
         } catch (Exception e) {
+            log.error("Error when getting one Task by id: {}.", e.getMessage());
+            log.info("Info when getting one Task by id: Finished method logs.");
             throw new BusinessException(e);
         }
 
         if (!taskFound.isPresent()) {
+            log.error("Error when getting one Task by id: The Task with id = {} was not found.", id);
+            log.info("Info when getting one Task by id: Finished method logs.");
             throw new NotFoundException("The task with id = " + id + " was not found.");
         }
 
         String priority = TaskUtils.deMapPriority(taskFound.get().getPriorityValue());
         taskFound.get().setPriority(priority);
 
+        log.info("Info when getting one Task by id: The Task with id = {} was returned succesfully.", id);
+        log.info("Info when getting one Task by id: Finished method logs.");
         return taskFound.get();
     }
 
@@ -272,15 +319,20 @@ public class TaskBusinessImpl implements ITaskBusiness {
 
     @Override
     public Task deleteById(int id) throws BusinessException, NotFoundException {
+        log.info("Info when deleting one Task by id: Starting method logs.");
+
         Task task = getOne(id);
 
         try {
             taskDAO.delete(task);
+            log.info("Info when deleting one Task by id: The Task with id = {} was deleted successfully.", id);
+            return task;
         } catch (Exception e) {
+            log.error("Error when deleting one Task by id: {}.", e.getMessage());
             throw new BusinessException(e);
+        } finally {
+            log.info("Info when deleting one Task by id: Finished method logs.");
         }
-
-        return task;
     }
 
 }

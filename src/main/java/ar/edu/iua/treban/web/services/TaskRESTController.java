@@ -112,7 +112,7 @@ public class TaskRESTController {
     }
 
     @PutMapping(value = "/{id}")
-    public ResponseEntity<Task> moveTask(@PathVariable Integer id, @RequestBody Task task, HttpServletRequest request) {
+    public ResponseEntity<Task> moveTask(@PathVariable("id") int id, @RequestBody Task task, HttpServletRequest request) {
         try {
             return ResponseEntity.ok(taskBusiness.moveTask(id, task));
         } catch (TaskEmptyFieldsException e) {
@@ -135,7 +135,7 @@ public class TaskRESTController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Task> deleteTask(@PathVariable Integer id, HttpServletRequest request) {
+    public ResponseEntity<Task> deleteTask(@PathVariable("id") int id, HttpServletRequest request) {
         try {
             return ResponseEntity.ok(taskBusiness.deleteById(id));
         } catch (NotFoundException e) {
