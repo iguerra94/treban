@@ -18,5 +18,4 @@ public class FactoryDAO {
     public static IGenericDAO getTaskListDAO() {
         return TaskListImplDAO.getInstance();
     }
-
 }

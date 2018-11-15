@@ -34,7 +34,7 @@ public class Task implements Serializable {
     @Column(name="estimation", nullable = false)
     private Integer estimation;
 
-    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.REFRESH)
     @JoinColumn(name="task_list_id")
     private TaskList status;
 

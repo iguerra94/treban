@@ -51,16 +51,16 @@ public class TaskListBusinessImpl implements ITaskListBusiness {
 
         log.info("Info when adding the Task List: The Task List name entered does not exists already in the database.");
 
+        TaskList taskListCreated;
         try {
-            TaskList taskListCreated = (TaskList) FactoryDAO.getInstance().getTaskListDAO().add(taskList);
+            taskListCreated = (TaskList) FactoryDAO.getInstance().getTaskListDAO().add(taskList);
             log.info("Info when adding the Task List: The Task List with id = {} was created succesfully.", taskListCreated.getId());
             log.info("Info when adding the Task List: Finished method logs.");
-            return taskListCreated;
         } catch (Exception e) {
             log.error("Error when adding the Task List: {}", e.getMessage());
             log.info("Info when adding the Task List: Finished method logs.");
             throw new BusinessException(e);
         }
-
+        return taskListCreated;
     }
 }
