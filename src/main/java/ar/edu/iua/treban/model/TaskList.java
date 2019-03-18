@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "task_list")
+@Table(name = "task_lists")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class TaskList implements Serializable {
 

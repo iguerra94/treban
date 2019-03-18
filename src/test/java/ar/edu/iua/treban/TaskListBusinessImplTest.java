@@ -4,6 +4,7 @@ import ar.edu.iua.treban.business.ITaskListBusiness;
 import ar.edu.iua.treban.model.TaskList;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -41,6 +42,7 @@ public class TaskListBusinessImplTest {
     }
 
     @Test
+    @Disabled
     public void addTaskListSuccess() {
         TaskList taskListCreated = taskListBusiness.addTaskList(taskListValid);
 
@@ -49,6 +51,7 @@ public class TaskListBusinessImplTest {
     }
 
     @Test
+    @Disabled
     public void addTaskListFail() {
         TaskList taskListCreated = null;
         try {

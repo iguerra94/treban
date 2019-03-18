@@ -7,6 +7,7 @@ import ar.edu.iua.treban.model.TaskList;
 import org.junit.BeforeClass;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.jupiter.api.Disabled;
 import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,7 @@ public class TaskBusinessImplTest {
     }
 
     @Test
+    @Disabled
     public void addTaskSuccess() {
         TaskList list = new TaskList();
         list.setName("backlog");
@@ -72,6 +74,7 @@ public class TaskBusinessImplTest {
     }
 
     @Test
+    @Disabled
     public void addTaskListFail() {
         Task taskCreated = null;
         try {
@@ -84,6 +87,7 @@ public class TaskBusinessImplTest {
     }
 
     @Test
+    @Disabled
     public void getTaskSuccess() {
         Task task = null;
 
@@ -92,6 +96,7 @@ public class TaskBusinessImplTest {
     }
 
     @Test
+    @Disabled
     public void moveTaskSuccess() {
         Task task1 = new Task();
 
@@ -102,17 +107,20 @@ public class TaskBusinessImplTest {
     }
 
     @Test
+    @Disabled
     public void testDeleteByIdTask() {
         assertEquals("Successfully deleted a single category in the table!", 1 , taskBusiness.deleteById(1).getId());
     }
 
     @Test
+    @Disabled
     public void getTaskListAfterInsertionSuccess() {
         List<Task> taskList = taskBusiness.getTaskList();
         assertEquals(++TASK_LIST_COUNT, taskList.size());
     }
 
     @Test
+    @Disabled
     public void getTaskListFail() {
         List<Task> taskList = taskBusiness.getTaskList();
         assertNotEquals(TASK_LIST_COUNT_ZERO, taskList.size());

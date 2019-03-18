@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.sql.DataSource;
 
@@ -21,8 +22,13 @@ public class TrebanApplication implements CommandLineRunner {
 	@Autowired
 	private DataSource dataSource;
 
+	@Autowired
+	private PasswordEncoder pe;
+
 	@Override
 	public void run(String... args) throws Exception {
-		log.warn("DataSource={}", dataSource);
+		log.debug("DataSource actual = {}", dataSource);
+		log.debug("La password 'ivang94' codificada es: {}", pe.encode("ivang94"));
+
 	}
 }

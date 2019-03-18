@@ -5,5 +5,4 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 @ComponentScan(basePackages = "ar.edu.iua.treban")
-public class TrebanAppConfig {
-}
+public class TrebanAppConfig {}
