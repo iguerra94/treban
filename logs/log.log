@@ -109,3 +109,10 @@ Caused by: java.io.FileNotFoundException: class path resource [version.propertie
 2019-03-18 20:11:07.534  INFO 10659 --- [restartedMain] ar.edu.iua.treban.TrebanApplication      : Started TrebanApplication in 34.723 seconds (JVM running for 37.999)
 2019-03-18 20:11:07.548  WARN 10659 --- [restartedMain] ication$$EnhancerBySpringCGLIB$$5b374266 : DataSource=HikariDataSource (HikariPool-1)
 2019-03-18 20:11:07.549 TRACE 10659 --- [restartedMain] ication$$EnhancerBySpringCGLIB$$5b374266 : DataSource=HikariDataSource (HikariPool-1)
+2019-03-18 22:22:02.727  INFO 16671 --- [restartedMain] ar.edu.iua.treban.TrebanApplication      : Starting TrebanApplication on tomas-Lenovo-Z40-75 with PID 16671 (/home/tomas/Documentos/workspace/treban-rama-tomas/target/classes started by tomas in /home/tomas/Documentos/workspace/treban-rama-tomas)
+2019-03-18 22:22:02.733 DEBUG 16671 --- [restartedMain] ar.edu.iua.treban.TrebanApplication      : Running with Spring Boot v2.0.6.RELEASE, Spring v5.0.10.RELEASE
+2019-03-18 22:22:02.739  INFO 16671 --- [restartedMain] ar.edu.iua.treban.TrebanApplication      : No active profile set, falling back to default profiles: default
+2019-03-18 22:22:27.303  WARN 16671 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-03-18 22:22:36.182  INFO 16671 --- [restartedMain] ar.edu.iua.treban.TrebanApplication      : Started TrebanApplication in 35.268 seconds (JVM running for 38.484)
+2019-03-18 22:22:36.195  WARN 16671 --- [restartedMain] ication$$EnhancerBySpringCGLIB$$b808d3c3 : DataSource=HikariDataSource (HikariPool-1)
+2019-03-18 22:22:36.197 TRACE 16671 --- [restartedMain] ication$$EnhancerBySpringCGLIB$$b808d3c3 : DataSource=HikariDataSource (HikariPool-1)

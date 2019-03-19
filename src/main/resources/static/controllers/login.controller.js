@@ -4,8 +4,6 @@ angular.module('demo')
 .controller('LoginFormController', ['$rootScope', '$scope','$log', 'coreService', '$location',  LoginFormController]);
 function LoginFormController($rootScope, $scope, $log, coreService, $location) {
 
-    //instanceLoginService.init();
-    //instanceLoginService.login();
 
     $scope.title="Ingreso";
 	$scope.user=$rootScope.user;
