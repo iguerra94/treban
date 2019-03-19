@@ -1,0 +1,136 @@
+<div ng-hide="autenticado">
+	Debe autenticarse!
+</div>
+<div ng-show="autenticado">
+<h1 class="text-center">{{titulo}}</h1>
+
+<div class="row">
+	<div class="col-md-2"></div>
+	<div class="col-md-8">
+
+		<div class="row">
+			<div class="col-md-10">
+				<form>
+					<div class="input-group">
+						<span class="input-group-addon" id="basic-addon1">Buscar</span> <input
+							ng-model="textoABuscar" type="text" class="form-control"
+							placeholder="Texto" aria-describedby="basic-addon1">
+					</div>
+				</form>
+			</div>
+			<div class="col-md-2">
+				<button ng-hide="agregando" class="btn btn-success" ng-click="agregando=true">Nuevo</button>
+			</div>
+		</div>
+		<div ng-show="agregando" class="row">
+			<div class="col-md-8">
+
+
+				<div class="panel panel-default">
+				  <div class="panel-heading">
+				    <h3 class="panel-title">Datos del nuevo producto</h3>
+				  </div>
+				  <div class="panel-body">
+				   
+						<form class="form-inline">
+						  <div class="form-group">
+						    <label for="descripcion">Descripción</label>
+						    <input ng-model="instancia.descripcion" type="text" class="form-control" id="descripcion">
+						  </div>
+						  <div class="form-group">
+						    <label for="precio">Precio</label>
+						    <input ng-model="instancia.precio" type="number" class="form-control" id="precio">
+						  </div>
+						  <div class="form-group">
+						    <label for="enStock">En Stock?</label>
+						    <input ng-model="instancia.enStock" type="checkbox" class="form-control" id="enStock">
+						  </div>
+						  <div class="form-group">
+						    <label for="fechavto">Fecha Vto:</label>
+						    <input ng-model="instancia.vencimiento" type="date" class="form-control" id="fechavto">
+						  </div>
+						  <div class="form-group">
+						    <label for="enOferta">En Oferta?</label>
+						    <input ng-model="instancia.enOferta" type="checkbox" class="form-control" id="enOferta">
+						  </div>
+						</form>
+
+
+
+				  </div>
+				   <div class="panel-footer text-right">
+						<button class="btn btn-default" ng-click="agregando=false">Cancelar</button>
+						<button ng-disabled="!mostrarGuardar()" class="btn btn-primary" ng-click="guardar(true)">Guardar</button>
+					</div>
+				</div>
+
+
+
+
+
+			</div>
+		</div>
+		<table border="1" class="table table-striped">
+			<thead>
+				<tr>
+					<td>Id</td>
+					<td>Descripción</td>
+					<td>Precio</td>
+					<td>Fecha Vto</td>
+					<td>Stock?</td>
+					<td>En Oferta?</td>
+					<td>Opciones</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="p in data | filter:textoABuscar | orderBy:'-precio'">
+					<td>{{p.id}}</td>
+					
+					
+				
+						<td ng-hide="instanciaM && instanciaM.id==p.id"><span
+							ng-bind-html="p.descripcion | highlight:textoABuscar"></span></td>
+						<td ng-hide="instanciaM && instanciaM.id==p.id">{{p.precio}}</td>
+						<td ng-hide="instanciaM && instanciaM.id==p.id">{{p.vencimiento | date:'dd-MMM-yyyy'}}</td>
+						<td ng-hide="instanciaM && instanciaM.id==p.id"><i ng-show="p.enStock" class="fas fa-check-circle"></i> <i
+							ng-hide="p.enStock" class="fas fa-ban"></i></td>
+						<td ng-hide="instanciaM && instanciaM.id==p.id"><i ng-show="p.enOferta" class="fas fa-check-circle"></i> <i
+							ng-hide="p.enOferta" class="fas fa-ban"></i></td>
+			
+					
+						<td ng-show="instanciaM && instanciaM.id==p.id">
+							<input ng-model="instanciaM.descripcion" type="text" class="form-control">
+						</td>
+						<td ng-show="instanciaM && instanciaM.id==p.id">
+							<input ng-model="instanciaM.precio" type="number" class="form-control">
+						</td>
+						<td ng-show="instanciaM && instanciaM.id==p.id">
+							<input ng-model="instanciaM.vencimiento" type="date" class="form-control">
+						</td>
+						<td ng-show="instanciaM && instanciaM.id==p.id">
+							<input ng-model="instanciaM.enStock" type="checkbox" class="form-control">
+						</td>
+						<td ng-show="instanciaM && instanciaM.id==p.id">
+							 <input ng-model="instanciaM.enOferta" type="checkbox" class="form-control">
+						</td>
+					
+					<td>
+						<span ng-hide="instanciaM && instanciaM.id==p.id">
+							<i ng-click="eliminar(p.id)" class="fas fa-trash-alt pointer espacioderecha" title="Eliminar"></i>
+						
+							<i ng-click="modificar(p)" class="fas fa-pencil-alt pointer" title="Editar"></i>
+						</span>
+						<span ng-show="instanciaM && instanciaM.id==p.id">
+							<i ng-click="guardar(false)" titulo="Acpetar" class="fas fa-check pointer espacioderecha"></i>
+							<i ng-click="instanciaM=false" titulo="Cancelar" class="fas fa-times pointer"></i>
+						</span>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		
+		{{instanciaM}}
+	</div>
+</div>
+
+</div>

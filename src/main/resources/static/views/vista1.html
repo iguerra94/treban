@@ -1,0 +1,21 @@
+{{titulo}}
+<hr/>
+Buscar: <input type="text" ng-model="textoABuscar"></input>
+<ul>
+	<li ng-repeat="p in data | filter:textoABuscar | orderBy:'-precio'">
+		{{p.id}} - <span ng-bind-html="p.descripcion | highlight:textoABuscar"></span> - 
+		<strong style="color: {{p.enOferta ? 'green' : 'black'}}">{{p.precio}}</strong> - <button ng-show="p.enStock">Comprar</button>  </li>
+</ul>
+<hr/>
+
+<input type="number" ng-model="id">
+<button ng-click="ponerEnOferta()" class="btn btn-default">Poner en oferta</button>
+<br/>
+<button ng-click="relocate('/main')" class="btn btn-success"><i class="fas fa-backward"></i> Volver</button>
+
+<hr/>
+<ol>
+	<li ng-repeat="p in lista1 | filter:textoABuscar">
+		{{p.id}} - <span ng-bind-html="p.descripcion | highlight:textoABuscar"></span> - 
+		<strong style="color: {{p.enOferta ? 'green' : 'black'}}">{{p.precio}}</strong> - <button ng-show="p.enStock">Comprar</button>  </li>
+</ol>
