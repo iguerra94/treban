@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
+    <title>ic_arrow_back</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Login-Page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Login-Page-Parte-2" transform="translate(-754.000000, -355.000000)">
+            <g id="ic_arrow_back" transform="translate(748.000000, 349.000000)">
+                <g id="Icon-24px">
+                    <polygon id="Shape" points="0 0 36 0 36 36 0 36"></polygon>
+                    <polygon id="Shape" fill="#000000" points="30 16.5 11.745 16.5 20.13 8.115 18 6 6 18 18 30 20.115 27.885 11.745 19.5 30 19.5"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,168 @@
+body {
+  background-color: #DCDCDC;
+}
+
+.main-container-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100vh;
+}
+
+.main-container-wrapper .main-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin: auto;
+  height: 67%;
+  width: 500px;
+  z-index: 2;
+}
+
+.main-container-wrapper .main-container .brand-logo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  cursor: pointer;
+  margin-bottom: 2.5em;
+}
+
+.main-container-wrapper .main-container .brand-logo h1 {
+  font-size: 1.8em;
+  padding: 0 .6em;
+  margin: 0;
+}
+
+.main-container-wrapper .main-container .box {
+  background-color: #FFFFFF;
+  border-radius: .2em;
+  padding: 2em 2.5em;
+  width: 30vw;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.main-container-wrapper .main-container .box .box-title {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-bottom: 1em;
+  text-align: center;
+}
+
+.main-container-wrapper .main-container .box .box-title .icon-24 {
+  width: 24px;
+  cursor: pointer;
+}
+
+.main-container-wrapper .main-container .box .box-title p {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  font-size: 1.2em;
+}
+
+.main-container-wrapper .main-container .box p {
+  text-align: center;
+}
+
+.main-container-wrapper .main-container .box .box-content {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  width: 80%;
+  margin: 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.main-container-wrapper .main-container .box .box-content .signin-form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.main-container-wrapper .main-container .box .box-content .signin-form input {
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #EEEEEE;
+  font-size: 1em;
+  padding: .3em 0;
+  margin-bottom: 1em;
+}
+
+.main-container-wrapper .main-container .box .box-content .signin-form p {
+  font-size: 1em;
+  padding: .3em 0;
+  margin: 0;
+  margin-bottom: 1em;
+}
+
+.main-container-wrapper .main-container .box .box-content .signin-form button {
+  margin-top: 1em;
+  padding: .5em 0;
+}
+
+.main-container-wrapper .main-container .box .box-content a {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-top: .4em;
+  padding: .5em 0;
+  text-align: center;
+}
+
+.main-container-wrapper .main-container .box .box-content a.hidden {
+  display: none;
+}
+
+.bottom-background {
+  background-color: #03A9F4;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 40vh;
+  z-index: 1;
+}
+/*# sourceMappingURL=signin.css.map */
