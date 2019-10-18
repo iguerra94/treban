@@ -16,10 +16,10 @@ import org.springframework.security.web.authentication.rememberme.PersistentToke
 
 import javax.sql.DataSource;
 
-@Configuration
-@EnableWebSecurity
+//@Configuration
+//@EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-
+/*
 	@Autowired
 	private UserDetailsService userDetailService;
 
@@ -70,7 +70,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		JdbcTokenRepositoryImpl r = new JdbcTokenRepositoryImpl();
 		r.setDataSource(ds);
 		return r;
-	}
+	}*/
 }
 
 /*

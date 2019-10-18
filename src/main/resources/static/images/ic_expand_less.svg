@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="12px" height="8px" viewBox="0 0 12 8" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
+    <title>ic_expand_less</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Home-Page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Home-Page-(Left-Menu-Opened)" transform="translate(-496.000000, -725.000000)">
+            <g id="ic_expand_less" transform="translate(490.000000, 717.000000)">
+                <g id="Icon-24px">
+                    <polygon id="Shape" fill="#FFFFFF" points="12 8 6 14 7.41 15.41 12 10.83 16.59 15.41 18 14"></polygon>
+                    <polygon id="Shape" points="0 0 24 0 24 24 0 24"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

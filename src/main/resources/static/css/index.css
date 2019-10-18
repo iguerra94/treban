@@ -1,4 +1,12 @@
 @import url("https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap");
+:root {
+  --radius: 2px;
+  --baseFg: dimgray;
+  --baseBg: white;
+  --accentFg: #006fc2;
+  --accentBg: #bae1ff;
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -42,6 +50,28 @@ input {
   background-color: #D8D8D8;
 }
 
+.btn-normal-inverse {
+  background-color: #000000;
+  color: #EEEEEE;
+}
+
+.btn-gray {
+  background-color: #BBBBBB;
+  color: #000000;
+}
+
+.btn-gray-dark {
+  background-color: #DDDDDD;
+  color: #000000;
+  -webkit-transition: background-color .3s ease-in;
+  transition: background-color .3s ease-in;
+  will-change: background-color;
+}
+
+.btn-gray-dark:hover {
+  background-color: #BBBBBB;
+}
+
 .btn-info {
   background-color: #1976D2;
   -webkit-transition: background-color .5s ease-in;
@@ -74,6 +104,23 @@ input {
 
 .btn-success:hover {
   background-color: #43a047;
+}
+
+select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+       appearance: none;
+  border: none;
+  outline: 0;
+  padding: 0.65em 2.5em 0.55em 0.75em;
+  border-radius: .5em;
+  font-size: .8em;
+  font-family: inherit;
+  background-color: #EEEEEE;
+  background-image: linear-gradient(#EEEEEE, #EEEEEE), linear-gradient(-135deg, transparent 50%, #EEEEEE 50%), linear-gradient(-225deg, transparent 50%, #EEEEEE 50%), linear-gradient(#EEEEEE 42%, #000000 42%);
+  background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
+  background-size: 1px 100%, 30px 22px, 30px 22px, 30px 100%;
+  background-position: right 30px center, right bottom, right bottom, right bottom;
 }
 
 .bold {

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="36px" height="24px" viewBox="0 0 36 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
+    <title>ic_filter_list</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Home-Page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Home-Page-(Left-Menu-Closed)" transform="translate(-73.000000, -380.000000)">
+            <g id="ic_filter_list" transform="translate(67.000000, 368.000000)">
+                <g id="Icon-24px">
+                    <path d="M20,36 L28,36 L28,32 L20,32 L20,36 L20,36 Z M6,12 L6,16 L42,16 L42,12 L6,12 L6,12 Z M12,26 L36,26 L36,22 L12,22 L12,26 L12,26 Z" id="Shape" fill="#FFFFFF"></path>
+                    <polygon id="Shape" points="0 0 48 0 48 48 0 48"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

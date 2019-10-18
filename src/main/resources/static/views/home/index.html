@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Treban - Inicio</title>
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="css/home.css">
+</head>
+<body>
+    <div class="home-wrapper">
+        <div class="overlay">
+            <div id="modal-add-task-list" class="modal-box">
+                <div class="modal-header">
+                    <p class="modal-header__title bold">Agregar Lista</p>
+                    <img src="../images/ic_close.svg" class="close-modal-icon" alt="Close Modal">
+                </div>
+                <div class="modal-content flex-column">
+                    <p>Seleccione las listas a agregar:</p>
+                    <div class="task-list-items-wrapper">
+                        <ul class="task-list-items">
+                            <li class="task-list-item selected">Backlog</li>
+                            <li class="task-list-item disabled">Todo</li>
+                            <li class="task-list-item">Waiting</li>
+                            <li class="task-list-item disabled">In Progress</li>
+                            <li class="task-list-item">Done</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <form action="" class="modal-form">
+                        <button class="btn btn-normal btn-cancel">Cancelar</button>
+                        <button class="btn btn-info btn-ok"><span class="bold">Agregar</span></button>
+                    </form>
+                </div>
+            </div>
+            <div id="modal-task-detail" class="modal-box hidden">
+                <div class="modal-header">
+                    <p class="modal-header__title bold">Tarea 1</p>
+                    <img src="../images/ic_close.svg" class="close-modal-icon" alt="Close Modal">
+                </div>
+                <div class="modal-content">
+                    <div class="modal-content__left">
+                        <div class="modal-content__left-item">
+                            <p class="bold">Estado</p>
+                            <select id="task_status">
+                                <option value="backlog">BACKLOG</option>
+                                <option value="todo">TODO</option>
+                                <option value="waiting">WAITING</option>
+                                <option value="in_progress">IN PROGRESS</option>
+                                <option value="done">DONE</option>
+                            </select>
+                        </div>
+                        <div class="modal-content__left-item">
+                            <p class="bold">Prioridad</p>
+                            <select id="task_priority">
+                                <option value="low">BAJA</option>
+                                <option value="medium">MEDIA</option>
+                                <option value="high">ALTA</option>
+                            </select>
+                        </div>
+                        <div class="modal-content__left-item">
+                            <p class="bold">Estimacion</p>
+                            <div id="task-estimation-content">
+                                <input type="number" min="1" id="task_estimation_time" placeholder="10">
+                                <select id="task_estimation_time_unit">
+                                    <option value="minutes">min</option>
+                                    <option value="hours" selected>hr</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-content__right">
+                        <p class="bold">Fecha de creacion: <span id="task_creation_date">01 de mayo de 2019 16:43</span></p>
+                        <p class="bold">Ultima actualizacion: <span id="task_last_updated_time">hace 12 horas</span></p>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <form action="" class="modal-form">
+                        <button class="btn btn-normal btn-cancel">Cancelar</button>
+                        <button class="btn btn-info btn-ok" disabled><span class="bold">Guardar</span></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <nav class="left-menu">
+            <div class="left-menu-container left-menu-container-opened active">
+                <div class="left-menu__top-content">
+                    <div class="brand-logo">
+                        <a href="/home/">
+                            <img src="../../images/Treban Logo x32.svg" alt="Treban Logo">
+                            <h1 class="bold">Treban</h1>
+                        </a>
+                    </div>
+                    <div class="btn-open-close-left-menu-wrapper">
+
+                    </div>
+                    <div class="left-menu__items-wrapper">
+                        <ul class="left-menu__items">
+                            <li class="left-menu__item">
+                                <p class="left-menu__item-header bold">Ordenar listas</p>
+                                <select>
+                                    <option value="date_created">Fecha de creacion</option>
+                                    <option value="priority">Prioridad</option>
+                                </select>
+                            </li>
+                            <li class="left-menu__item">
+                                <p class="left-menu__item-header bold">Ver lista</p>
+                                <select>
+                                    <option value="all_lists">Todas</option>
+                                    <option value="backlog_list">BACKLOG</option>
+                                    <option value="todo_list">TODO</option>
+                                    <option value="waiting_list">WAITING</option>
+                                    <option value="in_progress_list">IN PROGRESS</option>
+                                    <option value="done_list">DONE</option>
+                                </select>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="left-menu__bottom-content">
+                    <button id="btn-username" class="btn btn-normal-inverse">
+                        <span id="btn-username-text">ig</span>
+                    </button>
+                    <div class="user-menu hidden">
+                        <ul class="user-menu__items">
+                            <li class="user-menu__item user-menu__item-header">
+                                <span class="bold" id="user-username">Ivan Gabriel Guerra</span>
+                                <span id="user-email">iguerra696@alumnos.iua.edu.ar</span>
+                            </li>
+                            <li class="user-menu__item">
+                                <a href="" id="btn-profile"></a><span>Perfil</span>
+                            </li>
+                            <li class="user-menu__item">
+                                <a href="" id="btn-close-session"><span>Cerrar sesion</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        <main class="main-container-wrapper">
+            <div class="main-container">
+                <div class="main-container__header">
+                    <button id="btn-add-task-list" class="btn btn-success">
+                        <span class="bold">Agregar lista</span>
+                        <img src="../images/ic_add.svg" alt="Add new task list">
+                    </button>
+                </div>
+                <div class="main-container__content">
+                    <div class="main-container__content-items-wrapper">
+                        <ul class="main-container__content-items">
+                            <li class="main-container__content-item">
+                                <div class="task-list__header">
+                                    <p class="task-list__name">Backlog</p>
+                                    <img src="../images/ic_expand_more.svg" alt="Expand/Shrink Task List" class="">
+                                </div>
+                                <div class="task-list__items-wrapper">
+                                    <ul class="task-list__items">
+                                        <li class="task-list__item">Tarea 1</li>
+                                        <li class="task-list__item">Tarea 2</li>
+                                        <li class="task-list__item">Tarea 2</li>
+                                        <li class="task-list__item">Tarea 2</li>
+                                        <li class="task-list__item">Tarea 2</li>
+                                        <li class="task-list__item">Tarea 1</li>
+                                        <li class="task-list__item">Tarea 2</li>
+                                        <li class="task-list__item task-list__item-add-new-task">
+                                            <button id="btn-add-task" class="btn btn-gray-dark">
+                                                <img src="../images/ic_add_black.svg" alt="Add New Task">
+                                                <span>Crear tarea</span>
+                                            </button>
+                                            <form action="" class="new-task__form hidden">
+                                                <textarea id="new-task" rows="2" placeholder="Ingrese la tarea a realizar..."></textarea>
+                                                <div class="new-task__form-row">
+                                                    <button id="btn-save-new-task" class="btn btn-info">
+                                                        <span class="bold">Guardar</span>
+                                                    </button>
+                                                    <button id="btn-cancel-new-task" class="btn btn-gray-dark">
+                                                        <span>Cancelar</span>
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="main-container__content-item">
+                                <div class="task-list__header">
+                                    <p class="task-list__name">Backlog</p>
+                                    <img src="../images/ic_expand_more.svg" alt="Expand/Shrink Task List" class="">
+                                </div>
+                                <div class="task-list__items-wrapper">
+                                    <ul class="task-list__items">
+                                        <li class="task-list__item">Tarea 1</li>
+                                        <li class="task-list__item">Tarea 2</li>
+                                        <li class="task-list__item">Tarea 2</li>
+                                        <li class="task-list__item">Tarea 2</li>
+                                        <li class="task-list__item">Tarea 2</li>
+                                        <li class="task-list__item">Tarea 1</li>
+                                        <li class="task-list__item">Tarea 2</li>
+                                        <li class="task-list__item task-list__item-add-new-task">
+                                            <button id="btn-add-task" class="btn btn-gray-dark">
+                                                <img src="../images/ic_add_black.svg" alt="Add New Task">
+                                                <span>Crear tarea</span>
+                                            </button>
+                                            <form action="" class="new-task__form hidden">
+                                                <textarea id="new-task" rows="2" placeholder="Ingrese la tarea a realizar..."></textarea>
+                                                <div class="new-task__form-row">
+                                                    <button id="btn-save-new-task" class="btn btn-info">
+                                                        <span class="bold">Guardar</span>
+                                                    </button>
+                                                    <button id="btn-cancel-new-task" class="btn btn-gray-dark">
+                                                        <span>Cancelar</span>
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="main-container__content-item">
+                                <div class="task-list__header">
+                                    <p class="task-list__name">Backlog</p>
+                                    <img src="../images/ic_expand_more.svg" alt="Expand/Shrink Task List" class="">
+                                </div>
+                                <div class="task-list__items-wrapper">
+                                    <ul class="task-list__items">
+                                        <li class="task-list__item">Tarea 1</li>
+                                        <li class="task-list__item">Tarea 2</li>
+                                        <li class="task-list__item">Tarea 2</li>
+                                        <li class="task-list__item">Tarea 2</li>
+                                        <li class="task-list__item">Tarea 2</li>
+                                        <li class="task-list__item">Tarea 1</li>
+                                        <li class="task-list__item">Tarea 2</li>
+                                        <li class="task-list__item task-list__item-add-new-task">
+                                            <button id="btn-add-task" class="btn btn-gray-dark">
+                                                <img src="../images/ic_add_black.svg" alt="Add New Task">
+                                                <span>Crear tarea</span>
+                                            </button>
+                                            <form action="" class="new-task__form hidden">
+                                                <textarea id="new-task" rows="2" placeholder="Ingrese la tarea a realizar..."></textarea>
+                                                <div class="new-task__form-row">
+                                                    <button id="btn-save-new-task" class="btn btn-info">
+                                                        <span class="bold">Guardar</span>
+                                                    </button>
+                                                    <button id="btn-cancel-new-task" class="btn btn-gray-dark">
+                                                        <span>Cancelar</span>
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="main-container__content-item">
+                                <div class="task-list__header">
+                                    <p class="task-list__name">Backlog</p>
+                                    <img src="../images/ic_expand_more.svg" alt="Expand/Shrink Task List" class="">
+                                </div>
+                                <div class="task-list__items-wrapper">
+                                    <ul class="task-list__items">
+                                        <li class="task-list__item">Tarea 1</li>
+                                        <li class="task-list__item">Tarea 2</li>
+                                        <li class="task-list__item">Tarea 2</li>
+                                        <li class="task-list__item">Tarea 2</li>
+                                        <li class="task-list__item">Tarea 2</li>
+                                        <li class="task-list__item">Tarea 1</li>
+                                        <li class="task-list__item">Tarea 2</li>
+                                        <li class="task-list__item task-list__item-add-new-task">
+                                            <button id="btn-add-task" class="btn btn-gray-dark">
+                                                <img src="../images/ic_add_black.svg" alt="Add New Task">
+                                                <span>Crear tarea</span>
+                                            </button>
+                                            <form action="" class="new-task__form hidden">
+                                                <textarea id="new-task" rows="2" placeholder="Ingrese la tarea a realizar..."></textarea>
+                                                <div class="new-task__form-row">
+                                                    <button id="btn-save-new-task" class="btn btn-info">
+                                                        <span class="bold">Guardar</span>
+                                                    </button>
+                                                    <button id="btn-cancel-new-task" class="btn btn-gray-dark">
+                                                        <span>Cancelar</span>
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li class="main-container__content-item">
+                                <div class="task-list__header">
+                                    <p class="task-list__name">Backlog</p>
+                                    <img src="../images/ic_expand_more.svg" alt="Expand/Shrink Task List" class="">
+                                </div>
+                                <div class="task-list__items-wrapper">
+                                    <ul class="task-list__items">
+                                        <li class="task-list__item">Tarea 1</li>
+                                        <li class="task-list__item">Tarea 2</li>
+                                        <li class="task-list__item">Tarea 2</li>
+                                        <li class="task-list__item">Tarea 2</li>
+                                        <li class="task-list__item">Tarea 2</li>
+                                        <li class="task-list__item">Tarea 1</li>
+                                        <li class="task-list__item">Tarea 2</li>
+                                        <li class="task-list__item task-list__item-add-new-task">
+                                            <button id="btn-add-task" class="btn btn-gray-dark">
+                                                <img src="../images/ic_add_black.svg" alt="Add New Task">
+                                                <span>Crear tarea</span>
+                                            </button>
+                                            <form action="" class="new-task__form hidden">
+                                                <textarea id="new-task" rows="2" placeholder="Ingrese la tarea a realizar..."></textarea>
+                                                <div class="new-task__form-row">
+                                                    <button id="btn-save-new-task" class="btn btn-info">
+                                                        <span class="bold">Guardar</span>
+                                                    </button>
+                                                    <button id="btn-cancel-new-task" class="btn btn-gray-dark">
+                                                        <span>Cancelar</span>
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <script>
+        const $btnUsername = document.querySelector('#btn-username');
+        const $userMenu = document.querySelector('.user-menu');
+
+        $btnUsername.addEventListener('click', (e) => {
+            e.preventDefault();
+            
+            $userMenu.classList.toggle('hidden');
+            $userMenu.classList.toggle('active');
+        })
+    </script>
+</body>
+</html>

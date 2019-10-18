@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="36px" height="24px" viewBox="0 0 36 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 58 (84663) - https://sketch.com -->
+    <title>ic_sort</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Home-Page" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Home-Page-(Left-Menu-Closed)" transform="translate(-73.000000, -243.000000)">
+            <g id="ic_sort" transform="translate(67.000000, 231.000000)">
+                <g id="Icon-24px">
+                    <path d="M6,36 L18,36 L18,32 L6,32 L6,36 L6,36 Z M6,12 L6,16 L42,16 L42,12 L6,12 L6,12 Z M6,26 L30,26 L30,22 L6,22 L6,26 L6,26 Z" id="Shape" fill="#FFFFFF"></path>
+                    <polygon id="Shape" points="0 0 48 0 48 48 0 48"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
