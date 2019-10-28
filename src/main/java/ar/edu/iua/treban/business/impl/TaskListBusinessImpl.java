@@ -1,11 +1,11 @@
 package ar.edu.iua.treban.business.impl;
 
 import ar.edu.iua.treban.business.ITaskListBusiness;
+import ar.edu.iua.treban.business.exception.AlreadyExistsException;
 import ar.edu.iua.treban.business.exception.BusinessException;
-import ar.edu.iua.treban.business.exception.TaskListNameExistsException;
 import ar.edu.iua.treban.dao.FactoryDAO;
 import ar.edu.iua.treban.model.TaskList;
-import ar.edu.iua.treban.model.exception.TaskListEmptyFieldsException;
+import ar.edu.iua.treban.model.exception.EmptyFieldsException;
 import ar.edu.iua.treban.model.exception.TaskListNameInvalidException;
 import ar.edu.iua.treban.utils.TaskListUtils;
 import org.slf4j.Logger;
@@ -18,7 +18,7 @@ public class TaskListBusinessImpl implements ITaskListBusiness {
     private Logger log = LoggerFactory.getLogger(this.getClass());
 
     @Override
-    public TaskList addTaskList(TaskList taskList) throws BusinessException, TaskListEmptyFieldsException, TaskListNameInvalidException, TaskListNameExistsException {
+    public TaskList addTaskList(TaskList taskList) throws BusinessException, EmptyFieldsException, TaskListNameInvalidException, AlreadyExistsException {
         log.info("Info when adding the Task List: Starting method logs.");
         if (taskList.getName() == null || taskList.getSprintName() == null) {
             log.error("Error when adding the Task List: name and sprintName fields must be entered.");
@@ -29,7 +29,7 @@ public class TaskListBusinessImpl implements ITaskListBusiness {
         if (taskList.getName().trim().length() == 0 || taskList.getSprintName().trim().length() == 0) {
             log.error("Error when adding the Task List: Neither the name nor the sprintName might be empty.");
             log.info("Info when adding the Task List: Finished method logs.");
-            throw new TaskListEmptyFieldsException("Neither the name nor the sprintName might be empty.");
+            throw new EmptyFieldsException("Neither the name nor the sprintName might be empty.");
         }
 
         try {
@@ -46,7 +46,7 @@ public class TaskListBusinessImpl implements ITaskListBusiness {
         if (taskListExists != null) {
             log.error("Error when adding the Task List: The list name entered already exists.");
             log.info("Info when adding the Task List: Finished method logs.");
-            throw new TaskListNameExistsException("The list name entered already exists.");
+            throw new AlreadyExistsException("The list name entered already exists.");
         }
 
         log.info("Info when adding the Task List: The Task List name entered does not exists already in the database.");

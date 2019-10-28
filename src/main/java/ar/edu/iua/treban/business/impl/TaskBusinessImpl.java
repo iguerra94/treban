@@ -211,7 +211,7 @@ public class TaskBusinessImpl implements ITaskBusiness {
     }
 
     @Override
-    public Task addTask(Task task) throws BusinessException, TaskEmptyFieldsException, TaskNameExistsException, TaskEstimationInvalidException, TaskPriorityInvalidException, TaskListNameNotExistsException, TaskListNameInvalidException {
+    public Task addTask(Task task) throws BusinessException, EmptyFieldsException, TaskNameExistsException, TaskEstimationInvalidException, TaskPriorityInvalidException, TaskListNameNotExistsException, TaskListNameInvalidException {
         log.info("Info when adding one Task: Starting method logs.");
         if (task.getName() == null ||
                 task.getEstimation() == null ||
@@ -228,7 +228,7 @@ public class TaskBusinessImpl implements ITaskBusiness {
                 task.getStatus().getName().trim().length() == 0) {
             log.error("Error when adding one Task: Neither the name, estimation, priority and status might be empty or less than 1.");
             log.info("Info when adding one Task: Finished method logs.");
-            throw new TaskEmptyFieldsException("Neither the name, estimation, priority and status might be empty or less than 1.");
+            throw new EmptyFieldsException("Neither the name, estimation, priority and status might be empty or less than 1.");
         }
 
         Task taskNameExists = taskDAO.findByName(task.getName());
@@ -294,7 +294,7 @@ public class TaskBusinessImpl implements ITaskBusiness {
     }
 
     @Override
-    public Task moveTask(int id, Task task) throws BusinessException, TaskEmptyFieldsException, TaskListNameInvalidException, TaskListNameNotExistsException, NotFoundException, TaskMoveToEqualListException, TaskMoveFromDoneListException, TaskMoveFromBacklogListException {
+    public Task moveTask(int id, Task task) throws BusinessException, EmptyFieldsException, TaskListNameInvalidException, TaskListNameNotExistsException, NotFoundException, TaskMoveToEqualListException, TaskMoveFromDoneListException, TaskMoveFromBacklogListException {
         log.info("Info when moving one Task: Starting method logs.");
         Task taskFound = getOne(id);
 
@@ -307,7 +307,7 @@ public class TaskBusinessImpl implements ITaskBusiness {
         if (task.getStatus().getName().trim().length() == 0) {
             log.error("Error when moving one Task: The status name cannot be empty.");
             log.info("Info when moving one Task: Finished method logs.");
-            throw new TaskEmptyFieldsException("The status name cannot be empty.");
+            throw new EmptyFieldsException("The status name cannot be empty.");
         }
 
         try {

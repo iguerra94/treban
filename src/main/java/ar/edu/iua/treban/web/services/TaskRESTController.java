@@ -94,8 +94,8 @@ public class TaskRESTController {
                             .toUri();
 
             return ResponseEntity.created(locationURI).body(taskCreated);
-        } catch (TaskEmptyFieldsException e) {
-            return new CustomizedResponseEntityExceptionHandler().handleTaskEmptyFieldsException(e, request);
+        } catch (EmptyFieldsException e) {
+            return new CustomizedResponseEntityExceptionHandler().handleEmptyFieldsException(e, request);
         } catch (TaskNameExistsException e) {
             return new CustomizedResponseEntityExceptionHandler().handleTaskNameExistsException(e, request);
         } catch (TaskEstimationInvalidException e) {
@@ -115,8 +115,8 @@ public class TaskRESTController {
     public ResponseEntity<Task> moveTask(@PathVariable("id") int id, @RequestBody Task task, HttpServletRequest request) {
         try {
             return ResponseEntity.ok(taskBusiness.moveTask(id, task));
-        } catch (TaskEmptyFieldsException e) {
-            return new CustomizedResponseEntityExceptionHandler().handleTaskEmptyFieldsException(e, request);
+        } catch (EmptyFieldsException e) {
+            return new CustomizedResponseEntityExceptionHandler().handleEmptyFieldsException(e, request);
         } catch (TaskListNameInvalidException e) {
             return new CustomizedResponseEntityExceptionHandler().handleTaskListNameInvalidException(e, request);
         } catch (TaskListNameNotExistsException e) {

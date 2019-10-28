@@ -4,8 +4,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.BAD_REQUEST)
-public class TaskEmptyFieldsException extends RuntimeException {
-    public TaskEmptyFieldsException(String message) {
+public class EmptyFieldsException extends RuntimeException {
+    public EmptyFieldsException(String message) {
         super(message);
     }
 }

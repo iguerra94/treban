@@ -8,7 +8,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-@Table(name = "task_lists")
+@Table(name = "task_list")
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class TaskList implements Serializable {
 
@@ -16,6 +16,7 @@ public class TaskList implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "task_list_id")
     private int id;
+
     @Column(name = "name", length = 11, nullable = false)
     private String name;
 
@@ -38,10 +39,6 @@ public class TaskList implements Serializable {
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {

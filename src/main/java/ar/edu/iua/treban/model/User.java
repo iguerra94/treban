@@ -7,19 +7,21 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.beans.Transient;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 @Entity
-@Table(name = "users")
+@Table(name = "user")
 public class User implements UserDetails {
 
 	private static final long serialVersionUID = -3552525853367219773L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long idUser;
+	@Column(name = "user_id")
+	private int idUser;
 
 	@Column(length = 100)
 	private String name;
@@ -31,17 +33,19 @@ public class User implements UserDetails {
 	private String username;
 
 	private String password;
-	private boolean enabled;
 
+	private boolean enabled;
 	private boolean accountNonExpired = true;
 	private boolean accountNonLocked = true;
 	private boolean credentialsNonExpired = true;
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "user_roles", joinColumns = {
-			@JoinColumn(name = "idUser", referencedColumnName = "idUser")}, inverseJoinColumns = {
-			@JoinColumn(name = "idRole", referencedColumnName = "idRole")})
+			@JoinColumn(name = "idUser", referencedColumnName = "user_id")}, inverseJoinColumns = {
+			@JoinColumn(name = "idRole", referencedColumnName = "role_id")})
 	private Set<Role> roles;
+
+	public User() {}
 
 	@Transient
 	@Override
@@ -51,7 +55,7 @@ public class User implements UserDetails {
 		return authorities;
 	}
 
-	public Long getIdUser() {
+	public int getId() {
 		return idUser;
 	}
 
@@ -97,10 +101,6 @@ public class User implements UserDetails {
 		return roles;
 	}
 
-	public void setIdUser(Long idUser) {
-		this.idUser = idUser;
-	}
-
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -137,4 +137,8 @@ public class User implements UserDetails {
 		this.roles = roles;
 	}
 
+	@Override
+	public String toString() {
+		return "User: (name = " + name + ", email = " + email + ", username = " + username + ')';
+	}
 }

@@ -34,6 +34,20 @@ public class CustomizedResponseEntityExceptionHandler {
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(EmptyFieldsException.class)
+    public final ResponseEntity handleEmptyFieldsException(EmptyFieldsException ex, HttpServletRequest request) {
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(),
+                request.getServletPath());
+        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(AlreadyExistsException.class)
+    public final ResponseEntity handleAlreadyExistsException(AlreadyExistsException ex, HttpServletRequest request) {
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(),
+                request.getServletPath());
+        return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
     /* Task List Exceptions */
 
     @ExceptionHandler(TaskListNameInvalidException.class)
@@ -43,28 +57,7 @@ public class CustomizedResponseEntityExceptionHandler {
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
 
-    @ExceptionHandler(TaskListEmptyFieldsException.class)
-    public final ResponseEntity handleTaskListEmptyFieldsException(TaskListEmptyFieldsException ex, HttpServletRequest request) {
-        ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(),
-                request.getServletPath());
-        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(TaskListNameExistsException.class)
-    public final ResponseEntity handleTaskListNameExistsException(TaskListNameExistsException ex, HttpServletRequest request) {
-        ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(),
-                request.getServletPath());
-        return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-
     /* Task Exceptions */
-
-    @ExceptionHandler(TaskEmptyFieldsException.class)
-    public final ResponseEntity handleTaskEmptyFieldsException(TaskEmptyFieldsException ex, HttpServletRequest request) {
-        ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(),
-                request.getServletPath());
-        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
-    }
 
     @ExceptionHandler(TaskNameExistsException.class)
     public ResponseEntity handleTaskNameExistsException(TaskNameExistsException ex, HttpServletRequest request) {
@@ -124,6 +117,15 @@ public class CustomizedResponseEntityExceptionHandler {
 
     @ExceptionHandler(GetTaskListInvalidOrderByParamException.class)
     public final ResponseEntity handleGetTaskListInvalidOrderByParamException(GetTaskListInvalidOrderByParamException ex, HttpServletRequest request) {
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(),
+                request.getServletPath());
+        return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
+    }
+
+    /* User Exceptions */
+
+    @ExceptionHandler(UserEmailInvalidException.class)
+    public final ResponseEntity handleUserEmailInvalidException(UserEmailInvalidException ex, HttpServletRequest request) {
         ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(),
                 request.getServletPath());
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);

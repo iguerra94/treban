@@ -1,14 +1,12 @@
 angular.module('treban',
-    [ 'ngRoute', 'ngSanitize', 'ngAnimate', 'ngTouch', 'ui.bootstrap',
-        'ngSanitize', 'angularUtils.directives.dirPagination',
-        'angucomplete-alt', 'ngLoadingSpinner', 'ui.select',
-        'adaptv.adaptStrap', 'ngDragDrop', 'ui-notification',
-        'chart.js', 'ngStomp', 'uiSwitch' ])
-    .run(['$rootScope','$location','$stomp',
+    [ 'ngRoute', 'ngSanitize', 'angularUtils.directives.dirPagination'])
+    .constant('URL_BASE', '/')
+    .constant('URL_API_BASE', '/api/v1/')
+    .constant('RESPONSE_CODE_OK', 200)
+    .constant('RESPONSE_CODE_CREATED', 201)
+    .run(['$rootScope','$location',
         function($rootScope, $location) {
             console.log("Iniciando");
-
-            $rootScope.anioActual = new Date().getFullYear();
 
             $rootScope.cleanLoginData = function() {
                 $rootScope.autenticado = false;
@@ -22,9 +20,12 @@ angular.module('treban',
 
             $rootScope.cleanLoginData();
 
-            console.log($rootScope.user);
-
             $rootScope.relocate = function(loc) {
                 $location.path(loc);
             };
+
+            $rootScope.isEmailValid = function(email) {
+                return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+            }
+
         } ]);

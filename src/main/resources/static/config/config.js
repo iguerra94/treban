@@ -4,24 +4,27 @@ angular.module('treban').config(
 			$logProvider.debugEnabled(true);
 			
 			// $httpProvider.defaults.withCredentials = true;
-			//
 			// $httpProvider.interceptors.push('APIInterceptor');
 		
-			$locationProvider.hashPrefix('!');
-			
+			$locationProvider.html5Mode(true);
+
 			$routeProvider
-                .when('/', {
-                    templateUrl : 'views/home/home.html',
-                    controller : 'HomeController'
-                })
-                .when('/login', {
-                    templateUrl : 'views/login.html',
-                    controller : 'LoginController'
+				.when('/', {
+					templateUrl: 'views/landing/index.html',
+					controller: 'LandingController'
 				})
-				.when('/register', {
-                    templateUrl: 'views/register.html',
-                    controller: 'RegisterController'
+				.when('/signin', {
+					templateUrl: 'views/signin/index.html',
+					controller: 'SigninController'
+				})
+				.when('/signup', {
+                    templateUrl: 'views/signup/index.html',
+                    controller: 'SignupController'
                 })
+				.when('/signup/success', {
+					templateUrl: 'views/signup/success/index.html',
+					controller: 'SignupSuccessController'
+				})
 				.otherwise({
 					redirectTo: '/'
 				});

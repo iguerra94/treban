@@ -4,13 +4,14 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "roles")
+@Table(name = "role")
 public class Role implements Serializable {
 
 	private static final long serialVersionUID = 3941512108484193L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "role_id")
 	private int idRole;
 
 	@Column(unique = true, nullable = false)
@@ -19,7 +20,7 @@ public class Role implements Serializable {
 	@Column(nullable = false, length = 100)
 	private String description;
 
-	public int getIdRole() {
+	public int getId() {
 		return idRole;
 	}
 
@@ -29,10 +30,6 @@ public class Role implements Serializable {
 
 	public String getDescription() {
 		return description;
-	}
-
-	public void setIdRole(int idRole) {
-		this.idRole = idRole;
 	}
 
 	public void setDescription(String description) {
@@ -45,16 +42,16 @@ public class Role implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		return ((Role) obj).getIdRole() == getIdRole() || ((Role) obj).getName().equals(getName());
+		return ((Role) obj).getId() == getId() || ((Role) obj).getName().equals(getName());
 	}
 
 	@Override
 	public int hashCode() {
-		return getIdRole();
+		return getId();
 	}
 
 	@Override
 	public String toString() {
-		return String.format("Role: [%d] %s", getIdRole(), getName());
+		return String.format("Role: [%d] %s", getId(), getName());
 	}
 }

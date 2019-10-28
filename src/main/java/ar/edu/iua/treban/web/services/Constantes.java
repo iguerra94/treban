@@ -8,6 +8,8 @@ public class Constantes {
 
     public static final String URL_LISTS = URL_BASE + "/lists";
     public static final String URL_TASKS = URL_BASE + "/tasks";
+    public static final String URL_USERS = URL_BASE + "/users";
+    public static final String URL_USERS_CREATED_SUCCESS = URL_BASE + "/users/success";
 
     public static final String URL_DENY="/deny";
     public static final String URL_LOGOUTOK="/logoutok";

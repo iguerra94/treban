@@ -2,14 +2,14 @@ body {
   background-color: #DCDCDC;
 }
 
-.main-container-wrapper-su {
+.main-container-wrapper {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   height: 100vh;
 }
 
-.main-container-wrapper-su .main-container-su {
+.main-container-wrapper .main-container {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -29,7 +29,7 @@ body {
   z-index: 2;
 }
 
-.main-container-wrapper-su .main-container-su .brand-logo {
+.main-container-wrapper .main-container .brand-logo {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -40,13 +40,13 @@ body {
   margin-bottom: 2.5em;
 }
 
-.main-container-wrapper-su .main-container-su .brand-logo h1 {
+.main-container-wrapper .main-container .brand-logo h1 {
   font-size: 1.8em;
   padding: 0 .6em;
   margin: 0;
 }
 
-.main-container-wrapper-su .main-container-su .box {
+.main-container-wrapper .main-container .box {
   background-color: #FFFFFF;
   border-radius: .2em;
   display: -webkit-box;
@@ -66,17 +66,7 @@ body {
           flex: 1;
 }
 
-.main-container-wrapper-su .main-container-su .box .box-title {
-  margin: 0 auto;
-  text-align: center;
-  width: 80%;
-}
-
-.main-container-wrapper-su .main-container-su .box .box-title p {
-  font-size: 1.2em;
-}
-
-.main-container-wrapper-su .main-container-su .box .box-content {
+.main-container-wrapper .main-container .box .box-content {
   height: 100%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -90,7 +80,68 @@ body {
           flex-direction: column;
 }
 
-.main-container-wrapper-su .main-container-su .box .box-content .signup-form {
+.main-container-wrapper .main-container .box .box-content .success-message-box {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin-bottom: 1em;
+}
+
+.main-container-wrapper .main-container .box .box-content .success-message-box .success-icon-box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 5em;
+  height: 5em;
+  border-radius: 50%;
+  background-color: #66BB6A;
+  margin-bottom: 1em;
+}
+
+.main-container-wrapper .main-container .box .box-content .success-message-box .success-icon-box .success-icon {
+  width: 2.5em;
+}
+
+.main-container-wrapper .main-container .box .box-content .buttons-box {
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.main-container-wrapper .main-container .box .box-content .buttons-box a {
+  width: 80%;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -98,62 +149,9 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-
-.main-container-wrapper-su .main-container-su .box .box-content .signup-form input {
-  outline: none;
-  border: none;
-  font-size: 1em;
-  border-bottom: 1px solid #EEEEEE;
-  width: 80%;
-  padding: .3em 0;
-  margin-bottom: 1em;
-}
-
-.main-container-wrapper-su .main-container-su .box .box-content .signup-form button {
-  margin-top: 1em;
+  margin-top: .4em;
   padding: .5em 0;
-  width: 80%;
-}
-
-.main-container-wrapper-su .main-container-su .box .box-content .error-message-box {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  background-color: #F44336;
-  width: 100%;
-  margin-top: 1em;
-  padding: .6em;
-  padding-right: 1em;
-  -ms-flex-item-align: center;
-      align-self: center;
-  border-radius: .2em;
-}
-
-.main-container-wrapper-su .main-container-su .box .box-content .error-message-box.hidden {
-  display: none;
-}
-
-.main-container-wrapper-su .main-container-su .box .box-content .error-message-box .error-message {
-  color: #FFFFFF;
-  font-size: 1em;
-}
-
-.main-container-wrapper-su .main-container-su .box .box-content .error-message-box .close-error-message-icon {
-  cursor: pointer;
-  margin-left: 1em;
+  text-align: center;
 }
 
 .bottom-background {
@@ -165,4 +163,4 @@ body {
   height: 40vh;
   z-index: 1;
 }
-/*# sourceMappingURL=signup.css.map */
+/*# sourceMappingURL=signup-success.css.map */

@@ -4,8 +4,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-public class TaskListNameExistsException extends RuntimeException {
-    public TaskListNameExistsException(String message) {
+public class AlreadyExistsException extends RuntimeException {
+    public AlreadyExistsException(String message) {
         super(message);
     }
 }
