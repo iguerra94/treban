@@ -1,41 +1,29 @@
 package ar.edu.iua.treban;
 
+import ar.edu.iua.treban.auth.CustomAuthenticationProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.rememberme.JdbcTokenRepositoryImpl;
-import org.springframework.security.web.authentication.rememberme.PersistentTokenRepository;
 
-import javax.sql.DataSource;
-
-//@Configuration
-//@EnableWebSecurity
+@Configuration
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(
+		prePostEnabled = true,
+		securedEnabled = true,
+		jsr250Enabled = true)
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-/*
+
 	@Autowired
-	private UserDetailsService userDetailService;
+	private CustomAuthenticationProvider customAuthenticationProvider;
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-		// auth.inMemoryAuthentication().withUser("user").password(pwdEncoder().encode("password")).roles("USER").and()
-		// .withUser("admin").password(pwdEncoder().encode("password")).roles("ADMIN");
-
-		auth.userDetailsService(userDetailService);
-
-	}
-
-	@Bean
-	public PasswordEncoder pwdEncoder() {
-		// return NoOpPasswordEncoder.getInstance();
-		return new BCryptPasswordEncoder();
+		//auth.authenticationProvider(customAuthenticationProvider);
 	}
 
 	@Value("${recursos.estaticos}")
@@ -43,34 +31,32 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		// http.httpBasic();
-
 		String[] resources = recursosEstaticos.split(",");
 
-//		http.authorizeRequests().antMatchers(resources).permitAll().anyRequest().authenticated();
-//		http.authorizeRequests().antMatchers("/login").permitAll().antMatchers("/dologin").permitAll().anyRequest()
-//				.authenticated();
-//
-//		http.formLogin().loginPage(Constantes.URL_DENY).defaultSuccessUrl(Constantes.URL_LOGINOK)
-//				.loginProcessingUrl("/dologin").permitAll().failureForwardUrl(Constantes.URL_DENY);
-//
+		http.csrf().disable();
+
+		http.authorizeRequests().antMatchers(resources).permitAll().anyRequest().permitAll();
+
+//		http.formLogin()
+//				.loginPage(Constantes.URL_SIGNIN)
+//				.defaultSuccessUrl(Constantes.URL_HOME)
+//				.failureUrl("/signin?error="+true)
+//				.permitAll();
+
 //		http.logout().logoutSuccessUrl(Constantes.URL_LOGOUTOK).deleteCookies("JSESSIONID", "rmiw3")
 //				.clearAuthentication(true);
 //		http.rememberMe().tokenRepository(rmRepository()).rememberMeParameter("rmparam").alwaysRemember(true)
 //				.rememberMeCookieName("rmiw3").tokenValiditySeconds(60 * 60 * 24);
-//
-//		http.csrf().disable();
-
 	}
 
-	@Autowired
-	private DataSource ds;
+//	@Autowired
+//	private DataSource ds;
 
-	public PersistentTokenRepository rmRepository() {
-		JdbcTokenRepositoryImpl r = new JdbcTokenRepositoryImpl();
-		r.setDataSource(ds);
-		return r;
-	}*/
+//	public PersistentTokenRepository rmRepository() {
+//		JdbcTokenRepositoryImpl r = new JdbcTokenRepositoryImpl();
+//		r.setDataSource(ds);
+//		return r;
+//	}
 }
 
 /*

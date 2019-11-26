@@ -12,10 +12,24 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TaskListBusinessImpl implements ITaskListBusiness {
 
     private Logger log = LoggerFactory.getLogger(this.getClass());
+
+    @Override
+    public List<TaskList> getLists() {
+        log.info("Info when getting the list of Tasks Lists: Starting method logs.");
+
+        List<TaskList> lists = (List<TaskList>) FactoryDAO.getInstance().getTaskListDAO().getAll();
+
+        log.info("Info when getting the list of Tasks Lists: The list of Tasks Lists was returned successfully.");
+        log.info("Info when getting the list of Tasks Lists: Finished method logs.");
+
+        return lists;
+    }
 
     @Override
     public TaskList addTaskList(TaskList taskList) throws BusinessException, EmptyFieldsException, TaskListNameInvalidException, AlreadyExistsException {
@@ -27,9 +41,9 @@ public class TaskListBusinessImpl implements ITaskListBusiness {
         }
 
         if (taskList.getName().trim().length() == 0 || taskList.getSprintName().trim().length() == 0) {
-            log.error("Error when adding the Task List: Neither the name nor the sprintName might be empty.");
+            log.error("Error when adding the Task List: None of the fields can be empty.");
             log.info("Info when adding the Task List: Finished method logs.");
-            throw new EmptyFieldsException("Neither the name nor the sprintName might be empty.");
+            throw new EmptyFieldsException("None of the fields can be empty.");
         }
 
         try {
@@ -63,4 +77,5 @@ public class TaskListBusinessImpl implements ITaskListBusiness {
         }
         return taskListCreated;
     }
+
 }

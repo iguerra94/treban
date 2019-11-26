@@ -29,7 +29,7 @@ input {
 }
 
 .btn {
-    font-family: 'Montserrat', sans-serif;    
+    font-family: 'Montserrat', sans-serif;
     cursor: pointer;
     outline: none;
     border: none;
@@ -112,12 +112,30 @@ select {
     font-family: inherit;
     background-color: #EEEEEE;
     background-image: linear-gradient(#EEEEEE, #EEEEEE),
-      linear-gradient(-135deg, transparent 50%, #EEEEEE 50%),
-      linear-gradient(-225deg, transparent 50%, #EEEEEE 50%),
-      linear-gradient(#EEEEEE 42%, #000000 42%);
+    linear-gradient(-135deg, transparent 50%, #EEEEEE 50%),
+    linear-gradient(-225deg, transparent 50%, #EEEEEE 50%),
+    linear-gradient(#EEEEEE 42%, #000000 42%);
     background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
     background-size: 1px 100%, 30px 22px, 30px 22px, 30px 100%;
-    background-position: right 30px center, right bottom, right bottom, right bottom;   
+    background-position: right 30px center, right bottom, right bottom, right bottom;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+.flex-row {
+    flex-direction: row;
+    align-items: center;
+}
+
+input {
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #EEEEEE;
+    font-size: 1em;
+    padding: .3em 0;
+    margin-bottom: 1em;
 }
 
 .bold {

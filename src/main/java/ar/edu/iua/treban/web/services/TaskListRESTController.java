@@ -3,19 +3,21 @@ package ar.edu.iua.treban.web.services;
 import ar.edu.iua.treban.business.ITaskListBusiness;
 import ar.edu.iua.treban.business.exception.AlreadyExistsException;
 import ar.edu.iua.treban.business.exception.BusinessException;
+import ar.edu.iua.treban.model.Task;
 import ar.edu.iua.treban.model.TaskList;
 import ar.edu.iua.treban.model.exception.EmptyFieldsException;
 import ar.edu.iua.treban.model.exception.TaskListNameInvalidException;
+import ar.edu.iua.treban.utils.TaskUtils;
+import ar.edu.iua.treban.web.services.exception.GetTaskListInvalidNameParamException;
+import ar.edu.iua.treban.web.services.exception.GetTaskListInvalidOrderByParamException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.servlet.http.HttpServletRequest;
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @RequestMapping(Constantes.URL_LISTS)
@@ -23,6 +25,11 @@ public class TaskListRESTController {
 
     @Autowired
     private ITaskListBusiness taskListBusiness;
+
+    @GetMapping(value = {"", "/"})
+    public ResponseEntity<List<TaskList>> getTaskList(HttpServletRequest request) {
+        return ResponseEntity.ok(taskListBusiness.getLists());
+    }
 
     @PostMapping(value = {"", "/"})
     public ResponseEntity<TaskList> addTaskList(@RequestBody TaskList taskList, UriComponentsBuilder uriComponentsBuilder, HttpServletRequest request) {
@@ -46,5 +53,7 @@ public class TaskListRESTController {
         }
 
     }
+
+
 
 }

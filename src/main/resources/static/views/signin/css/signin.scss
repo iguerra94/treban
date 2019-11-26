@@ -2,11 +2,11 @@ body {
     background-color: #DCDCDC;
 }
 
-.main-container-wrapper {
+.main-container-wrapper-si {
     display: flex;
     height: 100vh;
 
-    .main-container {
+    .main-container-si {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
@@ -38,15 +38,21 @@ body {
             flex-direction: column;
             justify-content: center;
             flex: 1;
-    
+
             .box-title {
                 display: flex;
-                margin-bottom: 1em;
+                align-items: center;
+                margin-bottom: 1.5em;
                 text-align: center;
 
-                .icon-24 {
-                    width: 24px;
-                    cursor: pointer;
+                a {
+                    display: flex;
+                    align-items: center;
+
+                    .icon-24 {
+                        width: 1.125em;
+                        cursor: pointer;
+                    }
                 }
 
                 p {
@@ -99,11 +105,38 @@ body {
                     margin-top: .4em;
                     padding: .5em 0;
                     text-align: center;
+
+                    &.hidden {
+                        display: none;
+                    }
                 }
 
-                a.hidden {
-                    display: none;
-                }
+                .error-message-box {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    background-color: #F44336; 
+                    width: 100%;
+                    margin-top: 1em;
+                    padding: .6em;
+                    padding-right: 1em;
+                    align-self: center;
+                    border-radius: .2em;
+
+                    &.hidden {
+                        display: none;
+                    }
+                    
+                    .error-message {
+                        color: #FFFFFF;
+                        font-size: 1em;
+                    }
+
+                    .close-error-message-icon {
+                        cursor: pointer;
+                        margin-left: 1em;
+                    }
+                }    
             }
         }    
     }

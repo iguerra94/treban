@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface IUserBusiness {
     List<User> getUsers() throws BusinessException;
-    User getUser(String email) throws BusinessException, NotFoundException;
+    Object verifyUserByEmail(String email) throws BusinessException, EmptyFieldsException, UserEmailInvalidException, UserEmailNotRegisteredException;
     User addUser(User user) throws BusinessException, EmptyFieldsException, AlreadyExistsException, UserEmailInvalidException;
 }

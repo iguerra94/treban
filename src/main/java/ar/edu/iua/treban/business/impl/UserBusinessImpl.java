@@ -3,6 +3,8 @@ package ar.edu.iua.treban.business.impl;
 import ar.edu.iua.treban.business.IUserBusiness;
 import ar.edu.iua.treban.business.exception.AlreadyExistsException;
 import ar.edu.iua.treban.business.exception.BusinessException;
+import ar.edu.iua.treban.business.exception.UserEmailNotRegisteredException;
+import ar.edu.iua.treban.model.CustomResponse;
 import ar.edu.iua.treban.model.Role;
 import ar.edu.iua.treban.model.User;
 import ar.edu.iua.treban.model.exception.EmptyFieldsException;
@@ -37,8 +39,42 @@ public class UserBusinessImpl implements IUserBusiness {
     }
 
     @Override
-    public User getUser(String email) throws BusinessException, NotFoundException {
-        return null;
+    public Object verifyUserByEmail(String email) throws BusinessException, EmptyFieldsException, UserEmailInvalidException, UserEmailNotRegisteredException {
+        log.info("Info when getting the User by email: Starting method logs.");
+
+        if (email == null) {
+            log.error("Error when getting the User by email: email field must be entered.");
+            log.info("Info when getting the User by email: Finished method logs.");
+            throw new BusinessException("email field must be entered.");
+        }
+
+        if (email.trim().length() == 0) {
+            log.error("Error when getting the User by email: The email cannot be empty.");
+            log.info("Info when getting the User by email: Finished method logs.");
+            throw new EmptyFieldsException("The email cannot be empty.");
+        }
+
+        boolean isEmailValid = UserUtils.isEmailValid(email);
+
+        if (!isEmailValid) {
+            log.error("Error when getting the User by email: The email entered is not valid.");
+            log.info("Info when getting the User by email: Finished method logs.");
+            throw new UserEmailInvalidException("The email entered is not valid.");
+        }
+
+        log.info("Info when getting the User by email: The email entered is valid.");
+
+        User userEmailRegistered = userDAO.findByEmail(email);
+
+        if (userEmailRegistered == null) {
+            log.error("Error when getting the User by email: Please review the email entered.");
+            log.info("Info when getting the User by email: Finished method logs.");
+            throw new UserEmailNotRegisteredException("Please review the email entered.");
+        }
+
+        log.info("Info when getting the User by email: The email entered is registered.");
+
+        return new CustomResponse("OK");
     }
 
     @Override
@@ -81,7 +117,7 @@ public class UserBusinessImpl implements IUserBusiness {
             throw new UserEmailInvalidException("The email entered is not valid.");
         }
 
-        log.info("Info when adding the User: email entered is valid.");
+        log.info("Info when adding the User: The email entered is valid.");
 
         try {
             user.setEnabled(true);

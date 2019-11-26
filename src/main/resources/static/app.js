@@ -8,17 +8,22 @@ angular.module('treban',
         function($rootScope, $location) {
             console.log("Iniciando");
 
-            $rootScope.cleanLoginData = function() {
+            $rootScope.cleanSigninData = function() {
                 $rootScope.autenticado = false;
                 $rootScope.user = {
-                    name : "",
-                    password : "",
-                    roles : []
+                    name: "",
+                    email: "",
+                    username: ""
                 };
                 $rootScope.user.roles = [];
             };
 
-            $rootScope.cleanLoginData();
+            $rootScope.cleanSigninData();
+
+            //Callback luego de autenticación
+            $rootScope.cbauth = false;
+
+            $rootScope.userMenuOpened = false;
 
             $rootScope.relocate = function(loc) {
                 $location.path(loc);

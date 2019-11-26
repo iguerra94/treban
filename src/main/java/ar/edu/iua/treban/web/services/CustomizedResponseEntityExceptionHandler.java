@@ -131,4 +131,11 @@ public class CustomizedResponseEntityExceptionHandler {
         return new ResponseEntity<>(errorDetails, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(UserEmailNotRegisteredException.class)
+    public final ResponseEntity handleUserEmailNotRegisteredException(UserEmailNotRegisteredException ex, HttpServletRequest request) {
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(),
+                request.getServletPath());
+        return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+
 }

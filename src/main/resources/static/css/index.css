@@ -11,7 +11,7 @@
   margin: 0;
   padding: 0;
   -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 a {
@@ -109,7 +109,7 @@ input {
 select {
   -webkit-appearance: none;
   -moz-appearance: none;
-       appearance: none;
+  appearance: none;
   border: none;
   outline: 0;
   padding: 0.65em 2.5em 0.55em 0.75em;
@@ -121,6 +121,32 @@ select {
   background-repeat: no-repeat, no-repeat, no-repeat, no-repeat;
   background-size: 1px 100%, 30px 22px, 30px 22px, 30px 100%;
   background-position: right 30px center, right bottom, right bottom, right bottom;
+}
+
+.flex-column {
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.flex-row {
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+input {
+  outline: none;
+  border: none;
+  border-bottom: 1px solid #EEEEEE;
+  font-size: 1em;
+  padding: .3em 0;
+  margin-bottom: 1em;
 }
 
 .bold {

@@ -13,6 +13,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
+import java.util.List;
 
 @Component
 public class TaskListImplDAO implements IGenericDAO<TaskList, Integer> {
@@ -30,6 +31,62 @@ public class TaskListImplDAO implements IGenericDAO<TaskList, Integer> {
             instance = new TaskListImplDAO();
         }
         return instance;
+    }
+
+    @Override
+    public List<TaskList> getAll() {
+        Session session = entityManagerFactory.unwrap(SessionFactory.class).openSession();
+        Transaction tx;
+        List<TaskList> lists = null;
+
+        try {
+            tx = session.beginTransaction();
+
+            session.flush();
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+
+            CriteriaQuery<TaskList> query = builder.createQuery(TaskList.class);
+            Root<TaskList> from = query.from(TaskList.class);
+
+            query.select(from);
+            lists = session.createQuery(query).list();
+
+            tx.commit();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+
+        return lists;
+    }
+
+    @Override
+    public TaskList findByName(String name) {
+        Session session = entityManagerFactory.unwrap(SessionFactory.class).openSession();
+        Transaction tx;
+        TaskList taskListFound = null;
+
+        try {
+            tx = session.beginTransaction();
+
+            session.flush();
+            CriteriaBuilder builder = session.getCriteriaBuilder();
+
+            CriteriaQuery<TaskList> query = builder.createQuery(TaskList.class);
+            Root<TaskList> from = query.from(TaskList.class);
+
+            query.select(from).where(builder.equal(from.get("name"), name));
+            taskListFound = session.createQuery(query).uniqueResult();
+
+            tx.commit();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
+
+        return taskListFound;
     }
 
     @Override
@@ -61,31 +118,4 @@ public class TaskListImplDAO implements IGenericDAO<TaskList, Integer> {
         return taskListCreated;
     }
 
-    @Override
-    public TaskList findByName(String name) {
-        Session session = entityManagerFactory.unwrap(SessionFactory.class).openSession();
-        Transaction tx;
-        TaskList taskListFound = null;
-
-        try {
-            tx = session.beginTransaction();
-
-            session.flush();
-            CriteriaBuilder builder = session.getCriteriaBuilder();
-
-            CriteriaQuery<TaskList> query = builder.createQuery(TaskList.class);
-            Root<TaskList> from = query.from(TaskList.class);
-
-            query.select(from).where(builder.equal(from.get("name"), name));
-            taskListFound = session.createQuery(query).uniqueResult();
-
-            tx.commit();
-        } catch (HibernateException e) {
-            e.printStackTrace();
-        } finally {
-            session.close();
-        }
-
-        return taskListFound;
-    }
 }

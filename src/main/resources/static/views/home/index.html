@@ -1,44 +1,58 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Treban - Inicio</title>
-    <link rel="stylesheet" href="../css/index.css">
-    <link rel="stylesheet" href="css/home.css">
-</head>
-<body>
-    <div class="home-wrapper">
+<div class="home-wrapper">
+    <div class="loading-board-wrapper">
+        <img class="logo" src="../images/Treban Logo x32 Gray.svg" alt="Logo Treban">
+        <span>Cargando tablero...</span>
+    </div>
+    <div class="board-wrapper hidden">
         <div class="overlay">
-            <div id="modal-add-task-list" class="modal-box">
+            <div id="modal-add-task-list" class="modal-box hidden">
                 <div class="modal-header">
                     <p class="modal-header__title bold">Agregar Lista</p>
-                    <img src="../images/ic_close.svg" class="close-modal-icon" alt="Close Modal">
+                    <img src="../images/ic_close.svg" class="close-modal-icon" alt="Close Modal" ng-click="closeModalAddTaskList($event)">
                 </div>
-                <div class="modal-content flex-column">
-                    <p>Seleccione las listas a agregar:</p>
-                    <div class="task-list-items-wrapper">
-                        <ul class="task-list-items">
-                            <li class="task-list-item selected">Backlog</li>
-                            <li class="task-list-item disabled">Todo</li>
-                            <li class="task-list-item">Waiting</li>
-                            <li class="task-list-item disabled">In Progress</li>
-                            <li class="task-list-item">Done</li>
-                        </ul>
+                <form class="modal-form">
+                    <div class="modal-content flex-column">
+                        <div class="error-message-box hidden">
+                            <span class="error-message">None of the fields can be empty.</span>
+                            <img src="../../images/ic_close_white.svg" alt="Close message" class="close-message-icon" ng-click="closeErrorMessageBox()">
+                        </div>
+                        <div class="modal-content-row flex-row">
+                            <p>Nombre de sprint:</p>
+                            <input type="text" placeholder="Primer sprint.." ng-model="listsToCreate.sprintName" ng-change="closeErrorMessageBoxIfVisible()">
+                        </div>
+                        <div class="modal-content-row flex-column">
+                            <p>Seleccione las listas a agregar:</p>
+                            <div class="task-list-items-wrapper">
+                                <ul class="task-list-items">
+                                    <li class="task-list-item" ng-repeat="list in taskLists | filter: { created: false }" ng-click="selectTaskListItem($event, list)">{{ list.name }}</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="modal-content-row modal-content-special-row flex-row">
+                            <span>Referencias:</span>
+                            <div class="list-reference">
+                                <div class="box-rounded list-not-selected"></div>
+                                <span>Lista no seleccionada</span>
+                            </div>
+                            <div class="list-reference">
+                                <div class="box-rounded list-selected"></div>
+                                <span>Lista seleccionada</span>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <form action="" class="modal-form">
-                        <button class="btn btn-normal btn-cancel">Cancelar</button>
-                        <button class="btn btn-info btn-ok"><span class="bold">Agregar</span></button>
-                    </form>
-                </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-normal btn-cancel" ng-click="closeModalAddTaskList($event)">Cancelar</button>
+                        <button class="btn btn-info btn-ok" ng-click="validateTaskListsData()">
+                            <span class="bold">Agregar</span>
+                            <i class="fas fa-spinner fa-spin hidden"></i>
+                        </button>
+                    </div>
+                </form>
             </div>
             <div id="modal-task-detail" class="modal-box hidden">
                 <div class="modal-header">
                     <p class="modal-header__title bold">Tarea 1</p>
-                    <img src="../images/ic_close.svg" class="close-modal-icon" alt="Close Modal">
+                    <img src="../../images/ic_close.svg" class="close-modal-icon" alt="Close Modal" ng-click="closeModalTaskDetail()">
                 </div>
                 <div class="modal-content">
                     <div class="modal-content__left">
@@ -77,18 +91,18 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <form action="" class="modal-form">
-                        <button class="btn btn-normal btn-cancel">Cancelar</button>
+                    <button class="btn btn-normal btn-cancel" ng-click="closeModalTaskDetail()">Cancelar</button>
+                    <form class="modal-form">
                         <button class="btn btn-info btn-ok" disabled><span class="bold">Guardar</span></button>
                     </form>
                 </div>
             </div>
         </div>
-        <nav class="left-menu">
+        <nav class="left-menu-home">
             <div class="left-menu-container left-menu-container-opened active">
                 <div class="left-menu__top-content">
                     <div class="brand-logo">
-                        <a href="/home/">
+                        <a ng-click="relocate('home')">
                             <img src="../../images/Treban Logo x32.svg" alt="Treban Logo">
                             <h1 class="bold">Treban</h1>
                         </a>
@@ -100,27 +114,23 @@
                         <ul class="left-menu__items">
                             <li class="left-menu__item">
                                 <p class="left-menu__item-header bold">Ordenar listas</p>
-                                <select>
+                                <select ng-disabled="noListsCreated">
                                     <option value="date_created">Fecha de creacion</option>
                                     <option value="priority">Prioridad</option>
                                 </select>
                             </li>
                             <li class="left-menu__item">
                                 <p class="left-menu__item-header bold">Ver lista</p>
-                                <select>
-                                    <option value="all_lists">Todas</option>
-                                    <option value="backlog_list">BACKLOG</option>
-                                    <option value="todo_list">TODO</option>
-                                    <option value="waiting_list">WAITING</option>
-                                    <option value="in_progress_list">IN PROGRESS</option>
-                                    <option value="done_list">DONE</option>
+                                <select ng-disabled="noListsCreated" ng-model="selected">
+                                    <option value="TODAS" selected>TODAS</option>
+                                    <option ng-repeat="list in taskLists | filter: { created: true } " ng-value="list.name">{{list.name}}</option>
                                 </select>
                             </li>
                         </ul>
                     </div>
                 </div>
                 <div class="left-menu__bottom-content">
-                    <button id="btn-username" class="btn btn-normal-inverse">
+                    <button id="btn-username" class="btn btn-normal-inverse" ng-click="openUserMenu($event)" stop-event>
                         <span id="btn-username-text">ig</span>
                     </button>
                     <div class="user-menu hidden">
@@ -130,189 +140,60 @@
                                 <span id="user-email">iguerra696@alumnos.iua.edu.ar</span>
                             </li>
                             <li class="user-menu__item">
-                                <a href="" id="btn-profile"></a><span>Perfil</span>
+                                <a ng-click="relocate()" id="btn-profile"></a><span>Perfil</span>
                             </li>
                             <li class="user-menu__item">
-                                <a href="" id="btn-close-session"><span>Cerrar sesion</span></a>
+                                <a ng-click="relocate()" id="btn-close-session"><span>Cerrar sesion</span></a>
                             </li>
                         </ul>
                     </div>
                 </div>
             </div>
         </nav>
-        <main class="main-container-wrapper">
+        <main class="main-container-home-wrapper">
             <div class="main-container">
                 <div class="main-container__header">
-                    <button id="btn-add-task-list" class="btn btn-success">
+                    <button id="btn-add-task-list" class="btn btn-success" ng-click="openModalAddTaskList()" title="{{setElementTitleAttrBasedOnClass('#btn-add-task-list', 'disabled', 'No es posible crear nuevas listas. Todas las listas de tareas permitidas fueron creadas.')}}">
                         <span class="bold">Agregar lista</span>
-                        <img src="../images/ic_add.svg" alt="Add new task list">
+                        <img src="../../images/ic_add.svg" alt="Add new task list">
                     </button>
+                    <div class="success-message-box hidden">
+                        <span class="success-message">Exito! Las listas fueron creadas correctamente.</span>
+                    </div>
                 </div>
                 <div class="main-container__content">
                     <div class="main-container__content-items-wrapper">
-                        <ul class="main-container__content-items">
-                            <li class="main-container__content-item">
+                        <div class="no-items" ng-show="noListsCreated">
+                            <i class="far fa-frown fa-2x icon"></i>
+                            <span>Aún no se han creado listas.</span>
+                        </div>
+                        <ul class="main-container__content-items" ng-show="!noListsCreated">
+                            <li class="main-container__content-item" ng-repeat="list in taskLists | filter: { created: true }" ng-show="shouldTaskListBeShowed(list.name)">
                                 <div class="task-list__header">
-                                    <p class="task-list__name">Backlog</p>
-                                    <img src="../images/ic_expand_more.svg" alt="Expand/Shrink Task List" class="">
+                                    <p class="task-list__name">{{ list.name }}</p>
+                                    <img src="../../images/ic_expand_more.svg" alt="Expand/Shrink Task List" ng-click="toggleCollapseTaskList(list, $event)">
                                 </div>
                                 <div class="task-list__items-wrapper">
                                     <ul class="task-list__items">
-                                        <li class="task-list__item">Tarea 1</li>
+                                        <li class="task-list__item" ng-click="openModalTaskDetail()">Tarea 1</li>
                                         <li class="task-list__item">Tarea 2</li>
                                         <li class="task-list__item">Tarea 2</li>
                                         <li class="task-list__item">Tarea 2</li>
                                         <li class="task-list__item">Tarea 2</li>
                                         <li class="task-list__item">Tarea 1</li>
                                         <li class="task-list__item">Tarea 2</li>
-                                        <li class="task-list__item task-list__item-add-new-task">
-                                            <button id="btn-add-task" class="btn btn-gray-dark">
-                                                <img src="../images/ic_add_black.svg" alt="Add New Task">
+                                        <li class="task-list__item task-list__item-add-new-task" ng-if="list.name === lists[0].name">
+                                            <button id="btn-add-task" class="btn btn-gray-dark" ng-click="openAddNewTaskForm()">
+                                                <img src="../../images/ic_add_black.svg" alt="Add New Task">
                                                 <span>Crear tarea</span>
                                             </button>
-                                            <form action="" class="new-task__form hidden">
+                                            <form id="new-task__form" class="hidden">
                                                 <textarea id="new-task" rows="2" placeholder="Ingrese la tarea a realizar..."></textarea>
-                                                <div class="new-task__form-row">
+                                                <div class="new-task__form-row buttons-box">
                                                     <button id="btn-save-new-task" class="btn btn-info">
                                                         <span class="bold">Guardar</span>
                                                     </button>
-                                                    <button id="btn-cancel-new-task" class="btn btn-gray-dark">
-                                                        <span>Cancelar</span>
-                                                    </button>
-                                                </div>
-                                            </form>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="main-container__content-item">
-                                <div class="task-list__header">
-                                    <p class="task-list__name">Backlog</p>
-                                    <img src="../images/ic_expand_more.svg" alt="Expand/Shrink Task List" class="">
-                                </div>
-                                <div class="task-list__items-wrapper">
-                                    <ul class="task-list__items">
-                                        <li class="task-list__item">Tarea 1</li>
-                                        <li class="task-list__item">Tarea 2</li>
-                                        <li class="task-list__item">Tarea 2</li>
-                                        <li class="task-list__item">Tarea 2</li>
-                                        <li class="task-list__item">Tarea 2</li>
-                                        <li class="task-list__item">Tarea 1</li>
-                                        <li class="task-list__item">Tarea 2</li>
-                                        <li class="task-list__item task-list__item-add-new-task">
-                                            <button id="btn-add-task" class="btn btn-gray-dark">
-                                                <img src="../images/ic_add_black.svg" alt="Add New Task">
-                                                <span>Crear tarea</span>
-                                            </button>
-                                            <form action="" class="new-task__form hidden">
-                                                <textarea id="new-task" rows="2" placeholder="Ingrese la tarea a realizar..."></textarea>
-                                                <div class="new-task__form-row">
-                                                    <button id="btn-save-new-task" class="btn btn-info">
-                                                        <span class="bold">Guardar</span>
-                                                    </button>
-                                                    <button id="btn-cancel-new-task" class="btn btn-gray-dark">
-                                                        <span>Cancelar</span>
-                                                    </button>
-                                                </div>
-                                            </form>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="main-container__content-item">
-                                <div class="task-list__header">
-                                    <p class="task-list__name">Backlog</p>
-                                    <img src="../images/ic_expand_more.svg" alt="Expand/Shrink Task List" class="">
-                                </div>
-                                <div class="task-list__items-wrapper">
-                                    <ul class="task-list__items">
-                                        <li class="task-list__item">Tarea 1</li>
-                                        <li class="task-list__item">Tarea 2</li>
-                                        <li class="task-list__item">Tarea 2</li>
-                                        <li class="task-list__item">Tarea 2</li>
-                                        <li class="task-list__item">Tarea 2</li>
-                                        <li class="task-list__item">Tarea 1</li>
-                                        <li class="task-list__item">Tarea 2</li>
-                                        <li class="task-list__item task-list__item-add-new-task">
-                                            <button id="btn-add-task" class="btn btn-gray-dark">
-                                                <img src="../images/ic_add_black.svg" alt="Add New Task">
-                                                <span>Crear tarea</span>
-                                            </button>
-                                            <form action="" class="new-task__form hidden">
-                                                <textarea id="new-task" rows="2" placeholder="Ingrese la tarea a realizar..."></textarea>
-                                                <div class="new-task__form-row">
-                                                    <button id="btn-save-new-task" class="btn btn-info">
-                                                        <span class="bold">Guardar</span>
-                                                    </button>
-                                                    <button id="btn-cancel-new-task" class="btn btn-gray-dark">
-                                                        <span>Cancelar</span>
-                                                    </button>
-                                                </div>
-                                            </form>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="main-container__content-item">
-                                <div class="task-list__header">
-                                    <p class="task-list__name">Backlog</p>
-                                    <img src="../images/ic_expand_more.svg" alt="Expand/Shrink Task List" class="">
-                                </div>
-                                <div class="task-list__items-wrapper">
-                                    <ul class="task-list__items">
-                                        <li class="task-list__item">Tarea 1</li>
-                                        <li class="task-list__item">Tarea 2</li>
-                                        <li class="task-list__item">Tarea 2</li>
-                                        <li class="task-list__item">Tarea 2</li>
-                                        <li class="task-list__item">Tarea 2</li>
-                                        <li class="task-list__item">Tarea 1</li>
-                                        <li class="task-list__item">Tarea 2</li>
-                                        <li class="task-list__item task-list__item-add-new-task">
-                                            <button id="btn-add-task" class="btn btn-gray-dark">
-                                                <img src="../images/ic_add_black.svg" alt="Add New Task">
-                                                <span>Crear tarea</span>
-                                            </button>
-                                            <form action="" class="new-task__form hidden">
-                                                <textarea id="new-task" rows="2" placeholder="Ingrese la tarea a realizar..."></textarea>
-                                                <div class="new-task__form-row">
-                                                    <button id="btn-save-new-task" class="btn btn-info">
-                                                        <span class="bold">Guardar</span>
-                                                    </button>
-                                                    <button id="btn-cancel-new-task" class="btn btn-gray-dark">
-                                                        <span>Cancelar</span>
-                                                    </button>
-                                                </div>
-                                            </form>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </li>
-                            <li class="main-container__content-item">
-                                <div class="task-list__header">
-                                    <p class="task-list__name">Backlog</p>
-                                    <img src="../images/ic_expand_more.svg" alt="Expand/Shrink Task List" class="">
-                                </div>
-                                <div class="task-list__items-wrapper">
-                                    <ul class="task-list__items">
-                                        <li class="task-list__item">Tarea 1</li>
-                                        <li class="task-list__item">Tarea 2</li>
-                                        <li class="task-list__item">Tarea 2</li>
-                                        <li class="task-list__item">Tarea 2</li>
-                                        <li class="task-list__item">Tarea 2</li>
-                                        <li class="task-list__item">Tarea 1</li>
-                                        <li class="task-list__item">Tarea 2</li>
-                                        <li class="task-list__item task-list__item-add-new-task">
-                                            <button id="btn-add-task" class="btn btn-gray-dark">
-                                                <img src="../images/ic_add_black.svg" alt="Add New Task">
-                                                <span>Crear tarea</span>
-                                            </button>
-                                            <form action="" class="new-task__form hidden">
-                                                <textarea id="new-task" rows="2" placeholder="Ingrese la tarea a realizar..."></textarea>
-                                                <div class="new-task__form-row">
-                                                    <button id="btn-save-new-task" class="btn btn-info">
-                                                        <span class="bold">Guardar</span>
-                                                    </button>
-                                                    <button id="btn-cancel-new-task" class="btn btn-gray-dark">
+                                                    <button id="btn-cancel-new-task" class="btn btn-gray-dark" ng-click="closeAddNewTaskForm()">
                                                         <span>Cancelar</span>
                                                     </button>
                                                 </div>
@@ -327,16 +208,4 @@
             </div>
         </main>
     </div>
-    <script>
-        const $btnUsername = document.querySelector('#btn-username');
-        const $userMenu = document.querySelector('.user-menu');
-
-        $btnUsername.addEventListener('click', (e) => {
-            e.preventDefault();
-            
-            $userMenu.classList.toggle('hidden');
-            $userMenu.classList.toggle('active');
-        })
-    </script>
-</body>
-</html>
+</div>

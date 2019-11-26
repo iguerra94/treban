@@ -80,6 +80,11 @@ function SignupController($rootScope, $scope, $location, $window, $log, coreServ
         return true;
     };
 
+    $scope.closeMessageBoxIfVisible = function() {
+        if ($errorMessageBox.classList.contains("hidden")) return;
+        $scope.closeMessageBox();
+    };
+
     $scope.generateUsername = function(user) {
         user.username = user.email.split("@")[0];
     };

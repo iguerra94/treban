@@ -14,6 +14,8 @@ public class Constantes {
     public static final String URL_DENY="/deny";
     public static final String URL_LOGOUTOK="/logoutok";
 
-    public static final String URL_LOGINOK = "/loginok";
-    public static final String URL_AUTH_INFO =  "/authinfo";
+    public static final String URL_SIGNIN = "/signin";
+    public static final String URL_PROCESSING_SIGNIN = "/perform_signin";
+    public static final String URL_HOME = "/home";
+    public static final String URL_SIGNUP = "/signup";
 }

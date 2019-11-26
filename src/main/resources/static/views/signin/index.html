@@ -1,39 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Treban - Ingresar</title>
-    <link rel="stylesheet" href="../css/index.css">
-    <link rel="stylesheet" href="css/signin.css">
-</head>
-<body>
-    <div class="main-container-wrapper">
-        <div class="main-container">
-            <a href="/landing/" class="brand-logo">
-                <img src="../images/Treban Logo x64.svg" alt="Treban Logo">
-                <h1 class="bold">Treban</h1>
-            </a>
-            <div class="box">
-                <div class="box-title">
-                    <img src="../images/ic_arrow_back.svg" alt="Return icon" class="icon-24 login-final-step hidden" />
-                    <p class="bold">Inicia sesion en tu cuenta</p>
-                </div>
-                <p class="login-final-step hidden">abc@xyz.com</p>
-                <div class="box-content">
-                    <form id="signin-form" class="signin-form">
-                        <input type="email" placeholder="E-mail" class="login-initial-step" required>
-                        <input type="password" placeholder="Contraseña" class="login-final-step hidden" required>
-                        <button class="btn btn-info login-initial-step">Continuar</button>
-                        <button type="submit" class="btn btn-info login-final-step hidden">Ingresar</button>
-                    </form>
-                    <a href="/signup/" class="btn btn-info-inverse login-initial-step">Crear cuenta</a>
-                    <a href="/change_password/" class="btn btn-info-inverse login-final-step hidden">Olvide mi contraseña</a>
+<div class="main-container-wrapper-si">
+    <div class="main-container-si">
+        <a ng-click="relocate('landing')" class="brand-logo">
+            <img src="../../images/Treban Logo x64.svg" alt="Treban Logo">
+            <h1 class="bold">Treban</h1>
+        </a>
+        <div class="box">
+            <div class="box-title">
+                <a ng-click="returnToInitialStep()">
+                    <img src="../../images/ic_arrow_back.svg" alt="Return icon" class="icon-24 signin-final-step hidden" />
+                </a>
+                <p id="signin-box-title" class="bold">¡Hola! Ingresá tu email</p>
+            </div>
+            <p class="field-final-step signin-final-step hidden">abc@xyz.com</p>
+            <div class="box-content">
+                <form id="signin-form" class="signin-form">
+                    <input type="text" id="email" placeholder="E-mail" class="signin-initial-step" ng-model="user.email" ng-change="closeMessageBoxIfVisible()" required>
+                    <input type="password" placeholder="Contraseña" class="signin-final-step hidden" ng-model="user.password" ng-change="closeMessageBoxIfVisible()" required>
+                    <button type="button" class="btn btn-info signin-initial-step" ng-click="validateClientDataInitialStep()">
+                        Continuar
+                        <i class="fas fa-spinner fa-spin spinner-1 hidden"></i>
+                    </button>
+                    <button type="submit" class="btn btn-info signin-final-step hidden" ng-click="validateClientDataFinalStep()">
+                        Ingresar
+                        <i class="fas fa-spinner fa-spin spinner-2 hidden"></i>
+                    </button>
+                </form>
+                <a ng-click="relocate('signup')" class="btn btn-info-inverse signin-initial-step">Crear cuenta</a>
+                <div class="error-message-box hidden">
+                    <span class="error-message"></span>
+                    <img src="../../images/ic_close_white.svg" alt="Close error message" class="close-error-message-icon" ng-click="closeMessageBox()">
                 </div>
             </div>
         </div>
     </div>
-    <div class="bottom-background"></div>
-</body>
-</html>
+</div>
+<div class="bottom-background"></div>
