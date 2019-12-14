@@ -26,33 +26,46 @@ public class TaskRESTController {
     @GetMapping(value = {"", "/"})
     public ResponseEntity<List<Task>> getTaskList(
             @RequestParam(required=false, value="name", defaultValue="*") String name,
-            @RequestParam(required=false, value="order_by", defaultValue="*") String orderBy,
+            @RequestParam(required=false, value="order_by_field", defaultValue="*") String orderByField,
+            @RequestParam(required=false, value="order_by_criteria", defaultValue="*") String orderByCriteria,
             HttpServletRequest request) {
 
         try {
             try {
-                if (!orderBy.equals("*") && orderBy.trim().length() > 0) {
-                    TaskUtils.isOrderByParamValid(orderBy);
+                if (!orderByField.equals("*") && orderByField.trim().length() > 0) {
+                    TaskUtils.isOrderByParamValid(orderByField);
                 }
             } catch (Exception e) {
-                throw new GetTaskListInvalidOrderByParamException("The order_by param entered is not valid. The only values allowed are 'created_at' or 'priority'.");
+                throw new GetTaskListInvalidOrderByParamException("The order_by_field param entered is not valid. The only values allowed are 'created_at' or 'priority'.");
             }
 
-            if (!orderBy.equals("*") && orderBy.trim().length() > 0 && orderBy.equals("priority")) {
+            if (!orderByField.equals("*") && orderByField.trim().length() > 0 && orderByField.equals("priority")) {
                 if (!name.equals("*") && name.trim().length() > 0) {
 //                    /api/v1/tasks?name="..."&order_by="priority"
                     return ResponseEntity.ok(taskBusiness.getTaskListByNameOrderByPriorityDesc(name));
                 } else {
-//                    /api/v1/tasks?order_by="priority"
-                    return ResponseEntity.ok(taskBusiness.getTaskListOrderByPriorityDesc());
+                    if (!orderByCriteria.equals("*") && orderByCriteria.trim().length() > 0 && orderByCriteria.equals("asc")) {
+//                      /api/v1/tasks?order_by_field="priority"&order_by_criteria="asc"
+                        return ResponseEntity.ok(taskBusiness.getTaskListOrderByPriorityAsc());
+                    }
+                    if (!orderByCriteria.equals("*") && orderByCriteria.trim().length() > 0 && orderByCriteria.equals("desc")) {
+//                      /api/v1/tasks?order_by_field="priority"&order_by_criteria="desc"
+                        return ResponseEntity.ok(taskBusiness.getTaskListOrderByPriorityDesc());
+                    }
                 }
-            } else if (!orderBy.equals("*") && orderBy.trim().length() > 0 && orderBy.equals("created_at")) {
+            } else if (!orderByField.equals("*") && orderByField.trim().length() > 0 && orderByField.equals("created_at")) {
                 if (!name.equals("*") && name.trim().length() > 0) {
 //                    /api/v1/tasks?name="..."&order_by="created_at"
                     return ResponseEntity.ok(taskBusiness.getTaskListByNameOrderByCreatedAtDesc(name));
                 } else {
-//                    /api/v1/tasks?order_by="created_at"
-                    return ResponseEntity.ok(taskBusiness.getTaskListOrderByCreatedAtDesc());
+                    if (!orderByCriteria.equals("*") && orderByCriteria.trim().length() > 0 && orderByCriteria.equals("asc")) {
+//                      /api/v1/tasks?order_by_field="created_at"&order_by_criteria="asc"
+                        return ResponseEntity.ok(taskBusiness.getTaskListOrderByCreatedAtAsc());
+                    }
+                    if (!orderByCriteria.equals("*") && orderByCriteria.trim().length() > 0 && orderByCriteria.equals("desc")) {
+//                      /api/v1/tasks?order_by_field="created_at"&order_by_criteria="desc"
+                        return ResponseEntity.ok(taskBusiness.getTaskListOrderByCreatedAtDesc());
+                    }
                 }
             } else {
                 if (!name.equals("*") && name.trim().length() > 0) {
@@ -63,6 +76,8 @@ public class TaskRESTController {
                     return ResponseEntity.ok(taskBusiness.getTaskList());
                 }
             }
+
+            return null;
         } catch (GetTaskListInvalidNameParamException e) {
             return new CustomizedResponseEntityExceptionHandler().handleGetTaskListInvalidNameParamException(e, request);
         } catch (GetTaskListInvalidOrderByParamException e) {

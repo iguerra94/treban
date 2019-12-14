@@ -102,6 +102,27 @@ public class TaskBusinessImpl implements ITaskBusiness {
     }
 
     @Override
+    public List<Task> getTaskListOrderByPriorityAsc() throws BusinessException {
+        log.info("Info when getting the list of Tasks by priority in ascendant order: Starting method logs.");
+        try {
+            List<Task> taskList = taskDAO.findAll(new Sort(Sort.Direction.ASC, "priorityValue"))
+                    .stream()
+                    .peek(task -> {
+                        String priority = TaskUtils.deMapPriority(task.getPriorityValue());
+                        task.setPriority(priority);
+                    })
+                    .collect(Collectors.toList());
+            log.info("Info when getting the list of Tasks by priority in ascendant order: The list of Tasks was returned successfully.");
+            return taskList;
+        } catch (Exception e) {
+            log.error("Error when getting the list of Tasks by priority in ascendant order: {}.", e.getMessage());
+            throw new BusinessException(e);
+        } finally {
+            log.info("Info when getting the list of Tasks by priority in ascendant order: Finished method logs.");
+        }
+    }
+
+    @Override
     public List<Task> getTaskListOrderByCreatedAtDesc() throws BusinessException {
         log.info("Info when getting the list of Tasks by creation date in descendant order: Starting method logs.");
         try {
@@ -119,6 +140,27 @@ public class TaskBusinessImpl implements ITaskBusiness {
             throw new BusinessException(e);
         } finally {
             log.info("Info when getting the list of Tasks by creation date in descendant order: Finished method logs.");
+        }
+    }
+
+    @Override
+    public List<Task> getTaskListOrderByCreatedAtAsc() throws BusinessException {
+        log.info("Info when getting the list of Tasks by creation date in ascendant order: Starting method logs.");
+        try {
+            List<Task> taskList = taskDAO.findAll(new Sort(Sort.Direction.ASC, "createdAt"))
+                    .stream()
+                    .peek(task -> {
+                        String priority = TaskUtils.deMapPriority(task.getPriorityValue());
+                        task.setPriority(priority);
+                    })
+                    .collect(Collectors.toList());
+            log.info("Info when getting the list of Tasks by creation date in ascendant order: The list of Tasks was returned successfully.");
+            return taskList;
+        } catch (Exception e) {
+            log.error("Error when getting the list of Tasks by creation date in ascendant order: {}.", e.getMessage());
+            throw new BusinessException(e);
+        } finally {
+            log.info("Info when getting the list of Tasks by creation date in ascendant order: Finished method logs.");
         }
     }
 
@@ -225,12 +267,13 @@ public class TaskBusinessImpl implements ITaskBusiness {
 
         if (task.getName().trim().length() == 0 ||
                 task.getPriority().trim().length() == 0 ||
-                task.getStatus().getName().trim().length() == 0) {
-            log.error("Error when adding one Task: Neither the name, estimation, priority and status might be empty or less than 1.");
+                task.getStatus().getName().trim().length() == 0 ||
+                task.getEstimation().toString().length() == 0) {
+            log.error("Error when adding one Task: Neither the name, estimation, priority and status might be empty");
             log.info("Info when adding one Task: Finished method logs.");
-            throw new EmptyFieldsException("Neither the name, estimation, priority and status might be empty or less than 1.");
+            throw new EmptyFieldsException("Neither the name, estimation, priority and status might be empty.");
         }
-
+/*
         Task taskNameExists = taskDAO.findByName(task.getName());
 
         if (taskNameExists != null) {
@@ -240,7 +283,7 @@ public class TaskBusinessImpl implements ITaskBusiness {
         }
 
         log.info("Info when adding one Task: The task name entered does not exists already in the database.");
-
+*/
         if (task.getEstimation() < 1 || task.getEstimation() > 10) {
             log.error("Error when adding one Task: The estimation must be a number between 1 (one) and 10 (ten).");
             log.info("Info when adding one Task: Finished method logs.");

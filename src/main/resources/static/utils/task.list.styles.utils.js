@@ -8,20 +8,6 @@ angular.module('treban')
                 hideSpinner: function (spinner) {
                     spinner.classList.add("hidden");
                 },
-                showLoadingBoardSpinner: function (elements) {
-                    const loadingBoardWrapper = elements[0];
-                    const boardWrapper = elements[1];
-
-                    loadingBoardWrapper.classList.remove('hidden');
-                    boardWrapper.classList.add('hidden');
-                },
-                hideLoadingBoardSpinner: function (elements) {
-                    const loadingBoardWrapper = elements[0];
-                    const boardWrapper = elements[1];
-
-                    loadingBoardWrapper.classList.add('hidden');
-                    boardWrapper.classList.remove('hidden');
-                },
                 showOverlay: function (overlay) {
                     overlay.classList.add("active");
                 },
@@ -78,25 +64,31 @@ angular.module('treban')
                 toggleCollapseTaskList: function (list, elements) {
                     const collapseTaskListIcon = elements[0];
                     const taskListItemsWrapper = elements[1];
-                    const taskListItems = elements[2];
+                    const taskListItemsWrapperChildren = Array.from(taskListItemsWrapper.children);
 
                     if (list.collapsed) {
                         collapseTaskListIcon.style.transform = 'rotate(0deg)';
                         setTimeout(() => {
                             taskListItemsWrapper.style.height = '100%';
-                            taskListItems.style.opacity = 1;
+                            taskListItemsWrapper.style.padding = '0em';
+                            taskListItemsWrapperChildren.forEach((item) => {
+                                item.style.opacity = 1;
+                            });
                         },200);
                     } else {
                         collapseTaskListIcon.style.transform = 'rotate(-180deg)';
                         setTimeout(() => {
                             taskListItemsWrapper.style.height = '0em';
-                            taskListItems.style.opacity = 0;
+                            taskListItemsWrapper.style.padding = '1.2em';
+                            taskListItemsWrapperChildren.forEach((item) => {
+                                item.style.opacity = 0;
+                            });
                         },200);
                     }
                 },
-                showCustomSuccessMessage: function (data, elements) {
-                    const $successMessage = elements[0];
-                    const $successMessageBox = elements[1];
+                showAddTaskListsSuccessMessage: function (data, elements) {
+                    const $successMessageBox = elements[0];
+                    const $successMessage = elements[1];
 
                     if (data.length > 1) {
                         $successMessageBox.classList.remove("hidden");
@@ -108,6 +100,102 @@ angular.module('treban')
                 },
                 setElementTitleAttrBasedOnClass: function (el, className, textContent) {
                     el.title = (el.classList.contains(className)) ? textContent : "";
+                },
+                showLeftMenuItems: function (elements) {
+                    const $selectBoxes = elements[0];
+                    const $selectInputs = elements[1];
+
+                    $selectBoxes.forEach(item => {
+                        item.classList.add("hidden");
+                    });
+
+                    $selectInputs.forEach(item => {
+                        item.classList.remove('hidden');
+                    });
+                },
+                showMainContainerHeaderItems: function (elements) {
+                    const $mainContainerHeaderItemBoxes = elements[0];
+                    const $mainContainerHeaderItems = elements[1];
+
+                    $mainContainerHeaderItemBoxes.forEach(item => {
+                        item.classList.add("hidden");
+                    });
+
+                    $mainContainerHeaderItems.forEach(item => {
+                        item.classList.remove('hidden');
+                    });
+                },
+                showLists: function (condition, elements) {
+                    const noListsCreated = condition;
+
+                    const $noListsCreatedContainer = elements[0];
+                    const $listItemsBoxes = elements[1];
+                    const $listItems = elements[2];
+
+                    $listItemsBoxes.forEach(item => {
+                        item.classList.add('hidden');
+                    });
+
+                    if (noListsCreated) {
+                        $noListsCreatedContainer.classList.remove('hidden');
+                    } else {
+                        $noListsCreatedContainer.classList.add('hidden');
+
+                        $listItems.forEach(item => {
+                            item.classList.remove('hidden');
+                        });
+                    }
+                },
+                showLoadingLists: function (elements) {
+                    const $noListsCreatedContainer = elements[0];
+                    const $listItemsBoxes = elements[1];
+                    const $listItems = elements[2];
+
+                    $noListsCreatedContainer.classList.add('hidden');
+
+                    $listItemsBoxes.forEach(item => {
+                        item.classList.remove('hidden');
+                    });
+
+                    $listItems.forEach(item => {
+                        item.classList.add('hidden');
+                    });
+                },
+                showLoadingTaskLists: function (elements) {
+                    const $modalAddTaskListElements = elements[0];
+
+                    const $taskListItemBoxes = elements[1];
+                    const $taskListItems = elements[2];
+
+                    $modalAddTaskListElements.forEach(element => {
+                        element.disabled = true;
+                    });
+
+                    $taskListItemBoxes.forEach(item => {
+                        item.classList.remove('hidden');
+                    });
+
+                    $taskListItems.forEach(item => {
+                        item.classList.add('hidden');
+                    });
+                },
+                showTaskLists: function (elements) {
+                    const $modalAddTaskListElements = elements[0];
+
+                    const $taskListItemBoxes = elements[1];
+                    const $taskListItems = elements[2];
+
+                    $modalAddTaskListElements.forEach(element => {
+                        element.disabled = false;
+                    });
+
+                    $taskListItemBoxes.forEach(item => {
+                        item.classList.add('hidden');
+                    });
+
+                    $taskListItems.forEach(item => {
+                        item.classList.remove('hidden');
+                    });
                 }
             }
         }

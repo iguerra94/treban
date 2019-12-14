@@ -1,0 +1,29 @@
+<div class="main-container-wrapper-su">
+    <div class="main-container-su">
+        <a ng-click="relocate('landing')" class="brand-logo">
+            <img src="../../images/Treban Logo x64.svg" alt="Treban Logo">
+            <h1 class="bold">Treban</h1>
+        </a>
+        <div class="box">
+            <div class="box-title">
+                <p class="bold">Registrate para obtener tu cuenta</p>
+            </div>
+            <div class="box-content">
+                <form id="signup-form" class="signup-form">
+                    <input type="text" placeholder="Nombre completo" ng-model="user.name" ng-change="closeMessageBoxIfVisible()" required>
+                    <input type="text" placeholder="E-mail" ng-model="user.email" ng-change="closeMessageBoxIfVisible()" required>
+                    <input type="password" placeholder="Contraseña" ng-model="user.password" ng-change="closeMessageBoxIfVisible()" required>
+                    <button type="submit" class="btn btn-info" ng-click="validateClientData()">
+                        Crear cuenta
+                        <i class="fas fa-spinner fa-spin hidden"></i>
+                    </button>
+                </form>
+                <div class="error-message-box hidden">
+                    <span class="error-message"></span>
+                    <img src="../../images/ic_close_white.svg" alt="Close error message" class="close-error-message-icon" ng-click="closeMessageBox()">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="bottom-background"></div>

@@ -1,5 +1,5 @@
 angular.module('treban',
-    [ 'ngRoute', 'ngSanitize', 'angularUtils.directives.dirPagination'])
+    [ 'ngRoute', 'ngSanitize', 'angularUtils.directives.dirPagination', 'pascalprecht.translate'])
     .constant('URL_BASE', '/')
     .constant('URL_API_BASE', '/api/v1/')
     .constant('RESPONSE_CODE_OK', 200)
@@ -7,6 +7,7 @@ angular.module('treban',
     .run(['$rootScope','$location',
         function($rootScope, $location) {
             console.log("Iniciando");
+            moment.locale('es');
 
             $rootScope.cleanSigninData = function() {
                 $rootScope.autenticado = false;

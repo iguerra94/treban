@@ -20,12 +20,6 @@ angular.module('treban')
                             data: 'remember-me=true&email='+user.username+'&password='+user.password
                         };
                         return $http(req);
-                    },
-                    listTaskLists: function () {
-                        return $http.get(`${URL_API_BASE}lists`);
-                    },
-                    addTaskList: function (list) {
-                        return $http.post(`${URL_API_BASE}lists`, list)
                     }
                 }
             }

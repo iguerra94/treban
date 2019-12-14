@@ -10,7 +10,7 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 
 import javax.sql.DataSource;
 
-@SpringBootApplication()
+@SpringBootApplication
 public class TrebanApplication implements CommandLineRunner {
 
 	private Logger log = LoggerFactory.getLogger(this.getClass());

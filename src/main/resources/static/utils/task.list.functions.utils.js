@@ -37,7 +37,7 @@ angular.module('treban')
                     }
                 },
                 shouldTaskListBeShowed: function (scope, taskListName) {
-                    return scope.selected === "TODAS" || scope.selected === taskListName.toUpperCase();
+                    return scope.listShowed === "TODAS" || scope.listShowed === taskListName.toUpperCase();
                 },
                 toggleCollapseTaskList: function (list) {
                     list.collapsed = !list.collapsed;

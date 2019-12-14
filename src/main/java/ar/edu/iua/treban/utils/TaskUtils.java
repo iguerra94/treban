@@ -44,7 +44,7 @@ public class TaskUtils {
     }
 
     public static String deMapPriority(int priorityValue) {
-        String priority = TaskUtils.TaskPriority.values()[priorityValue-1].name().toLowerCase();
+        String priority = TaskUtils.TaskPriority.values()[priorityValue-1].name();
         return priority;
     }
 

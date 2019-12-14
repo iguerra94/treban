@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Treban - Perfil de usuario</title>
+    <link rel="stylesheet" href="../../css/index.css">
+    <link rel="stylesheet" href="css/user-profile.css">
+</head>
+<body>
+    <div class="profile-wrapper">
+        <nav class="left-menu">
+            <div class="left-menu-container">
+                <div class="left-menu__top-content">
+                    <div class="brand-logo">
+                        <img src="../../images/Treban Logo x32.svg" alt="Treban Logo">
+                        <h1 class="bold">Cuenta de Treban</h1>
+                    </div>
+                    <div class="left-menu__items-wrapper">
+                        <ul class="left-menu__items">
+                            <li class="left-menu__item active">
+                                <a href="#">
+                                    Perfil
+                                </a>
+                            </li>
+                            <li class="left-menu__item">
+                                <a href="#">
+                                    Correo electronico
+                                </a>
+                            </li>
+                            <li class="left-menu__item">
+                                <a href="#">
+                                    Seguridad
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="left-menu__bottom-content">
+                    <a href="/landing/">
+                        <img src="../../images/ic_chevron_left.svg" alt="Return icon">
+                        <span class="bold">Volver al inicio</h1>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        <main class="main-container-wrapper">
+            <div class="main-container">
+                <div class="main-container__header">
+                    <p class="main-container__header-primary-text bold">Perfil</p>
+                    <span class="main-container__header-secondary-text">Gestiona tu informacion personal</span>
+                </div>
+                <div class="main-container__content">
+                    <form action="#" class="user-profile-form">
+                        <div class="main-container__content-item active">
+                            <div class="main-container__content-item-row">
+                                <label for="profile-user-name" class="input-label">Nombre completo</label>
+                                <input id="profile-user-name" class="profile-input" type="text" value="Ivan Gabriel Guerra" placeholder="Introduce el nuevo nombre">
+                                <div class="main-container__content-item-row-buttons">
+                                    <button class="btn btn-info">
+                                        <img src="../../images/ic_check.svg" alt="Save profile changes">
+                                    </button>
+                                    <button class="btn btn-normal">
+                                        <img src="../../images/ic_close.svg" alt="Cancel profile changes">
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="main-container__content-item-row">
+                                <label for="profile-user-role" class="input-label">Rol</label>
+                                <p id="profile-user-role" class="bold">Administrador</p>
+                            </div>
+                        </div>
+                        <div class="main-container__content-item">
+                            <div class="main-container__content-item-row">
+                                <p>Tu dirección de correo electrónico actual es <span id="profile-user-email" class="bold">iguerra696@alumnos.iua.edu.ar</span></p>
+                            </div>
+                            <div class="main-container__content-item-row">
+                                <label for="profile-user-new-email" class="input-label">Nueva direccion de correo electronico</label>
+                                <input id="profile-user-new-email" class="profile-input" type="email" placeholder="Introduce el nuevo e-mail">
+                                <div class="main-container__content-item-row-buttons">
+                                    <button class="btn btn-info">
+                                        <img src="../../images/ic_check.svg" alt="Save profile changes">
+                                    </button>
+                                    <button class="btn btn-normal">
+                                        <img src="../../images/ic_close.svg" alt="Cancel profile changes">
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="main-container__content-item">
+                            <div class="main-container__content-item-row">
+                                <label for="profile-user-password" class="input-label">Contraseña actual</label>
+                                <input id="profile-user-password" class="profile-input" type="password" placeholder="Introduce la contraseña actual">
+                            </div>
+                            <div class="main-container__content-item-row">
+                                <label for="profile-user-new-password" class="input-label">Nueva contraseña</label>
+                                <input id="profile-user-new-password" class="profile-input" type="password" placeholder="Introduce la nueva contraseña">
+                                <div class="main-container__content-item-row-buttons">
+                                    <button class="btn btn-info">
+                                        <img src="../../images/ic_check.svg" alt="Save profile changes">
+                                    </button>
+                                    <button class="btn btn-normal">
+                                        <img src="../../images/ic_close.svg" alt="Cancel profile changes">
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

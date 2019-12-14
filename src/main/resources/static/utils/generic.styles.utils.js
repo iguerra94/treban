@@ -13,11 +13,11 @@ angular.module('treban')
                     }
                 },
                 validateEmptyAttributes: function (data, elements) {
-                    const errorMessage = elements[0];
-                    const errorMessageBox = elements[1];
+                    const errorMessageBox = elements[0];
+                    const errorMessage = elements[1];
 
                     for (const prop in data) {
-                        if (data[`${prop}`].length === 0) {
+                        if (data[`${prop}`] === null || data[`${prop}`].length === 0) {
                             errorMessage.textContent = "Ninguno de los campos deben quedar vacios.";
                             errorMessageBox.classList.remove("hidden");
 
@@ -26,6 +26,13 @@ angular.module('treban')
                     }
 
                     return true;
+                },
+                showErrorMessage: function (message, elements) {
+                    const errorMessageBox = elements[0];
+                    const errorMessage = elements[1];
+
+                    errorMessage.textContent = message;
+                    errorMessageBox.classList.remove("hidden");
                 }
             }
         }

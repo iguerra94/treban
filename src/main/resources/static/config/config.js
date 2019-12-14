@@ -4,7 +4,7 @@ angular.module('treban').config(
 			$logProvider.debugEnabled(true);
 			
 //			$httpProvider.defaults.withCredentials = true;
-			//$httpProvider.interceptors.push('APIInterceptor');
+//			$httpProvider.interceptors.push('APIInterceptor');
 
 			$locationProvider.html5Mode(true);
 
@@ -16,6 +16,10 @@ angular.module('treban').config(
 				.when('/home', {
 					templateUrl: 'views/home/index.html',
 					controller: 'HomeController'
+				})
+				.when('/user/profile', {
+					templateUrl: 'views/user/profile/index.html',
+					controller: 'UserProfileController'
 				})
 				.when('/signin', {
 					templateUrl: 'views/signin/index.html',

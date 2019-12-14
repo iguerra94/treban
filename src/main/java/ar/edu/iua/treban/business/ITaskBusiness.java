@@ -11,7 +11,9 @@ public interface ITaskBusiness {
     List<Task> getTaskList() throws BusinessException;
     List<Task> getTaskListByName(String name) throws BusinessException, GetTaskListInvalidNameParamException;
     List<Task> getTaskListOrderByPriorityDesc() throws BusinessException;
+    List<Task> getTaskListOrderByPriorityAsc() throws BusinessException;
     List<Task> getTaskListOrderByCreatedAtDesc() throws BusinessException;
+    List<Task> getTaskListOrderByCreatedAtAsc() throws BusinessException;
     List<Task> getTaskListByNameOrderByPriorityDesc(String name) throws BusinessException, GetTaskListInvalidNameParamException;
     List<Task> getTaskListByNameOrderByCreatedAtDesc(String name) throws BusinessException, GetTaskListInvalidNameParamException;
     Task getOne(int id) throws BusinessException, NotFoundException;
