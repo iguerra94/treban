@@ -259,7 +259,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        position: relative;
+
         button {
           display: flex;
           justify-content: center;
@@ -268,6 +268,8 @@
           height: 3em;
           border-radius: 50%;
           cursor: pointer;
+          position: relative;
+
           span#btn-username-text {
             font-size: 1.3em;
             text-transform: uppercase;
@@ -278,13 +280,14 @@
           display: block;
           background-color: #CCCCCC;
           position: absolute;
-          right: -10.6em;
+          left: 11em;
           opacity: 0;
-          bottom: 0;
+          bottom: 2em;
           border-radius: .3em;
           transition: opacity .5s ease-in-out;
           will-change: opacity;
           z-index: 1;
+
           &.active {
             opacity: 1;
           }

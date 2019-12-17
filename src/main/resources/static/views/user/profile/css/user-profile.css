@@ -27,7 +27,7 @@
 }
 
 .profile-wrapper .left-menu .left-menu-container .left-menu__top-content {
-  height: 33vh;
+  height: 22vh;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -147,15 +147,15 @@
   width: inherit;
 }
 
-.profile-wrapper .main-container-wrapper .main-container .main-container__content .user-profile-form .main-container__content-item.active {
+.profile-wrapper .main-container-wrapper .main-container .main-container__content .main-container__content-item.active {
   display: block;
 }
 
-.profile-wrapper .main-container-wrapper .main-container .main-container__content .user-profile-form .main-container__content-item:not(.active) {
+.profile-wrapper .main-container-wrapper .main-container .main-container__content .main-container__content-item:not(.active) {
   display: none;
 }
 
-.profile-wrapper .main-container-wrapper .main-container .main-container__content .user-profile-form .main-container__content-item .main-container__content-item-row {
+.profile-wrapper .main-container-wrapper .main-container .main-container__content .main-container__content-item .main-container__content-item-row {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -166,35 +166,13 @@
   margin-bottom: 1em;
 }
 
-.profile-wrapper .main-container-wrapper .main-container .main-container__content .user-profile-form .main-container__content-item .main-container__content-item-row .input-label {
-  font-size: .7em;
+.profile-wrapper .main-container-wrapper .main-container .main-container__content .main-container__content-item .main-container__content-item-row .input-label {
+  font-size: .9em;
   margin-bottom: .8em;
 }
 
-.profile-wrapper .main-container-wrapper .main-container .main-container__content .user-profile-form .main-container__content-item .main-container__content-item-row .profile-input {
-  outline: none;
-  border: none;
-  font-size: .9em;
-  padding: .6em .8em;
-  background-color: #D8D8D8;
+.profile-wrapper .main-container-wrapper .main-container .main-container__content .main-container__content-item .main-container__content-item-row p {
+  font-size: 1.1em;
   margin-bottom: .5em;
-  width: 18em;
-  border-radius: .2em;
-}
-
-.profile-wrapper .main-container-wrapper .main-container .main-container__content .user-profile-form .main-container__content-item .main-container__content-item-row .main-container__content-item-row-buttons.active {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-}
-
-.profile-wrapper .main-container-wrapper .main-container .main-container__content .user-profile-form .main-container__content-item .main-container__content-item-row .main-container__content-item-row-buttons:not(.active) {
-  display: none;
-}
-
-.profile-wrapper .main-container-wrapper .main-container .main-container__content .user-profile-form .main-container__content-item .main-container__content-item-row .main-container__content-item-row-buttons button {
-  width: 2em;
-  height: 2em;
-  margin-right: .3em;
 }
 /*# sourceMappingURL=user-profile.css.map */

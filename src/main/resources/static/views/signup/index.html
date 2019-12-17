@@ -12,7 +12,12 @@
                 <form id="signup-form" class="signup-form">
                     <input type="text" placeholder="Nombre completo" ng-model="user.name" ng-change="closeMessageBoxIfVisible()" required>
                     <input type="text" placeholder="E-mail" ng-model="user.email" ng-change="closeMessageBoxIfVisible()" required>
-                    <input type="password" placeholder="Contraseña" ng-model="user.password" ng-change="closeMessageBoxIfVisible()" required>
+                    <input type="password" placeholder="Contraseña" ng-model="password" ng-change="closeMessageBoxIfVisible()" required>
+                    <select ng-model="userRole" ng-change="closeMessageBoxIfVisible()" class="w-80">
+                        <option value="" selected>SELECCIONAR ROL</option>
+                        <option value="DEV">Desarrollador</option>
+                        <option value="PROJECT_LEAD">Lider de Proyecto</option>
+                    </select>
                     <button type="submit" class="btn btn-info" ng-click="validateClientData()">
                         Crear cuenta
                         <i class="fas fa-spinner fa-spin hidden"></i>

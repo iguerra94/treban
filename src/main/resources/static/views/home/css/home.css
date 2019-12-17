@@ -414,7 +414,6 @@
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-  position: relative;
 }
 
 .home-wrapper .left-menu-home .left-menu-container .left-menu__bottom-content button {
@@ -431,6 +430,7 @@
   height: 3em;
   border-radius: 50%;
   cursor: pointer;
+  position: relative;
 }
 
 .home-wrapper .left-menu-home .left-menu-container .left-menu__bottom-content button span#btn-username-text {
@@ -443,9 +443,9 @@
   display: block;
   background-color: #CCCCCC;
   position: absolute;
-  right: -10.6em;
+  left: 11em;
   opacity: 0;
-  bottom: 0;
+  bottom: 2em;
   border-radius: .3em;
   -webkit-transition: opacity .5s ease-in-out;
   transition: opacity .5s ease-in-out;

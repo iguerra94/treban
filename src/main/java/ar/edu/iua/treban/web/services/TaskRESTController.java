@@ -9,6 +9,8 @@ import ar.edu.iua.treban.web.services.exception.GetTaskListInvalidNameParamExcep
 import ar.edu.iua.treban.web.services.exception.GetTaskListInvalidOrderByParamException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 

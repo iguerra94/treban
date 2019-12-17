@@ -16,12 +16,31 @@ function SigninController($rootScope, $scope, $location, $window, $log, coreServ
     $scope.user = {
         email: "",
         username: "",
-        password : ""
+        password: "",
     };
+
+    $scope.password = "";
 
     $scope.animateSpinnerOne = function() {
         return new Promise(function(resolve, reject) {
             $scope.showSpinner($spinnerOne);
+
+            // validations
+            $scope.validateUndefinedAttributes();
+
+            if (!$scope.validateEmptyAttributes([$scope.user.email])) {
+                $window.setTimeout(() => {
+                    $scope.hideSpinner($spinnerOne);
+                    reject({ message: "Ninguno de los campos deben quedar vacios." });
+                }, 500);
+            }
+
+            if (!$scope.validateEmail($scope.user.email)) {
+                $window.setTimeout(() => {
+                    $scope.hideSpinner($spinnerOne);
+                    reject({ message: "El email ingresado no es valido." });
+                }, 500);
+            }
 
             $window.setTimeout(() => {
                 $scope.hideSpinner($spinnerOne);
@@ -34,6 +53,22 @@ function SigninController($rootScope, $scope, $location, $window, $log, coreServ
         return new Promise(function(resolve, reject) {
             $scope.showSpinner($spinnerTwo);
 
+            // validations
+            $scope.validateUndefinedAttributes();
+
+            if (!$scope.validateEmptyAttributes([$scope.password])) {
+                $window.setTimeout(() => {
+                    $scope.hideSpinner($spinnerTwo);
+                    reject({ message: "Ninguno de los campos deben quedar vacios." });
+                }, 500);
+            }
+
+            // hash the password, so that it travels hashed to the server.
+            $scope.user.username = $scope.generateUsername();
+            $scope.user.password = $scope.hashPassword($scope.password);
+
+            $scope.password = "";
+
             $window.setTimeout(() => {
                 $scope.hideSpinner($spinnerTwo);
                 resolve();
@@ -42,70 +77,52 @@ function SigninController($rootScope, $scope, $location, $window, $log, coreServ
     };
 
     $scope.validateClientDataInitialStep = function () {
-        const user = $scope.user;
-
         $scope.animateSpinnerOne()
             .then(() => {
-                // validations
-                $scope.validateUndefinedAttributes(user);
-
-                if (!$scope.validateEmptyAttribute(user.email)) return;
-                if (!$scope.validateEmail(user.email)) return;
-
                 // validate if email exists in DB
                 // If exists, go to final step
                 // If not, display the error message
-                $scope.verifyUserEmail(user.email);
+                $scope.verifyUserEmail($scope.user.email);
             })
+            .catch((err) => {
+                $errorMessageBox.classList.remove("hidden");
+                $errorMessage.textContent = err.message;
+            });
     };
 
     $scope.validateClientDataFinalStep = function () {
-        const user = $scope.user;
-
         $scope.animateSpinnerTwo()
             .then(() => {
-                // validations
-                $scope.validateUndefinedAttributes(user);
-
-                if (!$scope.validateEmptyAttribute(user.password)) return;
-
-                // hash the password, so that it travels hashed to the server.
-                $scope.generateUsername(user);
-                $scope.hashPassword(user);
-                console.log(user);
-
                 // signin
-                $scope.signin(user);
+                $scope.signin($scope.user);
             })
-
+            .catch((err) => {
+                $errorMessageBox.classList.remove("hidden");
+                $errorMessage.textContent = err.message;
+            });
     };
 
-    $scope.validateUndefinedAttributes = function(user) {
-        for (const prop in user) {
-            if (user[`${prop}`] === undefined) {
-                user[`${prop}`] = "";
-            }
+    $scope.validateUndefinedAttributes = function() {
+        if ($scope.user.email === undefined) {
+            $scope.user.email = "";
+        }
+
+        if ($scope.password === undefined) {
+            $scope.password = "";
         }
     };
 
-    $scope.validateEmptyAttribute = function(attr) {
-        if (attr.length === 0) {
-            $errorMessageBox.classList.remove("hidden");
-            $errorMessage.textContent = "Ninguno de los campos deben quedar vacios.";
-
-            return false;
+    $scope.validateEmptyAttributes = function(attrs) {
+        for (let attr of attrs) {
+            if (attr.length === 0) {
+                return false;
+            }
         }
         return true;
     };
 
     $scope.validateEmail = function(email) {
-        if (!$rootScope.isEmailValid(email)) {
-            $errorMessageBox.classList.remove("hidden");
-            $errorMessage.textContent = "El email ingresado no es valido.";
-
-            return false;
-        }
-        return true;
+        return $rootScope.isEmailValid(email);
     };
 
     $scope.closeMessageBoxIfVisible = function() {
@@ -113,13 +130,13 @@ function SigninController($rootScope, $scope, $location, $window, $log, coreServ
         $scope.closeMessageBox();
     };
 
-    $scope.generateUsername = function(user) {
-        user.username = user.email.split("@")[0];
+    $scope.generateUsername = function() {
+        return $scope.user.email.split("@")[0];
     };
 
-    $scope.hashPassword = function(user) {
-        const hashed = CryptoJS.SHA256(user.password);
-        user.password = hashed.toString(CryptoJS.enc.Hex);
+    $scope.hashPassword = function(password) {
+        const hashed = CryptoJS.SHA256(password);
+        return hashed.toString(CryptoJS.enc.Hex);
     };
 
     $scope.closeMessageBox = function () {
@@ -175,9 +192,13 @@ function SigninController($rootScope, $scope, $location, $window, $log, coreServ
             .then(resp => {
                 if (resp.status === RESPONSE_CODE_OK) {
                     $scope.goToFinalStep();
+                } else {
+                    $errorMessageBox.classList.remove("hidden");
+                    $errorMessage.textContent = resp.data.message;
                 }
             })
             .catch(err => {
+                console.log("err: ", err);
                 $errorMessageBox.classList.remove("hidden");
                 $errorMessage.textContent = err.data.message;
             });
@@ -186,22 +207,27 @@ function SigninController($rootScope, $scope, $location, $window, $log, coreServ
     $scope.signin = function (user) {
         coreService.signin(user)
             .then(resp => {
-                console.log(resp);
                 if (resp.status === RESPONSE_CODE_OK) {
-                    $rootScope.user.name = resp.data.name;
-                    $rootScope.user.email = resp.data.email;
-                    $rootScope.user.username = resp.data.username;
-                    $rootScope.user.roles = resp.data.roles;
+                    $rootScope.currentUser.name = resp.data.name;
+                    $rootScope.currentUser.email = resp.data.email;
+                    $rootScope.currentUser.username = resp.data.username;
+                    $rootScope.currentUser.roles = resp.data.roles;
+
                     $rootScope.autenticado=true;
-                    $scope.user.password = "";
+
+                    $rootScope.relocate("");
+                } else {
+                    $errorMessageBox.classList.remove("hidden");
+                    $errorMessage.textContent = resp.data.message;
+
+                    $rootScope.cleanSigninData();
                 }
             })
             .catch(err => {
-                console.log(err);
                 $errorMessageBox.classList.remove("hidden");
                 $errorMessage.textContent = err.data.message;
-                $rootScope.autenticado=false;
-                $scope.user.password = "";
-            });
+
+                $rootScope.cleanSigninData();
+            })
     };
 }

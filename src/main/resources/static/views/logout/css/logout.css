@@ -1,7 +1,3 @@
-body {
-  background-color: #DCDCDC;
-}
-
 .main-container-wrapper {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -17,9 +13,9 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
@@ -46,8 +42,7 @@ body {
   margin: 0;
 }
 
-.main-container-wrapper .main-container .box {
-  background-color: #FFFFFF;
+.main-container-wrapper .main-container .box-transparent {
   border-radius: .2em;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -57,33 +52,14 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
   padding: 2em 2.5em;
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
+  height: 50%;
 }
 
-.main-container-wrapper .main-container .box .box-content {
-  height: 100%;
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-
-.main-container-wrapper .main-container .box .box-content .success-message-box {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
+.main-container-wrapper .main-container .box-transparent .success-message-box {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -97,10 +73,10 @@ body {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
-  margin-bottom: 1em;
+  margin-bottom: 3em;
 }
 
-.main-container-wrapper .main-container .box .box-content .success-message-box .success-icon-box {
+.main-container-wrapper .main-container .box-transparent .success-message-box .success-icon-box {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -117,14 +93,11 @@ body {
   margin-bottom: 1em;
 }
 
-.main-container-wrapper .main-container .box .box-content .success-message-box .success-icon-box .success-icon {
+.main-container-wrapper .main-container .box-transparent .success-message-box .success-icon-box .success-icon {
   width: 2.5em;
 }
 
-.main-container-wrapper .main-container .box .box-content .buttons-box {
-  -webkit-box-flex: 1;
-      -ms-flex: 1;
-          flex: 1;
+.main-container-wrapper .main-container .box-transparent .buttons-box {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -140,7 +113,7 @@ body {
           flex-direction: column;
 }
 
-.main-container-wrapper .main-container .box .box-content .buttons-box a {
+.main-container-wrapper .main-container .box-transparent .buttons-box a {
   width: 80%;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -163,4 +136,4 @@ body {
   height: 40vh;
   z-index: 1;
 }
-/*# sourceMappingURL=signup-success.css.map */
+/*# sourceMappingURL=logout.css.map */

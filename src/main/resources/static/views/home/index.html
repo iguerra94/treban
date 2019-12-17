@@ -109,7 +109,7 @@
                                 <div class="modal-content-column-item-element flex-row hidden">
                                     <div class="modal-content-column-item-element-value flex-row m-0 w-100">
                                         <p class="mr-1">{{ currentTaskDetail.status.name }}</p>
-                                        <button class="btn btn-orange-inverse" title="Editar" ng-click="editTaskDetail($event)" ng-if="currentTaskDetail.status.name !== lists[4].name">
+                                        <button class="btn btn-orange-inverse" title="Editar" ng-click="editTaskDetail($event)" ng-if="currentTaskDetail.status.name !== lists[4].name" ng-hide="currentTaskDetail.status.name === lists[0].name && currentUser.roles[0] !== roles.PROJECT_LEADER">
                                             <i class="fas fa-edit"></i>
                                         </button>
                                     </div>
@@ -148,7 +148,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="modal-content__column flex-2 pos-relative">
+                        <div class="modal-content__column flex-2 pos-relative align-self-fs">
                             <div class="modal-content__column-item">
                                 <label class="bold">Fecha de creacion</label>
                                 <div class="modal-content-column-item-box shape gray h-1 br-05"></div>
@@ -159,7 +159,7 @@
                                 <div class="modal-content-column-item-box shape gray h-1 br-05"></div>
                                 <span id="task_last_updated_time" class="modal-content-column-item-element hidden">{{ currentTaskDetail.lastModified }}</span>
                             </div>
-                            <div class="modal-content__column-item w-100">
+                            <div class="modal-content__column-item w-100" ng-if="currentUser.roles[0] === roles.PROJECT_LEADER">
                                 <button id="btn-open-modal-delete-task" class="btn btn-error w-inherit pos-absolute bottom-0" ng-click="openModalTaskDeleteQuestion()" disabled>
                                     <i class="far fa-trash-alt"></i>
                                     <span class="bold">Eliminar tarea</span>
@@ -202,7 +202,7 @@
         <div class="left-menu-container left-menu-container-opened active">
             <div class="left-menu__top-content">
                 <div class="brand-logo">
-                    <a ng-click="relocate('home')">
+                    <a ng-click="relocate('')">
                         <img src="../../images/Treban Logo x32.svg" alt="Treban Logo">
                         <h1 class="bold">Treban</h1>
                     </a>
@@ -215,12 +215,12 @@
                             <div class="select-box shape gray w-100 h-2"></div>
 
                             <div class="select-input flex-row hidden">
-                                <select ng-disabled="noListsCreated" ng-model="orderByFieldParam" ng-change="getUpdatedTasksOrdered()">
+                                <select ng-disabled="noListsCreated || tasks.length === 0" ng-model="orderByFieldParam" ng-change="getUpdatedTasksOrdered()">
                                     <option value="created_at">Fecha de creacion</option>
                                     <option value="priority">Prioridad</option>
                                 </select>
-                                <i class="fas fa-arrow-up lists-order-criteria-input" title="Orden ascendente" ng-disabled="noListsCreated" ng-click="setOrderByCriteriaParam($event); getUpdatedTasksOrdered();"></i>
-                                <i class="fas fa-arrow-down lists-order-criteria-input hidden" title="Orden descendente" ng-disabled="noListsCreated" ng-click="setOrderByCriteriaParam($event); getUpdatedTasksOrdered();"></i>
+                                <i ng-class="{'i-tag-disabled': noListsCreated || tasks.length === 0 }" class="fas fa-arrow-up lists-order-criteria-input" title="Orden ascendente" ng-click="setOrderByCriteriaParam($event); getUpdatedTasksOrdered();"></i>
+                                <i ng-class="{'i-tag-disabled': noListsCreated || tasks.length === 0 }" class="fas fa-arrow-down lists-order-criteria-input hidden" title="Orden descendente" ng-click="setOrderByCriteriaParam($event); getUpdatedTasksOrdered();"></i>
                             </div>
                         </li>
                         <li class="left-menu__item">
@@ -237,18 +237,18 @@
             </div>
             <div class="left-menu__bottom-content">
                 <button id="btn-username" class="btn btn-normal-inverse" ng-click="openUserMenu($event)" stop-event>
-                    <span id="btn-username-text">ig</span>
+                    <span id="btn-username-text"> {{ getCurrentUserNameInitials() }}</span>
                 </button>
                 <div class="user-menu hidden">
                     <ul class="user-menu__items">
                         <li class="user-menu__item user-menu__item-header">
-                            <span class="bold" id="user-username">Ivan Gabriel Guerra</span>
-                            <span id="user-email">iguerra696@alumnos.iua.edu.ar</span>
+                            <span class="bold" id="user-username">{{ currentUser.name }}</span>
+                            <span id="user-email">{{ currentUser.email }}</span>
                         </li>
                         <li class="user-menu__item" ng-click="relocate('user/profile')">
                             <a id="btn-profile"><span>Perfil</span></a>
                         </li>
-                        <li class="user-menu__item" ng-click="relocate()">
+                        <li class="user-menu__item" ng-click="logout()">
                             <a id="btn-close-session"><span>Cerrar sesion</span></a>
                         </li>
                     </ul>
@@ -259,8 +259,8 @@
     <main class="main-container-home-wrapper">
         <div class="main-container">
             <div class="main-container__header">
-                <div class="btn main-container__header-item-box shape green w-10 h-25"></div>
-                <button id="btn-open-modal-add-task-list" class="btn btn-success main-container__header-item hidden" ng-click="openModalAddTaskList()" title="{{ setElementTitleAttrBasedOnClass('#btn-open-modal-add-task-list', 'disabled', 'No es posible crear nuevas listas. Todas las listas de tareas permitidas fueron creadas.') }}">
+                <div class="btn main-container__header-item-box shape green w-10 h-25" ng-if="currentUser.roles[0] === roles.PROJECT_LEADER"></div>
+                <button id="btn-open-modal-add-task-list" class="btn btn-success main-container__header-item hidden" ng-click="openModalAddTaskList()" title="{{ setElementTitleAttrBasedOnClass('#btn-open-modal-add-task-list', 'disabled', 'No es posible crear nuevas listas. Todas las listas de tareas permitidas fueron creadas.') }}" ng-hide="currentUser.roles[0] !== roles.PROJECT_LEADER">
                     <span class="bold">Agregar lista</span>
                     <img src="../images/ic_add.svg" alt="Add new task list">
                 </button>
@@ -336,7 +336,7 @@
                                 <ul class="task-list__items">
                                     <li ng-repeat="task in tasks | filter: { status: { name: list.name } }" class="task-list__item" ng-class="{ 'task-list__item-task-done': list.name === lists[4].name }" ng-click="openModalTaskDetail(task.id)">{{ task.name }}</li>
                                 </ul>
-                                <div class="task-list__item-add-new-task task-list__item" ng-if="list.name === lists[0].name">
+                                <div class="task-list__item-add-new-task task-list__item" ng-if="list.name === lists[0].name && currentUser.roles[0] === roles.PROJECT_LEADER">
                                     <button id="btn-open-modal-add-task" class="btn btn-gray-dark" ng-click="openModalAddTask()">
                                         <img src="../../images/ic_add_black_lighter.svg" alt="Add New Task">
                                         <span>Crear tarea</span>

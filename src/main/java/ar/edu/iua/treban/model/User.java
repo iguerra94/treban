@@ -5,7 +5,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.beans.Transient;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -37,6 +36,9 @@ public class User implements UserDetails {
 	private boolean accountNonExpired = true;
 	private boolean accountNonLocked = true;
 	private boolean credentialsNonExpired = true;
+
+	@Transient
+	private String actualRoleName;
 
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "user_roles", joinColumns = {
@@ -96,6 +98,10 @@ public class User implements UserDetails {
 		return credentialsNonExpired;
 	}
 
+	public String getActualRoleName() {
+		return actualRoleName;
+	}
+
 	public Set<Role> getRoles() {
 		return roles;
 	}
@@ -132,12 +138,16 @@ public class User implements UserDetails {
 		this.credentialsNonExpired = credentialsNonExpired;
 	}
 
+	public void setActualRoleName(String actualRoleName) {
+		this.actualRoleName = actualRoleName;
+	}
+
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
 
 	@Override
 	public String toString() {
-		return "User: (name = " + name + ", email = " + email + ", username = " + username + ')';
+		return "User: (name = " + name + ", email = " + email + ", username = " + username + ", roles = " + roles + " )";
 	}
 }

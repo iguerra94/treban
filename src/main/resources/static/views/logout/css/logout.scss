@@ -1,0 +1,87 @@
+.main-container-wrapper {
+    display: flex;
+    height: 100vh;
+
+    .main-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin: auto;
+        height: 67%;
+        width: 500px;
+        z-index: 2;
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+            margin-bottom: 2.5em;
+    
+            h1 {
+                font-size: 1.8em;
+                padding: 0 .6em;
+                margin: 0;
+            }
+        }
+    
+        .box-transparent {
+            border-radius: .2em;
+            display: flex;
+            width: 30vw;
+            flex-direction: column;
+            justify-content: flex-start;
+            padding: 2em 2.5em;
+            height: 50%;
+
+            .success-message-box {
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+                flex-direction: column;
+                margin-bottom: 3em;
+
+                .success-icon-box {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 5em;
+                    height: 5em;
+                    border-radius: 50%;
+                    background-color: #66BB6A;
+                    margin-bottom: 1em;
+
+                    .success-icon {
+                        width: 2.5em;
+                    }
+                }
+            }
+
+            .buttons-box {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+
+                a {
+                    width: 80%;
+                    display: flex;
+                    flex-direction: column;
+                    margin-top: .4em;
+                    padding: .5em 0;
+                    text-align: center;
+                }
+            }
+        }    
+    }
+}
+
+.bottom-background {
+    background-color: #03A9F4;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40vh;
+    z-index: 1;
+}

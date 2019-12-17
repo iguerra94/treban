@@ -41,8 +41,8 @@ main {
         justify-self: center;
         display: flex;
         flex-direction: column;
-        justify-content: space-between;
-        height: 40%;
+        justify-content: space-evenly;
+        height: 70%;
 
         .landing-main-quote {
             font-size: 2em;
@@ -65,7 +65,7 @@ main {
     }
 }
 
-#btn-signin {
+#btn-signin, #btn-home {
     padding: .5em 1em;
 }
 

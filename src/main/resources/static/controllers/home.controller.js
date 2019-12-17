@@ -27,7 +27,7 @@ function HomeController($rootScope, $scope, $location, $window, $log, listsServi
 
     $scope.newTask = { name: "", priority: "LOW", estimation: 5, status: { name: "BACKLOG" } };
 
-    $scope.currentTaskDetail = {};
+    $scope.currentTaskDetail = { status: { name: ""} };
 
     $scope.currentTaskDetailEdition = {};
 
@@ -192,6 +192,11 @@ function HomeController($rootScope, $scope, $location, $window, $log, listsServi
         taskListStylesUtils.closeUserMenuIfOpened($event, $rootScope, [$userMenu]);
     };
 
+    $scope.getCurrentUserNameInitials = function () {
+        const currentUserNameSplitted = $rootScope.currentUser.name.split(" ");
+        return `${ currentUserNameSplitted[0].slice(0,1) }${ currentUserNameSplitted.length > 1 ? currentUserNameSplitted[currentUserNameSplitted.length-1].slice(0,1) : "" }`;
+    };
+
     $scope.loadTaskLists = function() {
         return new Promise(function(resolve, reject) {
             $scope.showLoadingTaskLists();
@@ -317,11 +322,15 @@ function HomeController($rootScope, $scope, $location, $window, $log, listsServi
     };
 
     $scope.getCurrentTaskDetailEditionStatusNamePosition = function (listName) {
-        const index = $scope.lists.findIndex(l => l.name === listName);
-        return $scope.lists[index].position;
+        if (listName !== undefined && listName.length > 0){
+            const index = $scope.lists.findIndex(l => l.name === listName);
+            return $scope.lists[index].position;
+        }
+
     };
 
     $scope.shouldShowList = function (list) {
+        if ($scope.currentTaskDetail.status.name === $scope.lists[0].name && $rootScope.currentUser.roles[0] !== $rootScope.roles.PROJECT_LEADER) return false;
         const position = $scope.getCurrentTaskDetailEditionStatusNamePosition($scope.currentTaskDetail.status.name);
         return list.position > position;
     };
@@ -509,7 +518,7 @@ function HomeController($rootScope, $scope, $location, $window, $log, listsServi
     };
 
     $scope.resetCurrentTaskDetailObject = function () {
-        $scope.currentTaskDetail = {};
+        $scope.currentTaskDetail = { status: { name: ""} };
     };
 
     $scope.closeErrorMessageBox = function ($event) {
@@ -651,6 +660,9 @@ function HomeController($rootScope, $scope, $location, $window, $log, listsServi
                             taskStylesUtils.showEditTaskSuccessMessage([$successMessageBox, $successMessage]);
                             $scope.showLists();
                         });
+                } else {
+                    const $errorMessageBox = $window.document.querySelector("#modal-task-detail").querySelector(".error-message-box");
+                    $scope.showErrorMessage(resp.data.message, $errorMessageBox);
                 }
             })
             .catch((err) => {

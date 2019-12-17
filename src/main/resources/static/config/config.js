@@ -1,10 +1,9 @@
 angular.module('treban').config(
-		function($routeProvider, $locationProvider, $httpProvider, $logProvider) {
+		function($routeProvider, $locationProvider, $httpProvider) {
 			console.log('Configurando...');
-			$logProvider.debugEnabled(true);
-			
-//			$httpProvider.defaults.withCredentials = true;
-//			$httpProvider.interceptors.push('APIInterceptor');
+
+			$httpProvider.defaults.withCredentials = true;
+			$httpProvider.interceptors.push('APIInterceptor');
 
 			$locationProvider.html5Mode(true);
 
@@ -33,7 +32,12 @@ angular.module('treban').config(
 					templateUrl: 'views/signup/success/index.html',
 					controller: 'SignupSuccessController'
 				})
+				.when('/logout', {
+					templateUrl: 'views/logout/index.html',
+					controller: 'LogoutController'
+				})
 				.otherwise({
 					redirectTo: '/'
 				});
 		});
+

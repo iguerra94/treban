@@ -14,12 +14,18 @@ angular.module('treban')
                     },
                     signin: function(user) {
                         const req = {
-                            url: URL_BASE+"signin",
                             method: "POST",
+                            url: `${URL_BASE}perform_signin`,
                             headers : { 'Content-Type': 'application/x-www-form-urlencoded' },
-                            data: 'remember-me=true&email='+user.username+'&password='+user.password
+                            data: 'remember-me=true&username='+user.username+'&password='+user.password
                         };
                         return $http(req);
+                    },
+                    logout: function() {
+                        return $http.get(`${URL_BASE}logout`);
+                    },
+                    authInfo: function() {
+                        return $http.get(`${URL_BASE}authinfo`);
                     }
                 }
             }

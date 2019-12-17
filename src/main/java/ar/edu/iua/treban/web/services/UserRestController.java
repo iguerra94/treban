@@ -3,7 +3,6 @@ package ar.edu.iua.treban.web.services;
 import ar.edu.iua.treban.business.IUserBusiness;
 import ar.edu.iua.treban.business.exception.AlreadyExistsException;
 import ar.edu.iua.treban.business.exception.BusinessException;
-import ar.edu.iua.treban.business.exception.UserEmailNotRegisteredException;
 import ar.edu.iua.treban.model.User;
 import ar.edu.iua.treban.model.exception.EmptyFieldsException;
 import ar.edu.iua.treban.model.exception.UserEmailInvalidException;

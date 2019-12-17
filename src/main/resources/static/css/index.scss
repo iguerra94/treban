@@ -167,6 +167,10 @@ select {
     align-items: center;
 }
 
+.align-self-fs {
+    align-self: flex-start;
+}
+
 .justify-content-fe {
     justify-content: flex-end;
 }
@@ -197,6 +201,10 @@ select {
 
 .w-60 {
     width: 60%;
+}
+
+.w-80 {
+    width: 80%;
 }
 
 .w-100 {
@@ -273,6 +281,12 @@ select {
 
 .flex-2 {
     flex: 2;
+}
+
+.i-tag-disabled {
+    color: #BBBBBB;
+    cursor: initial;
+    pointer-events: none;
 }
 
 input {

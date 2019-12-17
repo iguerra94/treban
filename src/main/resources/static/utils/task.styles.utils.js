@@ -40,7 +40,9 @@ angular.module('treban')
                     const $modalContentColumnItemBoxes = elements[1];
                     const $modalContentColumnItemElements = elements[2];
 
-                    $btnOpenModalDeleteTask.disabled = true;
+                    if ($btnOpenModalDeleteTask) {
+                        $btnOpenModalDeleteTask.disabled = true;
+                    }
 
                     $modalContentColumnItemElements.forEach(item => {
                         item.classList.add("hidden");
@@ -55,7 +57,9 @@ angular.module('treban')
                     const $modalContentColumnItemBoxes = elements[1];
                     const $modalContentColumnItemElements = elements[2];
 
-                    $btnOpenModalDeleteTask.disabled = false;
+                    if ($btnOpenModalDeleteTask) {
+                        $btnOpenModalDeleteTask.disabled = false;
+                    }
 
                     $modalContentColumnItemBoxes.forEach(item => {
                         item.classList.add("hidden");

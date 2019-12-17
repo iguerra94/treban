@@ -1,8 +1,6 @@
 angular.module('treban')
     .controller('SignupController', ['$rootScope', '$scope', '$location','$window','$log', 'coreService', 'RESPONSE_CODE_CREATED', SignupController]);
-    // .controller('SignupController', ['$rootScope', '$scope', '$location','$window','$log', 'coreService', 'user', SignupController]);
 
-// function SignupController($rootScope, $scope, $location, $window, $log, coreService, user) {
 function SignupController($rootScope, $scope, $location, $window, $log, coreService, RESPONSE_CODE_CREATED) {
     console.log("signup");
 
@@ -17,11 +15,39 @@ function SignupController($rootScope, $scope, $location, $window, $log, coreServ
         email: "",
         username: "",
         password : "",
+        actualRoleName: ""
     };
+
+    $scope.password = "";
+    $scope.userRole = "";
 
     $scope.animateSpinner = function() {
         return new Promise(function(resolve, reject) {
             $scope.showSpinner();
+
+            // validations
+            $scope.validateUndefinedAttributes();
+
+            if (!$scope.validateEmptyAttributes([$scope.user.name, $scope.user.email, $scope.password, $scope.userRole])) {
+                $window.setTimeout(() => {
+                    $scope.hideSpinner();
+                    reject({ message: "Ninguno de los campos deben quedar vacios." });
+                }, 500);
+            }
+
+            if (!$scope.validateEmail($scope.user.email)) {
+                $window.setTimeout(() => {
+                    $scope.hideSpinner();
+                    reject({ message: "El email ingresado no es valido." });
+                }, 500);
+            }
+
+            // refine user data
+            $scope.user.username = $scope.generateUsername($scope.user.email);
+            $scope.user.password = $scope.hashPassword($scope.password);
+            $scope.user.actualRoleName = $scope.userRole;
+
+            $scope.password = "";
 
             $window.setTimeout(() => {
                 $scope.hideSpinner();
@@ -31,53 +57,45 @@ function SignupController($rootScope, $scope, $location, $window, $log, coreServ
     };
 
     $scope.validateClientData = function () {
-        const user = $scope.user;
-
         $scope.animateSpinner()
             .then(() => {
-                // validations
-                $scope.validateUndefinedAttributes(user);
-
-                if (!$scope.validateEmptyAttributes(user)) return;
-                if (!$scope.validateEmail(user.email)) return;
-
-                // refine user data
-                $scope.generateUsername(user);
-                $scope.hashPassword(user);
-
-                $scope.signup(user);
+                $scope.signup($scope.user);
             })
+            .catch((err) => {
+                $errorMessageBox.classList.remove("hidden");
+                $errorMessage.textContent = err.message;
+            });
      };
 
-    $scope.validateUndefinedAttributes = function(user) {
-        for (const prop in user) {
-            if (user[`${prop}`] === undefined) {
-                user[`${prop}`] = "";
-            }
+    $scope.validateUndefinedAttributes = function() {
+        if ($scope.user.name === undefined) {
+            $scope.user.name = "";
+        }
+
+        if ($scope.user.email === undefined) {
+            $scope.user.email = "";
+        }
+
+        if ($scope.password === undefined) {
+            $scope.password = "";
+        }
+
+        if ($scope.userRole === undefined) {
+            $scope.userRole = "";
         }
     };
 
-    $scope.validateEmptyAttributes = function(user) {
-        if (user.name.length === 0 ||
-            user.email.length === 0 ||
-            user.password.length === 0) {
-
-            $errorMessageBox.classList.remove("hidden");
-            $errorMessage.textContent = "Ninguno de los campos deben quedar vacios.";
-
-            return false;
+    $scope.validateEmptyAttributes = function(attrs) {
+        for (let attr of attrs) {
+            if (attr.length === 0) {
+                return false;
+            }
         }
         return true;
     };
 
     $scope.validateEmail = function(email) {
-        if (!$rootScope.isEmailValid(email)) {
-            $errorMessageBox.classList.remove("hidden");
-            $errorMessage.textContent = "El email ingresado no es valido.";
-
-            return false;
-        }
-        return true;
+        return $rootScope.isEmailValid(email);
     };
 
     $scope.closeMessageBoxIfVisible = function() {
@@ -85,13 +103,13 @@ function SignupController($rootScope, $scope, $location, $window, $log, coreServ
         $scope.closeMessageBox();
     };
 
-    $scope.generateUsername = function(user) {
-        user.username = user.email.split("@")[0];
+    $scope.generateUsername = function(email) {
+        return email.split("@")[0];
     };
 
-    $scope.hashPassword = function(user) {
-        const hashed = CryptoJS.SHA256(user.password);
-        user.password = hashed.toString(CryptoJS.enc.Hex);
+    $scope.hashPassword = function(password) {
+        const hashed = CryptoJS.SHA256(password);
+        return hashed.toString(CryptoJS.enc.Hex);
     };
 
     $scope.closeMessageBox = function () {
@@ -111,6 +129,9 @@ function SignupController($rootScope, $scope, $location, $window, $log, coreServ
             .then(resp => {
                 if (resp.status === RESPONSE_CODE_CREATED) {
                     $rootScope.relocate("signup/success")
+                } else {
+                    $errorMessageBox.classList.remove("hidden");
+                    $errorMessage.textContent = resp.data.message;
                 }
             })
             .catch(err => {

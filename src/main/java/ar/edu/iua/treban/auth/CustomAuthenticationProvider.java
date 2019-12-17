@@ -5,14 +5,16 @@ import ar.edu.iua.treban.model.User;
 import ar.edu.iua.treban.model.persistence.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -23,38 +25,35 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     private UserRepository userRepository;
 
     @Override
-    public Authentication authenticate(final Authentication authentication) throws AuthenticationException {
-        final String username = authentication.getName();
-        final String password = authentication.getCredentials().toString();
+    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+        String username = authentication.getName();
+        String password = authentication.getCredentials().toString();
 
-        final Set<Role> userRoles = getUserIfAuthenticated(username, password);
+        Set<Role> userRoles = getUserIfAuthenticated(username, password);
 
-        return new UsernamePasswordAuthenticationToken(username, null, getGrantedAuthorities(userRoles));
+        return new UsernamePasswordAuthenticationToken(username, password, getGrantedAuthorities(userRoles));
     }
 
-    private Collection<? extends GrantedAuthority> getGrantedAuthorities(final Set<Role> userRoles) {
-        return userRoles
+    private Collection<? extends GrantedAuthority> getGrantedAuthorities(Set<Role> userRoles) {
+        List<GrantedAuthority> authorities = userRoles
                 .stream()
-                .map(role -> (GrantedAuthority) role::getName)
+                .map(role -> new SimpleGrantedAuthority(role.getName()))
                 .collect(Collectors.toList());
+        return authorities;
     }
 
     private Set<Role> getUserIfAuthenticated(final String username, final String password) {
-        final User user = userRepository.findByUsername(username);
+        User user = userRepository.findByUsername(username);
 
-        if (user == null) {
-            throw new UsernameNotFoundException("Please ");
-        }
-
-        if (!user.getPassword().equals(password)) {
-            throw new UsernameNotFoundException("Authentication failed");
+        if (user == null || !user.getPassword().equals(password)) {
+            throw new BadCredentialsException("The password entered is not correct.");
         }
 
         return user.getRoles();
     }
 
     @Override
-    public boolean supports(final Class<?> aClass) {
-        return aClass.equals(UsernamePasswordAuthenticationToken.class);
+    public boolean supports(Class<?> authentication) {
+        return authentication.equals(UsernamePasswordAuthenticationToken.class);
     }
 }

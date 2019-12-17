@@ -1,13 +1,15 @@
 angular.module('treban')
-.service('APIInterceptor', function($rootScope) {
-    var service = this;
+    .service('APIInterceptor', function($rootScope) {
+        const self = this;
 
-    service.responseError = function(response) {
-       if (response.status == 401) {
-    	   $rootScope.openLoginForm();
-       } else {
-    	   $rootScope.authInfo();
-       }
-       return response;
-    };
-});
+        self.responseError = function(response) {
+            console.log(response);
+            if (response.status === 401) {
+                $rootScope.autenticado = false;
+            }  else {
+                $rootScope.authInfo();
+            }
+
+            return response;
+        };
+    });

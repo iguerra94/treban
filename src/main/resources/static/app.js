@@ -4,19 +4,20 @@ angular.module('treban',
     .constant('URL_API_BASE', '/api/v1/')
     .constant('RESPONSE_CODE_OK', 200)
     .constant('RESPONSE_CODE_CREATED', 201)
-    .run(['$rootScope','$location',
-        function($rootScope, $location) {
+    .run(['$rootScope','$location', 'coreService',
+        function($rootScope, $location, coreService) {
             console.log("Iniciando");
             moment.locale('es');
 
             $rootScope.cleanSigninData = function() {
-                $rootScope.autenticado = false;
-                $rootScope.user = {
+                $rootScope.currentUser = {
                     name: "",
                     email: "",
-                    username: ""
+                    username: "",
+                    roles: []
                 };
-                $rootScope.user.roles = [];
+
+                $rootScope.autenticado = false;
             };
 
             $rootScope.cleanSigninData();
@@ -24,7 +25,43 @@ angular.module('treban',
             //Callback luego de autenticación
             $rootScope.cbauth = false;
 
+            $rootScope.authInfo = function (cb) {
+                if (cb) $rootScope.cbauth = cb;
+
+                coreService.authInfo()
+                    .then(resp => {
+                        if(resp.status === 200) {
+                            $rootScope.currentUser.name = resp.data.name;
+                            $rootScope.currentUser.email = resp.data.email;
+                            $rootScope.currentUser.username = resp.data.username;
+                            $rootScope.currentUser.roles = resp.data.roles;
+
+                            $rootScope.autenticado = true;
+
+                            if ($rootScope.cbauth) $rootScope.cbauth();
+                        }else{
+                            $rootScope.cleanSigninData();
+                        }
+                });
+            };
+
+            $rootScope.authInfo();
+
+            $rootScope.logout = function(callAuthInfo) {
+                coreService.logout().then(function(r){
+                    $rootScope.cleanSigninData();
+
+                    if (callAuthInfo) {
+                        $rootScope.authInfo();
+                    }
+
+                    $rootScope.relocate("logout");
+                }, function(){});
+            };
+
             $rootScope.userMenuOpened = false;
+
+            $rootScope.roles = { "DEVELOPER": "DEV", "PROJECT_LEADER": "PROJECT_LEAD" };
 
             $rootScope.relocate = function(loc) {
                 $location.path(loc);
@@ -32,6 +69,6 @@ angular.module('treban',
 
             $rootScope.isEmailValid = function(email) {
                 return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
-            }
+            };
 
         } ]);

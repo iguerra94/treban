@@ -8,14 +8,8 @@
                 </div>
                 <div class="left-menu__items-wrapper">
                     <ul class="left-menu__items">
-                        <li class="left-menu__item active" ng-click="showProfilePersonalInfo($event)">
+                        <li class="left-menu__item active"">
                             <a>Perfil</a>
-                        </li>
-                        <li class="left-menu__item" ng-click="showProfileEmail($event)">
-                            <a >Correo electrónico</a>
-                        </li>
-                        <li class="left-menu__item" ng-click="showProfileSecurity($event)">
-                            <a>Seguridad</a>
                         </li>
                     </ul>
                 </div>
@@ -32,64 +26,26 @@
         <div class="main-container">
             <div class="main-container__header">
                 <p class="main-container__header-primary-text bold">Perfil</p>
-                <span class="main-container__header-secondary-text">Gestiona tu información personal</span>
             </div>
             <div class="main-container__content">
-                <form action="#" class="user-profile-form">
-                    <div id="profile_personal_info" class="main-container__content-item active">
-                        <div class="main-container__content-item-row">
-                            <label for="profile-user-name" class="input-label">Nombre completo</label>
-                            <input id="profile-user-name" class="profile-input" type="text" value="Ivan Gabriel Guerra" placeholder="Introduce el nuevo nombre">
-                            <div class="main-container__content-item-row-buttons">
-                                <button class="btn btn-info">
-                                    <img src="../../images/ic_check.svg" alt="Save profile changes">
-                                </button>
-                                <button class="btn btn-normal">
-                                    <img src="../../images/ic_close.svg" alt="Cancel profile changes">
-                                </button>
-                            </div>
-                        </div>
-                        <div class="main-container__content-item-row">
-                            <label for="profile-user-role" class="input-label">Rol</label>
-                            <p id="profile-user-role" class="bold">Administrador</p>
-                        </div>
+                <div id="profile_personal_info" class="main-container__content-item active">
+                    <div class="main-container__content-item-row">
+                        <label for="profile-user-name" class="input-label">Nombre completo</label>
+                        <p id="profile-user-name" class="bold">{{ currentUser.name }}
                     </div>
-                    <div id="profile_email" class="main-container__content-item">
-                        <div class="main-container__content-item-row">
-                            <p>Tu dirección de correo electrónico actual es <span id="profile-user-email" class="bold">iguerra696@alumnos.iua.edu.ar</span></p>
-                        </div>
-                        <div class="main-container__content-item-row">
-                            <label for="profile-user-new-email" class="input-label">Nueva direccion de correo electronico</label>
-                            <input id="profile-user-new-email" class="profile-input" type="email" placeholder="Introduce el nuevo e-mail">
-                            <div class="main-container__content-item-row-buttons">
-                                <button class="btn btn-info">
-                                    <img src="../../images/ic_check.svg" alt="Save profile changes">
-                                </button>
-                                <button class="btn btn-normal">
-                                    <img src="../../images/ic_close.svg" alt="Cancel profile changes">
-                                </button>
-                            </div>
-                        </div>
+                    <div class="main-container__content-item-row">
+                        <label for="profile-user-email" class="input-label">Correo Electronico</label>
+                        <p id="profile-user-email" class="bold">{{ currentUser.email }}
                     </div>
-                    <div id="profile_security" class="main-container__content-item">
-                        <div class="main-container__content-item-row">
-                            <label for="profile-user-password" class="input-label">Contraseña actual</label>
-                            <input id="profile-user-password" class="profile-input" type="password" placeholder="Introduce la contraseña actual">
-                        </div>
-                        <div class="main-container__content-item-row">
-                            <label for="profile-user-new-password" class="input-label">Nueva contraseña</label>
-                            <input id="profile-user-new-password" class="profile-input" type="password" placeholder="Introduce la nueva contraseña">
-                            <div class="main-container__content-item-row-buttons">
-                                <button class="btn btn-info">
-                                    <img src="../../images/ic_check.svg" alt="Save profile changes">
-                                </button>
-                                <button class="btn btn-normal">
-                                    <img src="../../images/ic_close.svg" alt="Cancel profile changes">
-                                </button>
-                            </div>
-                        </div>
+                    <div class="main-container__content-item-row">
+                        <label for="profile-user-username" class="input-label">Usuario</label>
+                        <p id="profile-user-username" class="bold">{{ currentUser.username }}
                     </div>
-                </form>
+                    <div class="main-container__content-item-row">
+                        <label for="profile-user-role" class="input-label">Rol</label>
+                        <p id="profile-user-role" class="bold">{{ currentUser.roles[0] }}</p>
+                    </div>
+                </div>
             </div>
         </div>
     </main>

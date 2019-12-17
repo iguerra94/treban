@@ -1,6 +1,6 @@
 <div class="main-container-wrapper-si">
     <div class="main-container-si">
-        <a ng-click="relocate('landing')" class="brand-logo">
+        <a ng-click="relocate('')" class="brand-logo">
             <img src="../../images/Treban Logo x64.svg" alt="Treban Logo">
             <h1 class="bold">Treban</h1>
         </a>
@@ -15,7 +15,7 @@
             <div class="box-content">
                 <form id="signin-form" class="signin-form">
                     <input type="text" id="email" placeholder="E-mail" class="signin-initial-step" ng-model="user.email" ng-change="closeMessageBoxIfVisible()" required>
-                    <input type="password" placeholder="Contraseña" class="signin-final-step hidden" ng-model="user.password" ng-change="closeMessageBoxIfVisible()" required>
+                    <input type="password" placeholder="Contraseña" class="signin-final-step hidden" ng-model="password" ng-change="closeMessageBoxIfVisible()" required>
                     <button type="button" class="btn btn-info signin-initial-step" ng-click="validateClientDataInitialStep()">
                         Continuar
                         <i class="fas fa-spinner fa-spin spinner-1 hidden"></i>

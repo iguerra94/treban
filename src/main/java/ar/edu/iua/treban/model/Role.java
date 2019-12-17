@@ -52,6 +52,10 @@ public class Role implements Serializable {
 
 	@Override
 	public String toString() {
-		return String.format("Role: [%d] %s", getId(), getName());
+		return String.format("Role: [%d] %s, %s", getId(), getName(), getDescription());
+	}
+
+	public int compareTo(Role o) {
+		return getName().compareTo(o.getName());
 	}
 }

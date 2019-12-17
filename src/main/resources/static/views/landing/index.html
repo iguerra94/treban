@@ -1,4 +1,4 @@
-<div class="main-container-l">
+<div class="main-container-l" ng-controller="LandingController">
     <header>
         <div class="header-content-l">
             <a class="brand-logo">
@@ -6,7 +6,10 @@
                 <h1 class="bold">Treban</h1>
             </a>
             <nav>
-                <a ng-click="relocate('home')" id="btn-signin" class="btn btn-info">
+                <a ng-if="autenticado" ng-click="relocate('home')" id="btn-home" class="btn-landing-header btn btn-info">
+                    Ir al Home
+                </a>
+                <a ng-if="!autenticado" ng-else ng-click="relocate('signin')" id="btn-signin" class="btn-landing-header btn btn-info">
                     Iniciar sesion
                 </a>
             </nav>
@@ -15,8 +18,8 @@
     <main>
         <div class="left">
             <div class="landing-quotes">
-                <h2 class="landing-main-quote">Gestiona tus proyectos de forma agil</h2>
-                <span class="landing-secondary-quote">Utilizando metodologias como Scrum y Kanban</span>
+                <h2 class="landing-main-quote">La herramienta de desarrollo de software ideal para los equipos ágiles</h2>
+                <span class="landing-secondary-quote">Las listas de Treban le permiten organizar y priorizar sus proyectos de forma flexible y provechosa</span>
             </div>
             <div class="cta">
                 <a ng-click="relocate('signup')" id="btn-signup" class="btn btn-success">

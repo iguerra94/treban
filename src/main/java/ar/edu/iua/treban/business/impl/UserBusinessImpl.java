@@ -8,7 +8,6 @@ import ar.edu.iua.treban.model.CustomResponse;
 import ar.edu.iua.treban.model.Role;
 import ar.edu.iua.treban.model.User;
 import ar.edu.iua.treban.model.exception.EmptyFieldsException;
-import ar.edu.iua.treban.model.exception.NotFoundException;
 import ar.edu.iua.treban.model.exception.UserEmailInvalidException;
 import ar.edu.iua.treban.model.persistence.RoleRepository;
 import ar.edu.iua.treban.model.persistence.UserRepository;
@@ -125,10 +124,11 @@ public class UserBusinessImpl implements IUserBusiness {
             user.setAccountNonLocked(true);
             user.setCredentialsNonExpired(true);
 
-            Role devRole = roleDAO.findByName("DEV");
+            Role role = roleDAO.findByName(user.getActualRoleName());
+            log.debug("ROLE: " + role.toString());
 
             Set<Role> userRoles = new HashSet<>();
-            userRoles.add(devRole);
+            userRoles.add(role);
 
             user.setRoles(userRoles);
 

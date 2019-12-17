@@ -11,8 +11,12 @@ public class Constantes {
     public static final String URL_USERS = URL_BASE + "/users";
     public static final String URL_USERS_CREATED_SUCCESS = URL_BASE + "/users/success";
 
-    public static final String URL_DENY="/deny";
-    public static final String URL_LOGOUTOK="/logoutok";
+    public static final String URL_DENY = "/deny";
+    public static final String URL_SIGNIN_FAILURE = "/signin_failure";
+    public static final String URL_LOGOUT = "/logout";
+
+    public static final String URL_LOGINOK = "/loginok";
+    public static final String URL_AUTH_INFO =  "/authinfo";
 
     public static final String URL_SIGNIN = "/signin";
     public static final String URL_PROCESSING_SIGNIN = "/perform_signin";
