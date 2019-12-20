@@ -2,17 +2,17 @@ body {
     background-color: #DCDCDC;
 }
 
-.main-container-wrapper {
+.main-container-wrapper-su-s {
     display: flex;
     height: 100vh;
 
-    .main-container {
+    .main-container-su-s {
         display: flex;
         flex-direction: column;
         justify-content: space-between;
         align-items: center;
         margin: auto;
-        height: 67%;
+        height: 90%;
         width: 500px;
         z-index: 2;
 

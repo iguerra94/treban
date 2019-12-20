@@ -9,7 +9,16 @@ angular.module('treban')
                         }
                     });
                 },
-                updateTaskLists: function ($scope, data) {
+                updateCurrentListOfGreaterPositionCreatedVariable: function ($rootScope, $scope) {
+                    $scope.taskLists.forEach(list => {
+                        if (list.created && (list.position > $rootScope.currentListOfGreaterPositionCreated)) {
+                            $rootScope.currentListOfGreaterPositionCreated = list.position;
+                        }
+                    });
+
+                    console.log("currentListOfGreaterPositionCreated: " + $rootScope.currentListOfGreaterPositionCreated);
+                },
+                updateTaskLists: function ($rootScope, $scope, data) {
                     const lists = data;
 
                     $scope.lists.forEach(list => {
@@ -23,7 +32,10 @@ angular.module('treban')
                         $scope.taskLists[indexUpdated].created = !!lists.find(l => l.name === list.name);
                     });
 
+                    console.log($scope.taskLists);
+
                     this.verifyIfNoListsAreCreated($scope);
+                    this.updateCurrentListOfGreaterPositionCreatedVariable($rootScope, $scope);
                 },
                 decideIfAddingDisabledAttributeToButtonIsNeeded: function (btn, list1, list2) {
                     btn.disabled = list1.length === list2.length;

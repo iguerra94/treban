@@ -13,7 +13,7 @@
                     </div>
                     <div class="modal-content-row flex-row">
                         <p class="mr-1">Nombre de sprint:</p>
-                        <input type="text" placeholder="Primer sprint.." class="modal-add-task-list-element" ng-model="listsToCreate.sprintName" ng-change="closeErrorMessageBoxOnInputChange('#modal-add-task-list')" disabled>
+                        <input type="text" placeholder="Primer sprint.." ng-model="listsToCreate.sprintName" ng-change="closeErrorMessageBoxOnInputChange('#modal-add-task-list')">
                     </div>
                     <div class="modal-content-row flex-column">
                         <p>Seleccione las listas a agregar:</p>
@@ -109,7 +109,7 @@
                                 <div class="modal-content-column-item-element flex-row hidden">
                                     <div class="modal-content-column-item-element-value flex-row m-0 w-100">
                                         <p class="mr-1">{{ currentTaskDetail.status.name }}</p>
-                                        <button class="btn btn-orange-inverse" title="Editar" ng-click="editTaskDetail($event)" ng-if="currentTaskDetail.status.name !== lists[4].name" ng-hide="currentTaskDetail.status.name === lists[0].name && currentUser.roles[0] !== roles.PROJECT_LEADER">
+                                        <button class="btn btn-orange-inverse" title="Editar" ng-click="editTaskDetail($event)" ng-hide="currentUserRoleIsNotAllowedToMoveTasksFromListName(currentUser.roles[0], lists[0].name) || currentListNameIsTheListOfTheGreaterPositionCreated(currentTaskDetail.status.name)">
                                             <i class="fas fa-edit"></i>
                                         </button>
                                     </div>
@@ -117,7 +117,7 @@
                                     <div class="modal-content-column-item-element-edit flex-row m-0 w-100 hidden">
                                         <select id="task_status" class="mr-1" ng-model="currentTaskStatusEditedOption" ng-change="updateCurrentTaskEditionChangedVariable(); closeErrorMessageBoxOnInputChange('#modal-task-detail');">
                                             <option value="SELECCIONAR" selected>SELECCIONAR</option>
-                                            <option ng-repeat="list in lists | filter: shouldShowList" ng-value="list.name">{{ list.name }}</option>
+                                            <option ng-repeat="list in taskLists | filter: { created: true } | filter: shouldShowList" ng-value="list.name">{{ list.name }}</option>
                                         </select>
                                         <div class="row-buttons active">
                                             <button class="btn btn-normal" ng-click="finishEditingTaskDetail($event, 'currentTaskStatusEditedOption')">
@@ -235,11 +235,11 @@
                     </ul>
                 </div>
             </div>
-            <div class="left-menu__bottom-content">
-                <button id="btn-username" class="btn btn-normal-inverse" ng-click="openUserMenu($event)" stop-event>
+            <div class="left-menu__bottom-content" ng-mouseleave="closeUserMenuIfOpened()">
+                <button id="btn-username" class="btn btn-normal-inverse" ng-mouseover="openUserMenu($event)" stop-event>
                     <span id="btn-username-text"> {{ getCurrentUserNameInitials() }}</span>
                 </button>
-                <div class="user-menu hidden">
+                <div class="user-menu">
                     <ul class="user-menu__items">
                         <li class="user-menu__item user-menu__item-header">
                             <span class="bold" id="user-username">{{ currentUser.name }}</span>

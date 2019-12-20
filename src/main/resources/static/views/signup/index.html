@@ -10,9 +10,9 @@
             </div>
             <div class="box-content">
                 <form id="signup-form" class="signup-form">
-                    <input type="text" placeholder="Nombre completo" ng-model="user.name" ng-change="closeMessageBoxIfVisible()" required>
-                    <input type="text" placeholder="E-mail" ng-model="user.email" ng-change="closeMessageBoxIfVisible()" required>
-                    <input type="password" placeholder="Contraseña" ng-model="password" ng-change="closeMessageBoxIfVisible()" required>
+                    <input type="text" placeholder="Nombre completo" ng-model="user.name" ng-change="closeMessageBoxIfVisible()">
+                    <input type="text" placeholder="E-mail" ng-model="user.email" ng-change="closeMessageBoxIfVisible()">
+                    <input type="password" placeholder="Contraseña" ng-model="password" ng-change="closeMessageBoxIfVisible()">
                     <select ng-model="userRole" ng-change="closeMessageBoxIfVisible()" class="w-80">
                         <option value="" selected>SELECCIONAR ROL</option>
                         <option value="DEV">Desarrollador</option>

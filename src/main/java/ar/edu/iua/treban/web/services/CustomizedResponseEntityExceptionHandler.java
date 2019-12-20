@@ -50,12 +50,6 @@ public class CustomizedResponseEntityExceptionHandler {
         return new ResponseEntity<>(errorDetails, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(AuthenticationException.class)
-    public final ResponseEntity handleAuthenticationException(AuthenticationException ex, HttpServletRequest request) {
-        ErrorDetails errorDetails = new ErrorDetails(new Date(), ex.getMessage(),
-                request.getServletPath());
-        return new ResponseEntity<>(errorDetails, HttpStatus.FORBIDDEN);
-    }
 
     /* Task List Exceptions */
 

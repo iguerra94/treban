@@ -63,6 +63,8 @@ angular.module('treban',
 
             $rootScope.roles = { "DEVELOPER": "DEV", "PROJECT_LEADER": "PROJECT_LEAD" };
 
+            $rootScope.currentListOfGreaterPositionCreated = 0;
+
             $rootScope.relocate = function(loc) {
                 $location.path(loc);
             };

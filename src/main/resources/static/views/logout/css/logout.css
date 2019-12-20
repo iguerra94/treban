@@ -20,7 +20,7 @@
       -ms-flex-align: center;
           align-items: center;
   margin: auto;
-  height: 67%;
+  height: 100%;
   width: 500px;
   z-index: 2;
 }

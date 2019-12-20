@@ -73,7 +73,7 @@ public class UserBusinessImpl implements IUserBusiness {
 
         log.info("Info when getting the User by email: The email entered is registered.");
 
-        return new CustomResponse("OK");
+        return new CustomResponse("EMAIL OK");
     }
 
     @Override

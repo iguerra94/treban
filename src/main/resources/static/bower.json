@@ -16,5 +16,8 @@
   },
   "resolutions": {
     "angular": "~1.7.0"
+  },
+  "devDependencies": {
+    "angular-translate": "^2.18.1"
   }
 }

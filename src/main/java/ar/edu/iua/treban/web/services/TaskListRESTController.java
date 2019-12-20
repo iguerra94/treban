@@ -3,17 +3,12 @@ package ar.edu.iua.treban.web.services;
 import ar.edu.iua.treban.business.ITaskListBusiness;
 import ar.edu.iua.treban.business.exception.AlreadyExistsException;
 import ar.edu.iua.treban.business.exception.BusinessException;
-import ar.edu.iua.treban.model.Task;
 import ar.edu.iua.treban.model.TaskList;
 import ar.edu.iua.treban.model.exception.EmptyFieldsException;
 import ar.edu.iua.treban.model.exception.TaskListNameInvalidException;
-import ar.edu.iua.treban.utils.TaskUtils;
-import ar.edu.iua.treban.web.services.exception.GetTaskListInvalidNameParamException;
-import ar.edu.iua.treban.web.services.exception.GetTaskListInvalidOrderByParamException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestWrapper;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -29,7 +24,8 @@ public class TaskListRESTController {
     private ITaskListBusiness taskListBusiness;
 
     @GetMapping(value = {"", "/"})
-    public ResponseEntity<List<TaskList>> getTaskList(HttpServletRequest request) {
+    public ResponseEntity<List<TaskList>> getTaskList(HttpServletRequest request, SecurityContextHolderAwareRequestWrapper requestWrapper) {
+        System.out.println("HOLA: " + requestWrapper.isUserInRole("PROJECT_LEAD"));
         return ResponseEntity.ok(taskListBusiness.getLists());
     }
 
