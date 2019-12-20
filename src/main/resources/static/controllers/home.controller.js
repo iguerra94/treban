@@ -118,7 +118,7 @@ function HomeController($rootScope, $scope, $location, $window, $log, listsServi
         listsService.listTaskLists()
             .then((resp) => {
                 if (resp.status === RESPONSE_CODE_OK) {
-                    taskListFunctionsUtils.updateTaskLists($scope, resp.data);
+                    taskListFunctionsUtils.updateTaskLists($rootScope, $scope, resp.data);
                 }
             })
             .catch((e) => console.log(e));
@@ -144,6 +144,18 @@ function HomeController($rootScope, $scope, $location, $window, $log, listsServi
     };
 
     this.$onInit();
+
+    $scope.currentUserRoleIsNotAllowedToMoveTasksFromListName = function (userRole, listName) {
+        return (userRole !== $rootScope.roles.PROJECT_LEADER) && ($scope.currentTaskDetail.status.name === listName);
+    };
+
+    $scope.currentListNameIsTheListOfTheGreaterPositionCreated = function (listName) {
+        const indexOfList = $scope.taskLists.findIndex(l => l.name === listName);
+
+        if (!$scope.taskLists[indexOfList]) return;
+
+        return ($scope.taskLists[indexOfList].created) && ($scope.taskLists[indexOfList].position === $rootScope.currentListOfGreaterPositionCreated);
+    };
 
     $scope.setOrderByCriteriaParam = function ($event) {
         $listOrderCriteriaInputs = $window.document.querySelectorAll('.lists-order-criteria-input');
@@ -188,8 +200,8 @@ function HomeController($rootScope, $scope, $location, $window, $log, listsServi
         taskListStylesUtils.openUserMenu($event, $rootScope, [$userMenu]);
     };
 
-    $scope.closeUserMenuIfOpened = function($event) {
-        taskListStylesUtils.closeUserMenuIfOpened($event, $rootScope, [$userMenu]);
+    $scope.closeUserMenuIfOpened = function() {
+        taskListStylesUtils.closeUserMenuIfOpened($rootScope, [$userMenu]);
     };
 
     $scope.getCurrentUserNameInitials = function () {
@@ -604,17 +616,24 @@ function HomeController($rootScope, $scope, $location, $window, $log, listsServi
                         console.log("EXITO");
 
                         if (index === listsData.lists.length - 1) {
-                            $scope.verifyIfAllListsAreCreated();
-                            $scope.closeModalAddTaskList();
-
-                            $scope.refreshLists()
-                                .then(() => {
-                                    taskListStylesUtils.showAddTaskListsSuccessMessage(listsData.lists, [$successMessageBox, $successMessage]);
-                                    $scope.showLists();
-                                });
+                            return new Promise(function(resolve, reject) {
+                                $window.setTimeout(() => {
+                                    resolve();
+                                }, 0);
+                            });
                         }
                     }
-                });
+                })
+                .then(() => {
+                    $scope.verifyIfAllListsAreCreated();
+                    $scope.closeModalAddTaskList();
+
+                    $scope.refreshLists()
+                        .then(() => {
+                            taskListStylesUtils.showAddTaskListsSuccessMessage(listsData.lists, [$successMessageBox, $successMessage]);
+                            $scope.showLists();
+                        });
+            });
         });
     };
 

@@ -14,7 +14,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -24,10 +23,14 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     @Autowired
     private UserRepository userRepository;
 
+    public CustomAuthenticationProvider() {
+        super();
+    }
+
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        String username = authentication.getName();
-        String password = authentication.getCredentials().toString();
+        final String username = authentication.getName();
+        final String password = authentication.getCredentials().toString();
 
         Set<Role> userRoles = getUserIfAuthenticated(username, password);
 
@@ -35,11 +38,10 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     }
 
     private Collection<? extends GrantedAuthority> getGrantedAuthorities(Set<Role> userRoles) {
-        List<GrantedAuthority> authorities = userRoles
+        return userRoles
                 .stream()
                 .map(role -> new SimpleGrantedAuthority(role.getName()))
                 .collect(Collectors.toList());
-        return authorities;
     }
 
     private Set<Role> getUserIfAuthenticated(final String username, final String password) {
@@ -53,7 +55,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
     }
 
     @Override
-    public boolean supports(Class<?> authentication) {
+    public boolean supports(final Class<?> authentication) {
         return authentication.equals(UsernamePasswordAuthenticationToken.class);
     }
 }

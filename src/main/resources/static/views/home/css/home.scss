@@ -258,7 +258,8 @@
       .left-menu__bottom-content {
         display: flex;
         justify-content: center;
-        align-items: center;
+        align-items: flex-end;
+        height: 25%;
 
         button {
           display: flex;
@@ -284,15 +285,12 @@
           opacity: 0;
           bottom: 2em;
           border-radius: .3em;
-          transition: opacity .5s ease-in-out;
+          transition: opacity .7s ease-in-out;
           will-change: opacity;
           z-index: 1;
 
           &.active {
             opacity: 1;
-          }
-          &.hidden {
-            display: none;
           }
           .user-menu__items {
             display: flex;
@@ -303,7 +301,8 @@
               color: #000000;
               padding: .9em;
               font-size: .9em;
-              cursor: pointer;
+              cursor: default;
+              pointer-events: none;
               border-radius: .3em;
               transition: background-color .3s ease-in-out;
               will-change: background-color;
@@ -316,7 +315,6 @@
                 background: #000000;
                 color: #FFFFFF;
                 border-radius: .3em;
-                cursor: inherit;
                 #user-username {
                   font-size: 1em;
                   margin-bottom: .2em;

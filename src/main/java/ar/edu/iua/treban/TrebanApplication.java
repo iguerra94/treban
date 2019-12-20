@@ -1,7 +1,5 @@
 package ar.edu.iua.treban;
 
-import ar.edu.iua.treban.model.User;
-import ar.edu.iua.treban.model.persistence.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

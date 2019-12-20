@@ -42,7 +42,7 @@ main {
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
-        height: 70%;
+        height: 85%;
 
         .landing-main-quote {
             font-size: 2em;
@@ -58,10 +58,7 @@ main {
         width: 60%;
         display: flex;
         justify-content: center;
-
-        .landing-main-image {
-            width: 80%;
-        }
+        height: 70%;
     }
 }
 

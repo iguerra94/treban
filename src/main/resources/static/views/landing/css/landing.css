@@ -64,7 +64,7 @@ main .left {
     -webkit-box-pack: justify;
     -ms-flex-pack: justify;
     justify-content: space-evenly;
-    height: 70%;
+    height: 85%;
 }
 
 main .left .landing-main-quote {
@@ -84,10 +84,7 @@ main .right {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-}
-
-main .right .landing-main-image {
-  width: 80%;
+  height: 70%;
 }
 
 #btn-signin, #btn-home {

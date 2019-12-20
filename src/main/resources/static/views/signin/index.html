@@ -14,8 +14,8 @@
             <p class="field-final-step signin-final-step hidden">abc@xyz.com</p>
             <div class="box-content">
                 <form id="signin-form" class="signin-form">
-                    <input type="text" id="email" placeholder="E-mail" class="signin-initial-step" ng-model="user.email" ng-change="closeMessageBoxIfVisible()" required>
-                    <input type="password" placeholder="Contraseña" class="signin-final-step hidden" ng-model="password" ng-change="closeMessageBoxIfVisible()" required>
+                    <input type="text" id="email" placeholder="E-mail" class="signin-initial-step" ng-model="user.email" ng-change="closeMessageBoxIfVisible()">
+                    <input type="password" placeholder="Contraseña" class="signin-final-step hidden" ng-model="password" ng-change="closeMessageBoxIfVisible()">
                     <button type="button" class="btn btn-info signin-initial-step" ng-click="validateClientDataInitialStep()">
                         Continuar
                         <i class="fas fa-spinner fa-spin spinner-1 hidden"></i>

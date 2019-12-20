@@ -25,22 +25,30 @@ angular.module('treban')
                 },
                 openUserMenu: function($event, $scope, $elements) {
                     $userMenu = $elements[0];
+                    $userMenuItems = $userMenu.querySelectorAll('.user-menu__item:not(.user-menu__item-header)');
 
                     if ($event.currentTarget.id === 'btn-username') {
-                        $userMenu.classList.toggle('hidden');
-                        $userMenu.classList.toggle('active');
-                        $scope.userMenuOpened = !$scope.userMenuOpened;
+                        $userMenu.classList.add('active');
+                        $scope.userMenuOpened = true;
+
+                        $userMenuItems.forEach(item => {
+                            item.style.cursor = "pointer";
+                            item.style.pointerEvents = "auto";
+                        });
                     }
                 },
-                closeUserMenuIfOpened: function($event, $scope, $elements) {
+                closeUserMenuIfOpened: function($scope, $elements) {
                     $userMenu = $elements[0];
+                    $userMenuItems = $userMenu.querySelectorAll('.user-menu__item:not(.user-menu__item-header)');
 
-                    if ($event.currentTarget.id !== 'btn-username') {
-                        if ($scope.userMenuOpened) {
-                            $userMenu.classList.remove('active');
-                            $userMenu.classList.add('hidden');
-                            $scope.userMenuOpened = false;
-                        }
+                    if ($scope.userMenuOpened) {
+                        $userMenu.classList.remove('active');
+                        $scope.userMenuOpened = false;
+
+                        $userMenuItems.forEach(item => {
+                            item.style.cursor = "default";
+                            item.style.pointerEvents = "none";
+                        });
                     }
                 },
                 closeAllModals: function(modalBoxes) {
