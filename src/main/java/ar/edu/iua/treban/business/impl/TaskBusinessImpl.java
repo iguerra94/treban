@@ -386,9 +386,9 @@ public class TaskBusinessImpl implements ITaskBusiness {
 
         if (taskFound.getStatus().getName().equalsIgnoreCase(TaskListUtils.TaskListName.BACKLOG.getValue()) &&
                 !task.getStatus().getName().equalsIgnoreCase(TaskListUtils.TaskListName.TODO.getValue())) {
-            log.error("Error when moving one Task: The task on the BACKLOG list only can be moved to the TODO list.");
+            log.error("Error when moving one Task: La tarea en la lista BACKLOG solo se puede mover a la lista TODO.");
             log.info("Info when moving one Task: Finished method logs.");
-            throw new TaskMoveFromBacklogListException("The task on the BACKLOG list only can be moved to the TODO list.");
+            throw new TaskMoveFromBacklogListException("La tarea en la lista BACKLOG solo se puede mover a la lista TODO.");
         }
 
         try {
