@@ -66,9 +66,9 @@ public class UserBusinessImpl implements IUserBusiness {
         User userEmailRegistered = userDAO.findByEmail(email);
 
         if (userEmailRegistered == null) {
-            log.error("Error when getting the User by email: Please review the email entered.");
+            log.error("Error when getting the User by email: El email ingresado no esta registrado.");
             log.info("Info when getting the User by email: Finished method logs.");
-            throw new UserEmailNotRegisteredException("Please review the email entered.");
+            throw new UserEmailNotRegisteredException("El email ingresado no esta registrado.");
         }
 
         log.info("Info when getting the User by email: The email entered is registered.");
@@ -95,9 +95,9 @@ public class UserBusinessImpl implements IUserBusiness {
         User userEmailExists = userDAO.findByEmail(user.getEmail());
 
         if (userEmailExists != null) {
-            log.error("Error when adding the User: The email entered already exists.");
+            log.error("Error when adding the User: El email ingresado ya existe.");
             log.info("Info when adding the User: Finished method logs.");
-            throw new AlreadyExistsException("The email entered already exists.");
+            throw new AlreadyExistsException("El email ingresado ya existe.");
         }
 
         User userUsernameExists = userDAO.findByUsername(user.getUsername());

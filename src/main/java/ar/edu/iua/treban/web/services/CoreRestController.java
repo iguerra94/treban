@@ -7,7 +7,6 @@ import ar.edu.iua.treban.model.CustomResponse;
 import ar.edu.iua.treban.model.ErrorDetails;
 import ar.edu.iua.treban.model.exception.EmptyFieldsException;
 import ar.edu.iua.treban.model.exception.UserEmailInvalidException;
-import com.google.gson.JsonObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,13 +42,13 @@ public class CoreRestController extends BaseRestController {
 
     @GetMapping(Constantes.URL_DENY)
     public ResponseEntity deny(HttpServletRequest request) {
-        ErrorDetails errorDetails = new ErrorDetails(new Date(), "Unauthorized. Authentication required.", request.getServletPath());
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), "Sin autorización. Autenticacion requerida.", request.getServletPath());
         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(errorDetails);
     }
 
     @GetMapping(Constantes.URL_SIGNIN_FAILURE)
     public ResponseEntity loginFailure(HttpServletRequest request) {
-        ErrorDetails errorDetails = new ErrorDetails(new Date(), "Authentication Failed. Review the password entered.", request.getServletPath());
+        ErrorDetails errorDetails = new ErrorDetails(new Date(), "Falló la autenticación. Revise la contraseña ingresada.", request.getServletPath());
         return ResponseEntity.status(HttpStatus.FORBIDDEN).body(errorDetails);
     }
 

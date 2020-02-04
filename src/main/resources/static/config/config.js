@@ -1,6 +1,6 @@
 angular.module('treban').config(
 		function($routeProvider, $locationProvider, $httpProvider) {
-			console.log('Configurando...');
+			console.log('Setting up...');
 
 			$httpProvider.defaults.withCredentials = true;
 			$httpProvider.interceptors.push('APIInterceptor');
